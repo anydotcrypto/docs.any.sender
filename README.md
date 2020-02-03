@@ -36,7 +36,7 @@ npm i @any-sender/client
 3. Get relaying!
 ```typescript
 // set up the any sender client
-const anySenderUrl = `http://${testConfig.hostName}:${testConfig.hostPort`;
+const anySenderUrl = ``http://${testConfig.hostName}:${testConfig.hostPort``;
 const relayContractAddress = "";
 const receiptSignerAddress = "";
 const userWallet = new ethers.Wallet("");
@@ -48,7 +48,7 @@ console.log("any.sender client set up.");
 // create a relay transaction to the echo contract
 // the echo contract just echos any data you send to it
 const deadlineBlockNumber = (await provider.getBlockNumber()) + 600;
-const relayTx: RelayParams = {
+const relayTx = {
     from: userWallet.address,
     to: echoContractAddress,
     gas: 100000,
