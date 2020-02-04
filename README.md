@@ -31,7 +31,7 @@ The **any.sender** service is a simple and efficient way of sending transactions
 npm i @any-sender/client
 ```
 
-2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our contract address will add equivalent balance to the sender's address.
+2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our contract address will add equivalent balance to the sender's address. [TODO: see payments for more details] [TODO: view balance]
 
 3. Get relaying!
 ```typescript
@@ -42,7 +42,7 @@ const receiptSignerAddress = "";
 const userWallet = new ethers.Wallet("");
 const provider = new ethers.providers.JsonRpcProvider("");
 const echoContractAddress = "";
-const client = new AnySenderClient(anySenderUrl, relayContractAddressreceiptSignerAddress);
+const client = new AnySenderClient(anySenderUrl, relayContractAddress, receiptSignerAddress);
 console.log("any.sender client set up.");
 
 // create a relay transaction to the echo contract
