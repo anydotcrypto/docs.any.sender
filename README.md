@@ -36,7 +36,7 @@ npm i @any-sender/client
 3. Get relaying!
 ```typescript
 // set up the any sender client
-const anySenderUrl = ``http://${testConfig.hostName}:${testConfig.hostPort``;
+const anySenderUrl = `http://${testConfig.hostName}:${testConfig.hostPort}`;
 const relayContractAddress = "";
 const receiptSignerAddress = "";
 const userWallet = new ethers.Wallet("");
