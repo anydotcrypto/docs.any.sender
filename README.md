@@ -3,7 +3,7 @@
 
 The **any.sender** service is a simple and efficient way of sending transactions to Ethereum. It's API guarantees a transaction will be mined by a given deadline, so that users don't have to consider nonces and gas prices. The service is held accountable by a smart contract that trustlessly ensures that either the user transaction is mined before the deadline or compensation is paid out.
 
-**any.sender** endevours to save precious development time by solving all the edge cases of getting a transaction mined. You can focus on what makes your dapp great and feel secure that your transactions will be mined on time, every time.
+**any.sender** endeavours to save precious development time by solving all the edge cases of getting a transaction mined. You can focus on what makes your dapp great and feel secure that your transactions will be mined on time, every time.
 
 ## Features
 * **Forget about gas prices.** Users just set a deadline and **any.sender** makes sure the transaction is mined.
@@ -14,8 +14,8 @@ The **any.sender** service is a simple and efficient way of sending transactions
 * **Simple API.** Interact with **any.sender** over an HTTP REST api to get up and running in minutes.
 * **Reorg safe.** We keep an eye on your transaction many blocks after it's been mined so that even deep re-orgs won't shake us.
 * **Congestion safe.** **any.sender** tracks network gas prices and adjusts transactions to ensure that if you really need your transaction to be mined even network congestion won't stop you.
-* **Accountable.** Although **any.sender**'s raison d'etre is to never miss a transaction, if it does happen an on-chain contract ensures that transaction sender is liable for compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users ensuring that it's everyones interests to get the transaction mined.
-* **High concurrency.** Since users no longer need to worry about nonces they can submit transactions at a time knowing that they wont be forced to queue behind each other.
+* **Accountable.** Although **any.sender**'s raison d'etre is to never miss a transaction, if it does happen an on-chain contract ensures that the transaction sender is liable for compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users ensuring that it's everyone's interests to get the transaction mined.
+* **High concurrency.** Since users no longer need to worry about nonces they can submit transactions at a time knowing that they won't be forced to queue behind each other.
 
 ## Contents
 * API
@@ -33,7 +33,7 @@ npm i @any-sender/client
 
 2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our contract address will add equivalent balance to the sender's address. [TODO: see payments for more details] [TODO: view balance]
 
-3. Get relaying!
+3. Start relaying!
 ```typescript
 // set up the any sender client
 const anySenderUrl = `http://${testConfig.hostName}:${testConfig.hostPort}`;
@@ -54,13 +54,15 @@ const relayTx = {
     gas: 100000,
     deadlineBlockNumber,
     data: "0x",
-    refund: parseEther("0.1").toString()
+    refund: parseEther("0.1").toString(),
+    relayContractAddress
 };
+const signature = await userWallet.signMessage(AnySenderClient.relayTxId(relayTx));
 console.log("Transaction formed.");
 
-// send the relay tx. The server returns a signed receipt that can be usedtoprove that
+// send the relay tx. The server returns a signed receipt that can be used to prove that
 // the any.sender was hired.
-const signedReceipt = await client.relay(digest => userWallet.signMessa(ethers.utils.arrayify(digest)), relayTx);
+const signedReceipt = await client.relay({ ...relayTx, signature });
 console.log("Relay tx sent and signed receipt received.");
 
 // and that's it, just sit back and wait for the transaction to be mined
