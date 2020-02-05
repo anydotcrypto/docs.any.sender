@@ -14,13 +14,8 @@ The **any.sender** service is a simple and efficient way of sending transactions
 * **Simple API.** Interact with **any.sender** over an HTTP REST api to get up and running in minutes.
 * **Re-org safe.** We keep an eye on your transaction many blocks after it's been mined so that even deep re-orgs won't shake us.
 * **Congestion safe.** **any.sender** tracks network gas prices and adjusts transactions to ensure that if you really need your transaction to be mined even network congestion won't stop you.
-<<<<<<< HEAD
-* **Accountable.** Although **any.sender**'s raison d'etre is to never miss a transaction, if it does happen an on-chain contract ensures that the transaction sender is liable for compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users ensuring that it's everyone's interests to get the transaction mined.
-* **High concurrency.** Since users no longer need to worry about nonces they can submit transactions at a time knowing that they won't be forced to queue behind each other.
-=======
 * **Accountable.** Although **any.sender**'s *raison d'etre* is to never miss a transaction, if it does happen an on-chain contract ensures that transaction sender is liable for compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users ensuring that it's everyones interests to get the transaction mined.
 * **High concurrency.** Users can submit many transactions at a time, without having to worry about previous transactions getting stuck. **any.sender** manages a pool of relayers, using multiple wallets in order to make sure that all transactions get confirmed smoothly.
->>>>>>> 168532d13e278f3df24226c9064a7c51d3e229a5
 
 ## Contents
 * API
