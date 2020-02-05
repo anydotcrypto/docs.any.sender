@@ -1,6 +1,6 @@
 # API
 
-The API has a single endpoint /relay which accepts a POST with an application/json body that matches the following [schema](./relayTx.schema.json).
+The API has a single endpoint `/relay` which accepts a POST request with an application/json body that matches the following [schema](./relayTx.schema.json).
 
 The body is referred to as a "Relay Transaction" and contains many of the same fields as a normal transaction. However there are some key differences:
 1. A `gasPrice` and `nonce` need not be set, instead a `deadlineBlockNumber` is all that is required.
@@ -47,7 +47,7 @@ The block by which this transaction must be mined. For the current Beta version 
 The abi encoded call data. This is the same field, and contains the same data, as the `data` field in a standard Ethereum transaction.
 
 ### refund (string)
-The value to be compensated to the user if any.sender fails to mine the transaction before the `deadlineBlockNumber`. Financial accountability is at the core of any.sender's design, a further write up on how to trustlessly receive the compensation will be available soon.
+The value of the compensation that the user will be owed if any.sender fails to mine the transaction before the `deadlineBlockNumber`. Financial accountability is at the core of any.sender's design. A further write up on how to trustlessly receive the compensation will be available soon.
 
 ### relayContractAddress (address)
 The address of the relay contract that will be used to relay this transaction. This is a necessary for proving accountable behaviour on-chain. Populate with either:
@@ -56,6 +56,4 @@ Ropsten: 0xE25ec6cB37b1a37D8383891BC5DFd627c6Cd66C8
 
 ### signature (bytes)
 A signature made by the `from` authority over the full relay transaction data.
-
-
 
