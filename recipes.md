@@ -1,7 +1,7 @@
 # Recipes
 
 ## Echo contract
-A recipe for calling the echo contract. The Echo contract just echos whatever is sent to it in an event.
+A recipe for calling the Echo contract. The Echo contract just echos whatever is sent to it in an event.
 
 ```ts
 // prerequisites
