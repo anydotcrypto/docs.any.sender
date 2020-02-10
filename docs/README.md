@@ -1,8 +1,8 @@
 # Contents
 
-- [Client library](./docs/client.md)
-- [Payments](./docs/payments.md)
-- [Guarantees](./docs/guarantees.md)
+- [Client library](./client.md)
+- [Payments](./payments.md)
+- [Guarantees](./guarantees.md)
 - [Contracts](https://github.com/PISAresearch/contracts.any.sender)
-- [API](./docs/API.md)
+- [API](./API.md)
 - [Recipes](./recipes.md)
