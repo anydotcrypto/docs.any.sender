@@ -1,6 +1,6 @@
 # Guarantees
 
-// TODO:DOCS: put all the contracts in a repo, and add links to them
+See the [contracts](https://github.com/PISAresearch/contracts.any.sender) for exact functionality
 
 The any.sender service offers strong guarantees that a relay transaction will be mined before the specified `deadlineBlockNumber`. Three contracts exist to ensure that this is the case: the RefundAdjudicator, DataRegistry and the LockableDeposit.
 

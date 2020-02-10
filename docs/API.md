@@ -4,7 +4,7 @@ The REST API has two endpoints: /relay and /balance.
 
 ## Relay
 
-The relay endpoint expects a POST with application/json body. The body is a relay transaction. //TODO:DOCS:link.
+The relay endpoint expects a POST with application/json body. The body is a [relay transaction](./relayTransaction.md).
 
 The response is a relay transaction and signature from the receipt signer authority.
 

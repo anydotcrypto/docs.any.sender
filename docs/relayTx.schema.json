@@ -16,7 +16,8 @@
         },
         "data": {
             "$id": "#/properties/data",
-            "type": "string"
+            "type": "string",
+            "maxLength": 30000
         },
         "deadlineBlockNumber": {
             "$id": "#/properties/deadlineBlockNumber",
@@ -28,7 +29,7 @@
             "$id": "#/properties/gas",
             "type": "number",
             "minimum": 0,
-            "maximum": 2000000
+            "maximum": 3000000
         },
         "refund": {
             "$id": "#/properties/refund",

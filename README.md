@@ -31,11 +31,12 @@ The **any.sender** service is a simple and efficient way of sending transactions
 
 ## Contents
 
-- API //TODO:DOCS: links
-- Payments
-- Guarantees
-- Typescript/javascript client
-- Examples
+- [Client library](./docs/client.md)
+- [Payments](./docs/payments.md)
+- [Guarantees](./docs/guarantees.md)
+- [Contracts](https://github.com/PISAresearch/contracts.any.sender)
+- [API](./docs/API.md)
+- [Recipes](./recipes.md)
 
 ## Getting started
 
@@ -45,7 +46,7 @@ The **any.sender** service is a simple and efficient way of sending transactions
 npm i @any-sender/client
 ```
 
-2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our relay contract address to top up gas credit. [] [TODO: see payments for more details][todo: view balance]
+2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our relay contract address to top up gas credit. See [payments](./docs/payments.md) for more details
 
 3. Create and sign a relay transaction
 

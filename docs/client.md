@@ -15,7 +15,7 @@ new AnySenderClient(apiUrl, receiptASignerddress);
 
 ### relayTxId(tx: UnsignedRelayTransaction)
 
-Calculates the id of a transaction ready for signature. The UnsignedRelayTransaction is identical to a relay transaction //TODO:DOCS:, with the signature omitted.
+Calculates the id of a transaction ready for signature. The UnsignedRelayTransaction is identical to a [relay transaction](./relayTransaction) with the signature omitted.
 
 ```ts
 const id = AnySenderClient.relayTxId(relayTx);
@@ -46,7 +46,7 @@ const balance = await anySenderClient.balance(userWallet.address);
 ```
 
 ### relay (tx: RelayTransaction)
-Informs the any.sender service to relay the provided transaction. The transaction is of the form //TODO:DOCS: link.
+Informs the any.sender service to relay the provided [transaction](./docs/relayTransaction.md).
 
 Returns a relay transaction signed by the receipt signer. The client library verifies that the provided signature matches the receipt signer provided in the constructor.
 
