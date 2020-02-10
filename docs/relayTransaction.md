@@ -2,6 +2,8 @@
 A relay transaction has a structure very similar to a normal transaction, the main difference is that `gasPrice` and `nonce` have been removed and replaced with `relayContractAddress`, `deadlineBlockNumber` and `refund`.
 The `value` field has also been removed, in order to make ETH transfers with any.sender the user will have to use a smart contract wallet.
 
+**Note**: Some fields are marked **BETA** to signify they currently have limits that expect to be removed post beta phase.
+
 ## Fields
 A relay transaction can be validated against this [json schema](./relayTx.schema.json).
 
