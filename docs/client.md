@@ -1,6 +1,9 @@
 # Client
 
 any.sender ships with a client library for easier access to the API.
+```
+npm i @any-sender/client
+```
 
 ## Constructor
 **apiUrl**: The url of the any.sender service
@@ -8,7 +11,8 @@ any.sender ships with a client library for easier access to the API.
 **receiptSigner**: The address of the authority used by any.sender to sign relay receipts.
 
 ```ts
-new AnySenderClient(apiUrl, receiptASignerddress);
+import { AnySenderClient } from "@any-sender/client";
+const client = new AnySenderClient(apiUrl, receiptASignerddress);
 ```
 
 ## Static methods
