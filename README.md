@@ -22,7 +22,7 @@ The **any.sender** service is a simple and efficient way of sending transactions
 - **No more lost transactions.** The service carefully monitors the progress of transactions through the pending pool, ensuring that your transaction gets mined on time, every time.
 - **Delegated fees and meta-transactions.** As a relayer **any.sender** allows dapps to pay gas fees for their users, meaning that their customers no longer need ETH to interact with the dapp.
 - **Easily pluggable.** Designed with extensibility in mind, the relay can be made to fit any smart contract.
-- **Simple API.** Interact with **any.sender** over an HTTP REST api to get up and running in minutes.
+- **Simple API.** Interact with **any.sender** over a REST api to get up and running in minutes.
 - **Re-org safe.** We keep an eye on your transaction many blocks after it's been mined so that even deep re-orgs won't shake us.
 - **Congestion safe.** **any.sender** tracks network gas prices and adjusts transactions to ensure that if you really need your transaction to be mined even network congestion won't stop you.
 - **Accountable.** Although **any.sender**'s _raison d'etre_ is to never miss a transaction, if it does happen an on-chain contract ensures that transaction sender is liable for compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users ensuring that it's everyones interests to get the transaction mined.
