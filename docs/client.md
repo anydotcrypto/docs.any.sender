@@ -19,7 +19,7 @@ const client = new AnySenderClient(apiUrl, receiptASignerddress);
 
 ### relayTxId(tx: UnsignedRelayTransaction)
 
-Calculates the id of a transaction ready for signature. The UnsignedRelayTransaction is identical to a [relay transaction](./relayTransaction) with the signature omitted.
+Calculates the id of a transaction ready for signature. The `UnsignedRelayTransaction` is identical to a [relay transaction](./relayTransaction) with the signature omitted.
 
 ```ts
 const id = AnySenderClient.relayTxId(relayTx);
@@ -27,7 +27,7 @@ const signature = await userWallet.signMessage(arrayify(id));
 ```
 
 ### getRelayExecutedEventTopics(tx: UnsignedRelayTransaction)
-Expects a relay transacation and returns the event topics to observe the emit that is emitted from the relay contract when that transaction is relayed
+Expects a relay transaction and returns the event topics to observe from the relay contract to be notified when that transaction is relayed
 
 ```ts
 const topics = AnySenderClient.getRelayExecutedEventTopics(relayTx);
@@ -44,7 +44,7 @@ provider.once(
 ## Instance methods
 
 ### balance(address: string)
-Gets the balance of the provided address, returns BigNumber.
+Gets the balance of the provided address, returns `BigNumber`.
 ```ts
 const balance = await anySenderClient.balance(userWallet.address);
 ```
