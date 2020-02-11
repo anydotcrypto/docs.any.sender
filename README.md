@@ -48,7 +48,7 @@ any.sender endeavours to save precious development time by solving all the edge 
 npm i @any-sender/client
 ```
 
-2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our relay contract address to top up gas credit. See [payments](./docs/payments.md) for more details.
+2. Use your favourite wallet to top up balance with any.sender. Send funds directly to our relay contract address to top up gas credit. See [payments](./docs/payments.md) for more details.
 
 3. Create and sign a relay transaction:
 
