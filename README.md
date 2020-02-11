@@ -36,7 +36,9 @@ The **any.sender** service is a simple and efficient way of sending transactions
 - [Guarantees](./docs/guarantees.md)
 - [Contracts](https://github.com/PISAresearch/contracts.any.sender)
 - [API](./docs/API.md)
-- [Recipes](./docs/recipes.md)
+- Recipes
+    - [Simple echo](./echoRecipe.md)
+    - [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
 
 ## Getting started
 
