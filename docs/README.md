@@ -6,5 +6,5 @@
 - [Contracts](https://github.com/PISAresearch/contracts.any.sender)
 - [API](./API.md)
 - Recipes
-    - [Simple echo](./recipes.md)
+    - [Simple echo](./echoRecipe.md)
     - [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
