@@ -4,8 +4,8 @@ The Echo contract just echos whatever is sent to it in an event.
 ```ts
 // prerequisites
 const apiUrl = "https://api.pisa.watch/any.sender.ropsten";
-const receiptSignerAddress = "0xe41743Ca34762b84004D3ABe932443FC51D561D5";
-const relayContractAddress = "0x8C5a8F9A8Ab1391e55569841e6789D34A628829c";
+const receiptSignerAddress = "<to fill>";
+const relayContractAddress = "<to fill>";
 const userWallet = new Wallet("<to fill");
 const provider = new JsonRpcProvider("<to fill>");    
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
