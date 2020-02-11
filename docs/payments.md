@@ -2,7 +2,9 @@
 any.sender has a pay-per-use model. Users pay up front for credit with the any.sender API. They are then charged for the gas consumed by each relayed transaction. Currently payments are only accepted in ETH by making a payment to the any.sender `Relay` contract. 
 
 ### Depositing
-To make a deposit use your favourite wallet to send funds to the any.sender contract. The balance API allows to check current credit, that becomes available after 10 confirmations (typically 2-3 minutes).
+The easiest way to make a deposit is to send funds to the any.sender contract address using MetaMask or any wallet of your choice. The fallback function of the contract will assign the balance to the sender using `msg.sender`. The balance API allows to check current credit, that becomes available after 10 confirmations (typically 2-3 minutes).
+
+Here is a code example sing ethers.js:
 
 ```ts
 // top up credit by 1 ETH using the fallback function
