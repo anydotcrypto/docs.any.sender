@@ -18,14 +18,14 @@ The **any.sender** service is a simple and efficient way of sending transactions
 ## Features
 
 - **Forget about gas prices.** Users just set a deadline and **any.sender** makes sure the transaction is mined.
-- **No more nonces.** **any.sender** re-orders transactions internally to make sure that your transaction never gets stuck or orphaned
+- **No more nonces.** **any.sender** re-orders transactions internally to make sure that your transaction never gets stuck.
 - **No more lost transactions.** The service carefully monitors the progress of transactions through the pending pool, ensuring that your transaction gets mined on time, every time.
-- **Delegated fees and meta-transactions.** As a relayer **any.sender** allows dapps to pay gas fees for their users, meaning that their customers no longer need ETH to interact with the dapp.
+- **Delegated fees and meta-transactions.** As a relayer **any.sender** allows DApps to pay gas fees for their users, meaning that their customers no longer need ETH to interact with the DApp.
 - **Easily pluggable.** Designed with extensibility in mind, the relay can be made to fit any smart contract.
 - **Simple API.** Interact with **any.sender** over a REST api to get up and running in minutes.
 - **Re-org safe.** We keep an eye on your transaction many blocks after it's been mined so that even deep re-orgs won't shake us.
-- **Congestion safe.** **any.sender** tracks network gas prices and adjusts transactions to ensure that if you really need your transaction to be mined even network congestion won't stop you.
-- **Accountable.** Although **any.sender**'s _raison d'etre_ is to never miss a transaction, if it does happen an on-chain contract ensures that transaction sender is liable for compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users ensuring that it's everyones interests to get the transaction mined.
+- **Congestion safe.** **any.sender** tracks network gas prices and adjusts fees as needed. If you really need your transaction to be mined, even network congestion won't stop you.
+- **Accountable.** Although **any.sender**'s _raison d'etre_ is to never miss a transaction, if it does happen then an on-chain contract ensures that any.sender will issue a compensation. We never expect this to happen but this contract financially aligns **any.sender** with its users, ensuring that it's everyone's interests to get the transaction mined.
 - **High concurrency.** Users can submit many transactions at a time, without having to worry about previous transactions getting stuck. **any.sender** manages a pool of relayers, using multiple wallets in order to make sure that all transactions get confirmed smoothly.
 - **Low gas overhead.** The whole accountable relaying logic adds only 70k gas to the transaction.
 
@@ -48,9 +48,9 @@ The **any.sender** service is a simple and efficient way of sending transactions
 npm i @any-sender/client
 ```
 
-2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our relay contract address to top up gas credit. See [payments](./docs/payments.md) for more details
+2. Use your favourite wallet to top up balance with any.sender. Sending funds directly to our relay contract address to top up gas credit. See [payments](./docs/payments.md) for more details.
 
-3. Create and sign a relay transaction
+3. Create and sign a relay transaction:
 
 ```typescript
 // a relay tx looks a lot like a regular tx
