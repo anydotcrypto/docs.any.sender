@@ -10,9 +10,9 @@ The **any.sender** service is a simple and efficient way of sending transactions
 
 ### Ropsten
 * API: https://api.pisa.watch/any.sender.ropsten
-* Relay contract: 0x8C5a8F9A8Ab1391e55569841e6789D34A628829c
-* RefundAdjudicator contract: 0x638545d31e0721A8d8Eb73ED146F35e72c7dB5BE
-* LockableDeposit contract: 0x9c36a2Af3a41145bFf846116C8119854dCa0B5a0
+* Relay contract: 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C
+* RefundAdjudicator contract: 0xCe6d434782ADD5A20B825daAD84119a454ec6dC9
+* LockableDeposit contract: 0xDA342E509220034e75822B753629fa212Fd4D443
 * Receipt signer: 0xe41743Ca34762b84004D3ABe932443FC51D561D5
 
 ## Features
