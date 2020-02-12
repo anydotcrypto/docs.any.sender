@@ -20,8 +20,6 @@ At any time, even if the relay transaction is minted, the user can try to submit
 
 ***Submitting the signed receipt to the Refund Adjudicator.*** Given a signed receipt, the `RefundAdjudicator` look ups the corresponding entry in the `DataRegistry` contract. 
 
-If there is an entry for the relay transaction, then it will check the entry's timestamp with the receipt's deadline. If there is no entry (or the data registry's timestamp is bad), then the `RefundAdjudicator` triggers a compensation time period in which the any.sender service must provide compensation to the user of value `refund` specified in the signed receipt. 
-
-Again there are two outcomes, if the any.sender service operator pays the compensation in time, then no further action is taken. However, if after the compensation time period the user has still not received their refund, then the security deposit held in `LockableDeposit` is slashed.
+If there is an entry for the relay transaction, then it will check the entry's timestamp with the receipt's deadline. If there is no entry (or the data registry's timestamp is bad), then the `RefundAdjudicator` triggers a compensation time period in which the any.sender service must provide compensation to the user of value `refund` specified in the signed receipt. No further action is taken if the any.sender service operator pays the compensation in time. However, if after the compensation time period the user has still not received their refund, then the security deposit held in `LockableDeposit` is slashed.
 
 It is expected that any.sender will never have to pay out compensation, except for unpredicted relayer bugs. However the compensation option is available to ensure the any.sender's service is financially aligned with its customers. It is further expected that the large deposit in `LockableDeposit` will never be slashed, since it would be much cheaper for any.sender to compensate the user than to lose its deposit.
