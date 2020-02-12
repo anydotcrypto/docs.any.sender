@@ -2,9 +2,11 @@
 
 ### Transactions made simple!
 
-The any.sender service is a simple and efficient way of sending transactions to Ethereum. Its API guarantees a transaction will be mined by a given deadline, so that users don't have to battle with nonces and gas prices. The service is held accountable by a smart contract that trustlessly ensures that either the user transaction is mined before the deadline or compensation is paid out.
+The any.sender service is a simple and efficient way of sending transactions to Ethereum. 
 
-any.sender endeavours to save precious development time by solving all the edge cases of getting a transaction mined. You can focus on what makes your dapp great and feel secure that your transactions will be mined on time, every time.
+Its API handles the entire transaction process on behalf of the user, so they don't have to battle with nonces or gas prices. The service is held accountable by a smart contract to ensure either the user's transaction is mined before a block deadline or compensation is paid out. 
+
+any.sender endeavours to save precious development time by handling all edge cases for transaction delivery and getting it mined reliably. You, the user, can simply focus on making your dapp great and we'll take care of getting transactions mined on time, every time. 
 
 ## Addresses
 
@@ -17,17 +19,21 @@ any.sender endeavours to save precious development time by solving all the edge 
 
 ## Features
 
-- **Forget about gas prices.** Users just set a deadline and any.sender makes sure the transaction is mined.
-- **No more nonces.** any.sender re-orders transactions internally to make sure that your transaction never gets stuck.
-- **No more lost transactions.** The service carefully monitors the progress of transactions through the pending pool, ensuring that your transaction gets mined on time, every time.
-- **Delegated fees and meta-transactions.** As a relayer any.sender allows DApps to pay gas fees for their users, meaning that their customers no longer need ETH to interact with the DApp.
-- **Easily pluggable.** Designed with extensibility in mind, the relay can be made to fit any smart contract.
+Essential features: 
+
 - **Simple API.** Interact with any.sender over a REST api to get up and running in minutes.
-- **Re-org safe.** We keep an eye on your transaction many blocks after it's been mined so that even deep re-orgs won't shake us.
-- **Congestion safe.** any.sender tracks network gas prices and adjusts fees as needed. If you really need your transaction to be mined, even network congestion won't stop you.
-- **Accountable.** Although any.sender's _raison d'etre_ is to never miss a transaction, if it does happen then an on-chain contract ensures that any.sender will issue a compensation. We never expect this to happen but this contract financially aligns any.sender with its users, ensuring that it's everyone's interests to get the transaction mined.
-- **High concurrency.** Users can submit many transactions at a time, without having to worry about previous transactions getting stuck. any.sender manages a pool of relayers, using multiple wallets in order to make sure that all transactions get confirmed smoothly.
+- **Deadlines, not gas prices.** Users just set a deadline and any.sender makes sure the transaction is mined.
+- **No more lost transactions.** The service monitors and progressively bumps the fee for all pending transactions, ensuring your transaction gets mined on time, every time.  
+- **Delegated fees via meta-transactions.** The service allows DApps to pay gas fees for their users, meaning their customers no longer need ETH to interact with their DApp. 
+- **Plug & play.** Designed with extensibility in mind, the any.sender service can be made to work with any smart contract. 
 - **Low gas overhead.** The whole accountable relaying logic adds only 70k gas to the transaction.
+
+Advanced features: 
+
+- **Re-org safety.** We monitor transactions many blocks after it is mined, so even deep re-orgs won't shake us from ensuring your transaction gets confirmed. 
+- **Congestion safe.** any.sender tracks network gas prices and adjusts fees as needed. If you really need your transaction to be mined, even network congestion won't stop you.
+- **Concurrent in-flight transactions.** Users can submit several transactions at a time, without the worry of previous transactions getting stuck. The any.sender service employs novel replay protection and manages a pool of relayers, ensuring users can submit several transactions at a time and they all get confirmed in any order. 
+- **Smart-contract enforced accountability.** Although any.sender's _raison d'etre_ is to never miss a transaction, if it does happen then an on-chain contract ensures the any.sender will issue a compensation (or get slashed). We never expect it to happen, but it ensures the customer can swiftly enforce accountability if we fail our promise. 
 
 ## Contents
 
