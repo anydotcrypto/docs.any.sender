@@ -47,7 +47,7 @@ If you want to learn how:
 
 Finally, if you don't want to use our client library, you can also check out our super-simple [API](./docs/API.md)
 
-## Getting started
+## Quick guide on how to get started!
 
 1. Install the client lib
 
