@@ -12,9 +12,9 @@ Four smart contracts enforce the promise:
 
 At a high level, the any.sender service sends the customer a relay transaction receipt signed by `receiptSigner` and there are two outcomes after the job was accepted: 
 
-***Relay transaction is minted.***  All relayed transactions from the any.sender service is processed by the the `Relay` smart contract. This contract executes the relay transaction (e.g. casting a vote or transfering an ERC20 token) before recording a block timestamp for the relay transaction in the `DataRegistry` contract. As an additional bonus, it will also refund the relayer the cost of the job for easy wallet management. 
+***Relay transaction is recorded.***  All relayed transactions from the any.sender service is processed by the the `Relay` smart contract. This contract executes the relay transaction (e.g. casting a vote or transfering an ERC20 token) before recording a block timestamp for the relay transaction in the `DataRegistry` contract. As an additional bonus, it will also refund the relayer the cost of the job for easy wallet management. 
 
-***Relay transaction is not minted.*** If the any.sender service fails to relay the transaction to the network, then the `DataRegistry` contract will not have a corresponding entry. 
+***Relay transaction is not recorded.*** If the any.sender service fails to relay the transaction to the network, then the `DataRegistry` contract will not have a corresponding entry. 
 
 At any time, even if the quality of service is delivered, the user can submit a signed receipt to the `RefundAdjudicator` contract. It is up to the Refund Adjudicator to evaluate whether the any.sender service delivered on its promised quality of service. 
 
