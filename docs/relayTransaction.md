@@ -1,5 +1,5 @@
 # Relay Transactions
-A relay transaction has a structure very similar to a normal transaction, the main difference is that `gasPrice` and `nonce` have been removed and replaced with `relayContractAddress`, `deadlineBlockNumber` and `refund`.
+A relay transaction has a structure very similar to a normal transaction, the main difference is that `gasPrice` and `nonce` have been removed and replaced with `relayContractAddress`, `deadlineBlockNumber` and `compensation`.
 The `value` field has also been removed, in order to make ETH transfers with any.sender the user will have to use a smart contract wallet.
 
 **Note**: Some fields are marked **BETA** to signify they currently have limits that expect to be removed post beta phase.
@@ -14,7 +14,7 @@ A relay transaction can be validated against this [json schema](./relayTx.schema
   "gas": number (uint256)
   "deadlineBlockNumber": number (uint256)
   "data": string (bytes)
-  "refund": string (hex number uint256) // number as a string - hex or stringified decimal
+  "compensation": string (number uint256) // number as a string - stringified decimal
   "relayContractAddress": string (address),
   "signature": string (bytes)
 }
@@ -41,10 +41,10 @@ The abi encoded call data. This is the same field, and contains the same data, a
 
 **BETA**: Max data length is 3000 bytes
 
-### refund (string)
+### compensation (string)
 The value of the compensation that the user will be owed if any.sender fails to mine the transaction before the `deadlineBlockNumber`. Financial accountability is at the core of any.sender's design. A further write up on how to trustlessly receive the compensation will be available soon.
 
-**BETA**: Max refund is 0.05 ETH
+**BETA**: Max compensation is 0.05 ETH
 
 ### relayContractAddress (address)
 The address of the relay contract that will be used to relay this transaction. This is a necessary for proving accountable behaviour on-chain.

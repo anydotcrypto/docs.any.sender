@@ -13,7 +13,7 @@ any.sender endeavours to save precious development time by handling all edge cas
 ### Ropsten
 * API: https://api.pisa.watch/any.sender.ropsten
 * Relay contract: 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C
-* RefundAdjudicator contract: 0xCe6d434782ADD5A20B825daAD84119a454ec6dC9
+* Adjudicator contract: 0xCe6d434782ADD5A20B825daAD84119a454ec6dC9
 * LockableDeposit contract: 0xDA342E509220034e75822B753629fa212Fd4D443
 * Receipt signer: 0xe41743Ca34762b84004D3ABe932443FC51D561D5
 
@@ -68,7 +68,7 @@ const relayTx = {
   gas: 100000, // transaction gas limit
   deadlineBlockNumber, // a deadline in the future
   data: "0x", // transaction data
-  refund: parseEther("0.01").toString(), // compensation in case of failure
+  compensation: parseEther("0.01").toString(), // compensation in case of failure
   relayContractAddress // the relay contract to use
 };
 
