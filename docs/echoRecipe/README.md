@@ -108,7 +108,7 @@ Now lets go through the code line by line, dissecting what's happening. Open [ec
 
 #### 1. Imports:
 
-```
+```js
 const { ethers } = require("ethers");
 const { AnySenderClient } = require("@any-sender/client");
 const config = require("./configuration");
@@ -121,7 +121,7 @@ The script imports:
 
 #### 2. Configuration variables
 We declare a run function that we'll execute later, and assign all the variables from config. All the configuration variables (except echoContract and echoAbi) can be set by the command line, but if they're not supplied some Ropsten defaults are already configured.
-```
+```js
 const userWallet = config.userWallet;
 const provider = new ethers.providers.JsonRpcProvider(config.jsonRpcUrl);
 const anySenderClient = new AnySenderClient(
@@ -144,7 +144,7 @@ const relayContractAddress = config.relayContractAddress;
 
 #### 3. Balance check
 To execute relay transactions via the any.sender API a user must be topped up with balance, before we continue we check that the transaction has enough balance. See [here](../payments.md) for options on how to top up.
-```
+```js
 const balance = await anySenderClient.balance(userWallet.address);
 if (balance.lt(ethers.utils.parseEther("0.1")))
   throw new Error(
@@ -155,7 +155,7 @@ console.log("Current balance: " + balance.toString());
 
 #### 4. Construct the transaction data
 We construct the transaction data from the echo interface abi. We're defining that the `echo` function should be called, with the supplied message (formatted with the datetime and user address).
-```
+```js
 const echoInterface = new ethers.utils.Interface(echoAbi);
 const data = echoInterface.functions.echo.encode([
   `-- ${message} -- (message sent by ${userWallet.address} at ${new Date(
@@ -166,7 +166,7 @@ const data = echoInterface.functions.echo.encode([
 
 #### 5. Form the relay tx
 The relay tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for some differing fields. You can read more about the individual fields [here](./relayTransaction.md).
-```
+```js
 const currentBlock = await provider.getBlockNumber();
 const deadline = currentBlock + 405;
 const relayTx = {
@@ -189,7 +189,7 @@ const relayTx = {
 
 #### 6. Subscribe to the relay event
 Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.
-```
+```js
 const topics = AnySenderClient.getRelayExecutedEventTopics(relayTx);
 provider.once(
   { address: relayContractAddress, topics },
@@ -222,13 +222,13 @@ provider.on("block", block => {
 
 #### 7. Send the relay transaction!
 Now that everything is set up, all that's left to do is send the relay transaction to the any.sender API.
-```
+```js
 const receipt = await anySenderClient.relay(signedTx);
 ```
 The returned receipt contains the receipt signer signature, and can be stored until the user is sure the transaction has been mined. This signature is also checked inside the relay function to ensure it corresponds to the receipt signer used to construct the client.
 
 #### 8. Wait ...
 We execute the run function which will send the relay transaction and wait until it's mined.
-```
+```js
 run().catch(err => console.error(err.message));
 ```
