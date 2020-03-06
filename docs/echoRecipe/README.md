@@ -221,7 +221,7 @@ provider.on("block", block => {
 ```
 
 #### 7. Send the relay transaction!
-Now that everything is set up, all that's left to do is send the relay transaction to the any.sender API.
+Now that everything is set up, all that's left to do is send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
 ```js
 const receipt = await anySenderClient.relay(signedTx);
 ```
