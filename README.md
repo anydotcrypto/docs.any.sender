@@ -8,9 +8,9 @@ Its API handles the entire transaction process on behalf of the user, so they do
 
 any.sender endeavours to save precious development time by handling all edge cases for transaction delivery and getting it mined reliably. You, the user, can simply focus on making your dapp great and we'll take care of getting transactions mined on time, every time. 
 
-## [Try it yourself!](./docs/echoRecipe/README.md)
+## [Try it yourself!](./docs/echoRecipe/)
 
-The [Echo Recipe](./docs/echoRecipe/README.md) is a start to finish walkthrough of sending a transaction to any.sender. All you need is some Ropsten ETH and a connection to a Ropsten RPC. This is the easiest place to start to get a grip on how to interact with the any.sender API.
+The [Echo Recipe](./docs/echoRecipe/) is a start to finish walkthrough of sending a transaction to any.sender. All you need is some Ropsten ETH and a connection to a Ropsten RPC. This is the easiest place to start to get a grip on how to interact with the any.sender API.
 
 ## Addresses
 
