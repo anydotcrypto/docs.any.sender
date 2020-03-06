@@ -2,7 +2,7 @@
 
 Any.sender is a general purpose transaction relayer that is responsible for getting a transaction delivered. You can configure the payload to anything you like, but in this demo we just send a string message to an echo contract.
 
-The echo contract just echoes whatever is sent to it in an event. You can take a look at this contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
+The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
 
 #### Note
 The whole demo takes place on the ROPSTEN network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
