@@ -3,7 +3,7 @@ const yargs = require("yargs");
 const parseArgs = yargs
   .scriptName("echoRecipe")
   .usage(
-    "$0 --jsonRpc=<value> ( --privKey=<value> | (--encryptedJson=<value> --password=<value>)) [--anySenderApi=<value>] [--relayContract=<value>] [--receiptSigner=<value>]"
+    "$0 --jsonRpc=<value> ( --privKey=<value> | (--encryptedJson=<value> --password=<value>)) [--msg=<value>] [--anySenderApi=<value>] [--relayContract=<value>] [--receiptSigner=<value>]"
   )
   .help()
   .option("anySenderApi", {
@@ -23,6 +23,12 @@ const parseArgs = yargs
     string: true,
     alias: "s",
     default: "0xe41743Ca34762b84004D3ABe932443FC51D561D5"
+  })
+  .option("msg", {
+    description: "The message to echo.",
+    string: true,
+    alias: "m",
+    default: "Default message: hello world."
   })
   .option("jsonRpc", {
     description: "A json rpc url.",

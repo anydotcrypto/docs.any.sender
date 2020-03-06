@@ -8,6 +8,10 @@ Its API handles the entire transaction process on behalf of the user, so they do
 
 any.sender endeavours to save precious development time by handling all edge cases for transaction delivery and getting it mined reliably. You, the user, can simply focus on making your dapp great and we'll take care of getting transactions mined on time, every time. 
 
+## Try it yourself!
+
+The [Echo Recipe](./docs/echoRecipe/README.md) is a start to finish walkthrough of sending a transaction if any.sender. All you need is a some Ropsten Eth and a connection to a Ropsten Rpc node.
+
 ## Addresses
 
 ### Ropsten
@@ -43,7 +47,7 @@ If you want to learn how:
 
 - Any.sender works under the hood, check out [Contracts](https://github.com/PISAresearch/contracts.any.sender) and [Guarantees](./docs/guarantees.md). 
 - To get started with the any.sender client & depositing funds, check out [API](./docs/API.md) and [Client library](./docs/client.md).
-- To build using any.sender via an example, check our receipes [Simple echo](./docs/echoRecipe.md) and [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
+- To build using any.sender via an example, check our receipes [Simple echo](./docs/echoRecipe/README.md) and [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
 
 Finally, if you don't want to use our client library, you can also check out our super-simple [API](./docs/API.md)
 

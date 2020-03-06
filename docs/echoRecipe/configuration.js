@@ -13,6 +13,7 @@ const userWallet = args.privKey
       args.password
     );
 
+const message = args.msg;
 const jsonRpcUrl = args.jsonRpc;
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
@@ -42,5 +43,6 @@ module.exports = {
   userWallet,
   jsonRpcUrl,
   echoContractAddress,
-  echoAbi
+  echoAbi,
+  message
 };
