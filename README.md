@@ -10,7 +10,7 @@ any.sender endeavours to save precious development time by handling all edge cas
 
 ## Try it yourself!
 
-The [Echo Recipe](./docs/echoRecipe/README.md) is a start to finish walkthrough of sending a transaction if any.sender. All you need is a some Ropsten Eth and a connection to a Ropsten Rpc node.
+The [Echo Recipe](./docs/echoRecipe/README.md) is a start to finish walkthrough of sending a transaction to any.sender. All you need is some Ropsten ETH and a connection to a Ropsten RPC.
 
 ## Addresses
 
