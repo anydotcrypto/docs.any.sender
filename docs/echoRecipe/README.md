@@ -68,14 +68,34 @@ or
 node ./topUp.js --jsonRpc=<value> --encryptedJson=<value> --password=<value> --value=0.5
 ```
 
-After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by going to: https<nolink>://api.pisa.watch/any.sender.ropsten/balance/\<user-address\>
+After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by inserting the user address in the url: 
+```
+https://api.pisa.watch/any.sender.ropsten/balance/<user-address>
+```
 
 ## Second run - success!
-We'll run the echo script again, this time it should be successful as the user has balance at any.sender. After running the script and getting a successful result, we'll open the script and walk through it line by line, explaining what any.sender is doing and how to communicate with it.
+Now that the user has been topped up lets run the echo script again, this time it should be successful. After running the script and getting a successful result, we'll open the script and walk through it line by line, explaining what any.sender is doing and how to communicate with it.
 
 ```
 node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
+you should get a result that looks something like:
 
+```
+Current balance: 609999999993928805
 
+Subscribing to relay event.
+Sending relay tx with id: 0x3901e8b7998b1a03d0c1b73abca6b9ff7cb9f0c9f718bd50fc4384d7020d3706 at block 7467284
+
+Receipt received for tx with id: 0x3901e8b7998b1a03d0c1b73abca6b9ff7cb9f0c9f718bd50fc4384d7020d3706
+Waiting for relay event...
+
+... block mined 7467285
+... block mined 7467286
+
+Relay tx mined with id: 0x3901e8b7998b1a03d0c1b73abca6b9ff7cb9f0c9f718bd50fc4384d7020d3706 at block 7467286
+Tx relayed after 1 block. Pretty cool, I guess. (⌐■_■)
+
+See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a5f78ca271e6f139bd82f4a44d9a671a994dd8e#eventlog
+```
 
