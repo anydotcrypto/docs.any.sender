@@ -31,9 +31,7 @@ https://faucet.metamask.io/
 
 8. Choose a message to send! E.g. "Hello world!"
 
-## Funding a user
-
-### Run the script without balance at any.sender
+## First Run - not enough balance.
 
 Lets start by running the echoRecipe. The user account dont currently have any balance with any.sender, so we expect this to fail. You'll need your private key (without a 0x prefix) and the json rpc url, and to choose a message.
 
@@ -54,7 +52,7 @@ Execute the command! You should receive the following message:
 Not enough balance. Balance is: 0 wei.
 ```
 
-### Top up balance with any.sender
+## Funding the user
 
 To top up balance with any.sender we need to send some funds to the relay contract address. 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C. 
 
@@ -70,9 +68,9 @@ or
 node ./topUp.js --jsonRpc=<value> --encryptedJson=<value> --password=<value> --value=0.5
 ```
 
-After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by going to: [https://api.pisa.watch/any.sender.ropsten/balance/\<user-address\>]()
+After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by going to: https<nolink>://api.pisa.watch/any.sender.ropsten/balance/\<user-address\>
 
-## Run the echo script again!
+## Second run - success!
 We'll run the echo script again, this time it should be successful as the user has balance at any.sender. After running the script and getting a successful result, we'll open the script and walk through it line by line, explaining what any.sender is doing and how to communicate with it.
 
 ```
