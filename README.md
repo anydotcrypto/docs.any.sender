@@ -72,7 +72,7 @@ const relayTx = {
   gas: 100000, // transaction gas limit
   deadlineBlockNumber, // a deadline in the future
   data: "0x", // transaction data
-  compensation: parseEther("0.01").toString(), // compensation in case of failure
+  refund: parseEther("0.01").toString(), // compensation in case of failure
   relayContractAddress // the relay contract to use
 };
 

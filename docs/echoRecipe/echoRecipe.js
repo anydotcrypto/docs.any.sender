@@ -3,13 +3,17 @@ const { AnySenderClient } = require("@any-sender/client");
 const config = require("./configuration");
 
 const run = async () => {
-  // set up the any sender client
+  // Import configuration variables
   const userWallet = config.userWallet;
   const provider = new ethers.providers.JsonRpcProvider(config.jsonRpcUrl);
   const anySenderClient = new AnySenderClient(
     config.apiUrl,
     config.receiptSignerAddress
   );
+  const message = config.message;
+  const echoContractAddress = config.echoContractAddress;
+  const echoAbi = config.echoAbi;
+  const relayContractAddress = config.relayContractAddress;
 
   // check we have enough balance at any.sender
   const balance = await anySenderClient.balance(userWallet.address);
@@ -20,9 +24,9 @@ const run = async () => {
   console.log("Current balance: " + balance.toString());
 
   // first construct the data
-  const echoInterface = new ethers.utils.Interface(config.echoAbi);
+  const echoInterface = new ethers.utils.Interface(echoAbi);
   const data = echoInterface.functions.echo.encode([
-    `-- ${config.message} -- (message sent by ${userWallet.address} at ${new Date(
+    `-- ${message} -- (message sent by ${userWallet.address} at ${new Date(
       Date.now()
     ).toString()})`
   ]);
@@ -34,24 +38,25 @@ const run = async () => {
   // form a relay tx to the echo contract
   const relayTx = {
     from: userWallet.address,
-    to: config.echoContractAddress,
+    to: echoContractAddress,
     data: data,
     deadlineBlockNumber: deadline,
     gas: 100000, // should be plenty
     refund: "500000000", // 5 gwei
-    relayContractAddress: config.relayContractAddress
+    relayContractAddress: relayContractAddress
   };
+
+  // sign the relay transaction
+  const id = AnySenderClient.relayTxId(relayTx);
+  const signature = await userWallet.signMessage(ethers.utils.arrayify(id));
+  const signedTx = { ...relayTx, signature };
 
   // subscribe to the relay event, so we know when the transaction has been relayed
   console.log();
   console.log("Subscribing to relay event.");
   const topics = AnySenderClient.getRelayExecutedEventTopics(relayTx);
-
-  provider.on("block", block => {
-    if (block !== currentBlock) console.log("... block mined", block);
-  });
   provider.once(
-    { address: config.relayContractAddress, topics },
+    { address: relayContractAddress, topics },
     async event => {
       const blocksUntilMined = event.blockNumber - currentBlock;
       console.log();
@@ -71,11 +76,10 @@ const run = async () => {
       provider.removeAllListeners("block");
     }
   );
+  provider.on("block", block => {
+    if (block !== currentBlock) console.log("... block mined", block);
+  });
 
-  // sign the relay transaction
-  const id = AnySenderClient.relayTxId(relayTx);
-  const signature = await userWallet.signMessage(ethers.utils.arrayify(id));
-  const signedTx = { ...relayTx, signature };
 
   // send it!
   console.log(`Sending relay tx with id: ${id} at block ${currentBlock}`);

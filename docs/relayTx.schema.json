@@ -3,7 +3,7 @@
     "$id": "http://pisa.watch/schemas/relay-request.json",
     "type": "object",
     "title": "Relay transaction schema",
-    "required": ["from", "signature", "data", "deadlineBlockNumber", "gas", "compensation", "relayContractAddress", "to"],
+    "required": ["from", "signature", "data", "deadlineBlockNumber", "gas", "refund", "relayContractAddress", "to"],
     "additionalProperties": false,
     "properties": {
         "from": {
@@ -31,8 +31,8 @@
             "minimum": 0,
             "maximum": 3000000
         },
-        "compensation": {
-            "$id": "#/properties/compensation",
+        "refund": {
+            "$id": "#/properties/refund",
             "type": "string"
         },
         "relayContractAddress": {
