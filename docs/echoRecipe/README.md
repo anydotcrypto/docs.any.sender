@@ -34,7 +34,7 @@ https://faucet.metamask.io/
 
 8. Choose a message to send! E.g. "Hello world!"
 
-## First Run - not enough balance.
+## First run - not enough balance.
 
 Lets start by running the echoRecipe. The user account dont currently have any balance with any.sender, so we expect this to fail. You'll need your private key (without a 0x prefix) and the json rpc url, and to choose a message.
 
