@@ -2,7 +2,7 @@
 
 This is a full walkthrough of how to get up and running with any.sender. The whole demo takes place on the ROPSTEN network, so ensure that any urls (eg. etherscan, infura) are for that network.
 
-The aim is to send a transaction, via the any.sender relay, to the echo contract which will simply echo your message in an event. You can take a look at this contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the Internal Transactions tab, since any.sender relays your transaction via a Relay contract your transaction will show up an an internal transaction.
+The aim is to send a transaction, via the any.sender relay, to the echo contract which will simply echo your message in an event. You can take a look at this contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
 
 ## Prerequisites
 1. Install [Node](https://nodejs.org/en/download/). 
@@ -16,14 +16,14 @@ git clone git@github.com:PISAresearch/docs.any.sender.git
 cd docs/echoRecipe
 ```
 
-4. We'll run this demo on node with npm. Begin by installing packages in this folder.
+4. Install packages in this folder - npm is installed as part of node.
 ```
 npm i
 ```
 
 5. Get access to a json rpc url for the ropsten network. [Infura.io](https://infura.io/) is fine for this.
 
-6. Get a user account with some Ropsten eth. You can use any kind of wallet that kind export a private key or an encrypted json file. I suggest just creating a new throw away Ropsten account on something like Metamask.
+6. Get a user account with some Ropsten eth. You can use any kind of wallet that can export a private key or an encrypted json file. I suggest creating a new throw away Ropsten account with like Metamask.
 
 7. Get some ropsten Eth from a faucet. You can use either of these, both of them can be a bit temperamental:
 https://faucet.ropsten.be/
