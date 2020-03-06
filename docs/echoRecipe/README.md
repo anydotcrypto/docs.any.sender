@@ -5,22 +5,31 @@ This is a full walkthrough of how to get up and running with any.sender. The who
 The aim is to send a transaction, via the any.sender relay, to the echo contract which will simply echo your message in an event. You can take a look at this contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the Internal Transactions tab, since any.sender relays your transaction via a Relay contract your transaction will show up an an internal transaction.
 
 ## Prerequisites
-0. `cd` to this directory
+1. Install [Node](https://nodejs.org/en/download/). 
+2. Clone this docs repo:
+```
+git clone git@github.com:PISAresearch/docs.any.sender.git
+```
 
-1. We'll run this demo on node with npm. Begin by installing packages in this folder.
+3. Change directory to the echoRecipe directory
+```
+cd docs/echoRecipe
+```
+
+4. We'll run this demo on node with npm. Begin by installing packages in this folder.
 ```
 npm i
 ```
 
-2. Get access to a json rpc url for the ropsten network. [Infura.io](https://infura.io/) is fine for this.
+5. Get access to a json rpc url for the ropsten network. [Infura.io](https://infura.io/) is fine for this.
 
-3. Get a user account with some Ropsten eth. You can use any kind of wallet that kind export a private key or an encrypted json file. I suggest just creating a new throw away Ropsten account on something like Metamask.
+6. Get a user account with some Ropsten eth. You can use any kind of wallet that kind export a private key or an encrypted json file. I suggest just creating a new throw away Ropsten account on something like Metamask.
 
-4. Get some ropsten Eth from a faucet. You can use either of these, both of them can be a bit temperamental:
+7. Get some ropsten Eth from a faucet. You can use either of these, both of them can be a bit temperamental:
 https://faucet.ropsten.be/
 https://faucet.metamask.io/
 
-5. Choose a message to send! E.g. "Hello world!"
+8. Choose a message to send! E.g. "Hello world!"
 
 ## Funding a user
 
@@ -28,7 +37,7 @@ https://faucet.metamask.io/
 
 Lets start by running the echoRecipe. The user account dont currently have any balance with any.sender, so we expect this to fail. You'll need your private key (without a 0x prefix) and the json rpc url, and to choose a message.
 
-Export your private details from the wallet created in prerequisite step 3. If you exported a private key, insert values into the command below.
+Export your private details from the wallet created in prerequisite step 6. If you exported a private key, insert values into the command below.
 ```
 node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 
