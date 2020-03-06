@@ -11,7 +11,7 @@ The whole demo takes place on the ROPSTEN network, so ensure that any urls you u
 1. Install [Node](https://nodejs.org/en/download/). 
 2. Clone this docs repo:
 ```
-git clone git@github.com:PISAresearch/docs.any.sender.git
+git clone https://github.com/PISAresearch/docs.any.sender.git
 ```
 
 3. Change directory to the echoRecipe directory
