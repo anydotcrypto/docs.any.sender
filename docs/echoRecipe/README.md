@@ -29,8 +29,8 @@ npm i
 6. Get a user account with some Ropsten eth. You can use any kind of wallet that can export a private key or an encrypted json file. I suggest creating a new throw away Ropsten account with like Metamask.
 
 7. Get some ropsten Eth from a faucet. You can use either of these, both of them can be a bit temperamental:
-https://faucet.ropsten.be/
-https://faucet.metamask.io/
+* https://faucet.ropsten.be/
+* https://faucet.metamask.io/
 
 8. Choose a message to send! E.g. "Hello world!"
 
