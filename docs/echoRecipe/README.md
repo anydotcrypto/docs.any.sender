@@ -36,7 +36,7 @@ npm i
 
 ## First run - not enough balance.
 
-Lets start by running the echoRecipe. The user account dont currently have any balance with any.sender, so we expect this to fail. You'll need your private key (without a 0x prefix) and the json rpc url, and to choose a message.
+Let's start by running the echoRecipe. The user account doesn't currently have any balance with any.sender, so we expect this to fail. You'll need your private key (without a 0x prefix) and the json rpc url, and to choose a message.
 
 Export your private details from the wallet created in prerequisite step 6. If you exported a private key, insert values into the command below.
 ```
@@ -77,7 +77,7 @@ https://api.pisa.watch/any.sender.ropsten/balance/<user-address>
 ```
 
 ## Second run - success!
-Now that the user has been topped up lets run the echo script again, this time it should be successful. After running the script and getting a successful result, we'll open the script and walk through it line by line, explaining what any.sender is doing and how to communicate with it.
+Now that the user has been topped up let's run the echo script again, this time it should be successful. After running the script and getting a successful result, we'll open the script and walk through it line by line, explaining what any.sender is doing and how to communicate with it.
 
 ```
 node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
@@ -104,7 +104,7 @@ See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a
 
 ## Walkthrough
 
-Now lets go through the code line by line, dissecting what's happening. Open [echoRecipe.js](./echoRecipe.js) in a text editor.
+Now let's go through the code line by line, dissecting what's happening. Open [echoRecipe.js](./echoRecipe.js) in a text editor.
 
 #### 1. Imports:
 
@@ -115,8 +115,8 @@ const config = require("./configuration");
 ```
 
 The script imports:
-* [ethersjs](https://github.com/ethers-io/ethers.js) - to handle access to the JSON RPC and cryptographic functions like the user's wallet
-* AnySenderClient - a lightweight wrapper for the any.sender API. It also provides some utility functions for eg. forming digests ready for signing, or forming the event topics to watch for relay events
+* [ethers.js](https://github.com/ethers-io/ethers.js) - to handle access to the JSON RPC and cryptographic functions like the user's wallet
+* AnySenderClient - a lightweight wrapper for the any.sender API. It also provides some utility functions, for example to form digests ready for signing, or to create the event topics to watch for relay events
 * config - the command line args (parsed with [yargs](https://github.com/yargs/yargs)) and some defaults.
 
 #### 2. Configuration variables
@@ -133,10 +133,10 @@ const echoContractAddress = config.echoContractAddress;
 const echoAbi = config.echoAbi;
 const relayContractAddress = config.relayContractAddress;
 ```
-* userWallet: An ethersjs wallet created from the privKey, or the encryptedJsonFile command line args
-* provider: An etherjs provider for access to Ropsten JSON RPC.
+* userWallet: An ethers.js wallet created from the privKey, or the encryptedJsonFile command line args
+* provider: An ethers.js provider for access to Ropsten JSON RPC.
 * apiUrl: The url of the any.sender API
-* receiptSignerAddress: When the any.sender API accepts a relay request it signs the transaction with a known receipt signer. In the event that any.sender fails to send a transaction before a deadline the user can submit the relay transaction along with the receipt signer signature to the [Adjudicator contract](https://ropsten.etherscan.io/address/0xCe6d434782ADD5A20B825daAD84119a454ec6dC9#code), which will ensure the user receives compensation. You can read more about the guarantees offered by any.sender [here](../guarantees.md).
+* receiptSignerAddress: When the any.sender API accepts a relay request, it signs the transaction with a known receipt signer. In the event that any.sender fails to send a transaction before a deadline the user can submit the relay transaction along with the receipt signer signature to the [Adjudicator contract](https://ropsten.etherscan.io/address/0xCe6d434782ADD5A20B825daAD84119a454ec6dC9#code), which will ensure the user receives compensation. You can read more about the guarantees offered by any.sender [here](../guarantees.md).
 * anySenderClient - a thin client for communicating with the any.sender API
 * message - the message taken from the command line, to be echoed at the echo contract
 * echoContractAddress - the address of the [Echo contract](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code) where the message will be received
@@ -165,7 +165,7 @@ const data = echoInterface.functions.echo.encode([
 ```
 
 #### 5. Form the relay tx
-The relay tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for some differing fields. You can read more about the individual fields [here](./relayTransaction.md).
+The relay tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](./relayTransaction.md).
 ```js
 const currentBlock = await provider.getBlockNumber();
 const deadline = currentBlock + 405;
@@ -179,13 +179,13 @@ const relayTx = {
   relayContractAddress: relayContractAddress
 };
 ```
-* from: The user who's balance will be used. This account must also sign the relay transaction
+* from: The user whose balance will be used. This account must also sign the relay transaction
 * to: The destination of the transaction, in this case we're targeting the echo contract
 * data: The data to be executed at the target, we formed this earlier using the echo contract ABI
-* deadlineBlockNumber: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the curent beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
+* deadlineBlockNumber: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
 * gas: The amount of gas allocated to the call. This should be the same as a normal transaction
-* refund: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to user is liable to compensation of the refund amount. See [guarantees](../guarantees.md) for more details.
-* relayContractAddress: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C). This ensures that the user can verify what relay any.sender will use.
+* refund: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the refund amount. See [guarantees](../guarantees.md) for more details.
+* relayContractAddress: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C). This ensures that the user can verify the deployed Relay contract that any.sender will use.
 
 #### 6. Subscribe to the relay event
 Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.
@@ -221,11 +221,11 @@ provider.on("block", block => {
 ```
 
 #### 7. Send the relay transaction!
-Now that everything is set up, all that's left to do is send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
+Now that everything is set up, all that's left to do is to send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
 ```js
 const receipt = await anySenderClient.relay(signedTx);
 ```
-The returned receipt contains the receipt signer signature, and can be stored until the user is sure the transaction has been mined. This signature is also checked inside the relay function to ensure it corresponds to the receipt signer used to construct the client.
+The returned receipt contains the receipt signer's signature, and can be stored until the user is sure the transaction has been mined. This signature is also checked inside the relay function to ensure it corresponds to the receipt signer used to construct the client.
 
 #### 8. Wait ...
 We execute the run function which will send the relay transaction and wait until it's mined.
