@@ -214,7 +214,7 @@ provider.once(
 );
 ```
 We also subscribe to the "block" event to feedback to the console when a new block is mined.
-```
+```js
 provider.on("block", block => {
   if (block !== currentBlock) console.log("... block mined", block);
 });
