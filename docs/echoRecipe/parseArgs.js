@@ -1,5 +1,5 @@
 const yargs = require("yargs");
-const { withKeyArgs } = require("./parseKeyArgs");
+const { withKeyArgs } = require("./parseArgKeys");
 
 const parseArgs = yargs
   .scriptName("echoRecipe")
