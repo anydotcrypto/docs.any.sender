@@ -46,9 +46,15 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     * https://faucet.ropsten.be/
     * https://faucet.metamask.io/
 
+8. Checklist
+    1. You have a jsonRpcUrl of the form `ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
+    2. You have a private key, keyfile or mnemonic of a user account
+    3. You have an address of a user account
+    4. The address has been funded with ETH. You can check the value at: https://ropsten.etherscan.io/address/\<you address here\>
+
 ## First run - not enough balance.
 
-Having completed the setup you should have a jsonRpcUrl and a private key/account. Lets start by running the echoRecipe. Users need to have balance with any.sender, which user does not yet. We expect the echo script to fail at this point, so let's verify this by running the it. You'll need your key details and the json rpc url, and to choose a message to send to the echo echo contract eg "Hiyo echo!".
+Having completed the setup lets start by running the echoRecipe. Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. You'll need your key details and the json rpc url, and to choose a message to send to the echo echo contract eg "Hiyo echo!".
 
 The echo recipe command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 ```
