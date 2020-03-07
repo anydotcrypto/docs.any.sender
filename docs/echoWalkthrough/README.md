@@ -25,7 +25,7 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     npm i
     ```
 
-5. Get access to a JSON RPC url for the Ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, find the Ropsten url from inside the project of the form - ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
+5. Get access to a JSON RPC url for the Ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, Select the View Project button, select the Ropsten endpoint from the dropdown and copy the url. eg. ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
 
     You can save the json rpc url into [scratchpad.tx](./scratchpad.txt), you'll need it later.
 
