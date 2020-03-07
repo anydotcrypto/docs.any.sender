@@ -35,17 +35,11 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     ```
     Copy the private key and address for later use.
 
-7. Get some ropsten Eth for the user account you just created. 
+7. Get some ropsten Eth for the user account you just created. You can use the following faucet: https://faucet.ropsten.be/
+    
+    It can be a bit temperamental though, if you're unable to get Ropsten Eth that way you can import your private key into [MetaMask](https://metamask.io/) and use their faucet: https://faucet.metamask.io/
 
-    If you have curl or wget installed you can also get eth from the faucet by running the following command:
-    ```
-    ADDRESS="<address here>"; if hash curl 2>&-; then curl https://faucet.ropsten.be/donate/$ADDRESS; else wget -O - https://faucet.ropsten.be/donate/$ADDRESS; fi
-    ```
-    The faucet will greylist you when you're succesul.
-
-    Otherwise you can vist either of these websites and input the user address. WARNING: they can both be a bit temperamental:
-    * https://faucet.ropsten.be/
-    * https://faucet.metamask.io/
+    If you're still unable to get some, tweet at our twitter account @anydotcrypto, and we'll send you some :)
 
 8. Checklist
     1. You have a jsonRpcUrl of the form `ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
@@ -75,9 +69,9 @@ Not enough balance. Balance is: 0 wei.
 
 To top up balance with any.sender we need to send some funds to the relay contract address. 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C. 
 
-You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. Do this by sending a transaction, with value of 0.5 ETH to the relay contract address. You can do this using your wallet software if you exported your keys from a wallet previously, or by using the `topUp.js` script.
+You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. Do this by sending a transaction, with value of 0.5 ETH (any amount above 0.2 ETH should be fine for this demo) to the relay contract address. You can do this using your wallet software if you exported your keys from a wallet previously, or by using the `topUp.js` script.
 
-Alternatively, execute the `topUp.js` script:
+To execute the `topUp.js` script:
 
 ```
 node topUp.js --jsonRpc=<value> --privKey=<value> --value=0.5
