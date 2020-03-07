@@ -116,7 +116,7 @@ Tx relayed after 1 block. Pretty cool, I guess. (⌐■_■)
 See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a5f78ca271e6f139bd82f4a44d9a671a994dd8e#eventlog
 ```
 
-Go to the link in the output, did you see your message?
+Go to the link in the output, did you see your message? Click the Event Logs tab if it's not already selected.
 
 ## Code walkthrough - what actually happened
 
