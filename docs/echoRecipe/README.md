@@ -118,7 +118,7 @@ See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a
 
 Go to the link in the output, did you see your message?
 
-## Code walkthrough
+## Code walkthrough - what actually happened
 
 Now let's go through the code line by line, dissecting what's happening. Open [echoRecipe.js](./echoRecipe.js) in a text editor.
 
