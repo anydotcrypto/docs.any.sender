@@ -8,14 +8,14 @@ Its API handles the entire transaction process on behalf of the user, so they do
 
 any.sender endeavours to save precious development time by handling all edge cases for transaction delivery and getting it mined reliably. You, the user, can simply focus on making your dapp great and we'll take care of getting transactions mined on time, every time. 
 
-## [Try it yourself!](./docs/echoRecipe/)
+## [Try it yourself](./docs/echoWalkthrough/)
 
-The [Echo Recipe](./docs/echoRecipe/) is a start to finish walkthrough of sending a transaction to any.sender. All you need is some Ropsten ETH and a connection to a Ropsten RPC. This is the easiest place to start to get a grip on how to interact with the any.sender API.
+The [Echo Walkthrough](./docs/echoWalkthrough/) is a start to finish walkthrough of sending a transaction to any.sender. All you need is some Ropsten ETH and a connection to a Ropsten RPC. This is the easiest place to start to get a grip on how to interact with the any.sender API.
 
 ## Addresses
 
 ### Ropsten
-* API: https://api.pisa.watch/any.sender.ropsten
+* API: https<nolink>://api.pisa.watch/any.sender.ropsten
 * Relay contract: 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C
 * Adjudicator contract: 0xCe6d434782ADD5A20B825daAD84119a454ec6dC9
 * LockableDeposit contract: 0xDA342E509220034e75822B753629fa212Fd4D443
@@ -47,11 +47,11 @@ If you want to learn how:
 
 - Any.sender works under the hood, check out [Contracts](https://github.com/PISAresearch/contracts.any.sender) and [Guarantees](./docs/guarantees.md). 
 - To get started with the any.sender client & depositing funds, check out [API](./docs/API.md) and [Client library](./docs/client.md).
-- To build using any.sender via an example, check our receipes [Simple echo](./docs/echoRecipe/README.md) and [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
+- To build using any.sender via an example, check our recipes [Simple echo](./docs/echoWalkthrough) and [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
 
 Finally, if you don't want to use our client library, you can also check out our super-simple [API](./docs/API.md)
 
-## Quick guide on how to get started!
+## Quick guide on how to get started
 
 1. Install the client lib
 

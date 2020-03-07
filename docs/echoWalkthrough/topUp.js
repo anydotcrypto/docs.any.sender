@@ -3,7 +3,7 @@ const { ethers } = require("ethers");
 const { withKeyArgs } = require("./parseArgKeys");
 
 const parseArgs = yargs
-  .scriptName("echoRecipe")
+  .scriptName("echo")
   .usage(
     "$0 --jsonRpc=<value> ( --privKey=<value> | (--keyfile=<value> --password=<value>)) --value=<value> [--relayContract=<value>]"
   )

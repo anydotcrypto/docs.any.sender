@@ -1,8 +1,8 @@
-# Echo Recipe
+# Echo Walkthrough
 
 Any.sender is a general purpose transaction relayer that is responsible for getting a transaction delivered. You can configure the payload to anything you like, but in this demo we just send a string message to an echo contract.
 
-The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
+The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
 
 **Note**: The whole demo takes place on the ROPSTEN network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
 
@@ -14,10 +14,10 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     git clone https://github.com/PISAresearch/docs.any.sender.git
     ```
 
-3. Change directory to the echoRecipe directory
+3. Change directory to the echoWalkthrough directory
 
     ```
-    cd docs.any.sender/docs/echoRecipe
+    cd docs.any.sender/docs/echoWalkthrough
     ```
 
 4. Install packages in this folder - npm is installed as part of node.
@@ -54,18 +54,18 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
 
 ## First run - not enough balance.
 
-Having completed the setup lets start by running the echoRecipe. Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. You'll need your key details and the json rpc url, and to choose a message to send to the echo echo contract eg "Hiyo echo!".
+Having completed the setup lets start by running the `echo` script. Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. You'll need your key details and the json rpc url, and to choose a message to send to the echo echo contract eg "Hiyo echo!".
 
-The echo recipe command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
+The echo command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 ```
-node echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
+node echo.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 example with dummy variables:
 ```
-node echoRecipe.js --jsonRpc=--jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
+node echo.js --jsonRpc=--jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
 ```
 
-Execute the command! You should receive the following message:
+Execute the command - you should receive the following message:
 ```
 Not enough balance. Balance is: 0 wei.
 ```
@@ -82,7 +82,7 @@ Alternatively, execute the `topUp.js` script:
 node topUp.js --jsonRpc=<value> --privKey=<value> --value=0.5
 ```
 
-Note: The `topUp.js` script has the same authentication options as the echo receipe script: `--privKey`, `--mnemonic` or the `--keyfile --password`.
+Note: The `topUp.js` script has the same authentication options as the `echo` script: `--privKey`, `--mnemonic` or the `--keyfile --password`.
 
 After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by inserting the user address in the url: 
 ```
@@ -94,7 +94,7 @@ Now that the user has been topped up let's run the echo script again, this time 
 
 Run the echo script again, inserting the same values as the first run:
 ```
-node echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
+node echo.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 this time you should get a result that looks something like:
 
@@ -120,7 +120,7 @@ Go to the link in the output, did you see your message? Click the Event Logs tab
 
 ## Code walkthrough - what actually happened
 
-Now let's go through the code line by line, dissecting what's happening. Open [echoRecipe.js](./echoRecipe.js) in a text editor.
+Now let's go through the code line by line, dissecting what's happening. Open [echo.js](./echo.js) in a text editor.
 
 #### 1. Imports:
 
@@ -236,7 +236,7 @@ provider.on("block", block => {
 });
 ```
 
-#### 7. Send the relay transaction!
+#### 7. Send the relay transaction
 Now that everything is set up, all that's left to do is to send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
 ```js
 const receipt = await anySenderClient.relay(signedTx);

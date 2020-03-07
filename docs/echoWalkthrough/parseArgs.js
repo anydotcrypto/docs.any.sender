@@ -2,7 +2,7 @@ const yargs = require("yargs");
 const { withKeyArgs } = require("./parseArgKeys");
 
 const parseArgs = yargs
-  .scriptName("echoRecipe")
+  .scriptName("echo")
   .usage(
     "$0 --jsonRpc=<value> ( --privKey=<value> | (--keyfile=<value> --password=<value>)) [--msg=<value>] [--anySenderApi=<value>] [--relayContract=<value>] [--receiptSigner=<value>]"
   )
