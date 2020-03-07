@@ -4,7 +4,7 @@ Any.sender is a general purpose transaction relayer that is responsible for gett
 
 The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
 
-**Note**: The whole demo takes place on the ROPSTEN network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
+**Note**: The whole demo takes place on the Ropsten network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
 
 ## Prerequisites
 1. Install [Node](https://nodejs.org/en/download/), if you dont have it already. 
@@ -25,7 +25,7 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     npm i
     ```
 
-5. Get access to a json rpc url for the ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, find the ropsten url from inside the project of the form - ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
+5. Get access to a JSON RPC url for the Ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, find the Ropsten url from inside the project of the form - ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
 
     You can save the json rpc url into [scratchpad.tx](./scratchpad.txt), you'll need it later.
 
