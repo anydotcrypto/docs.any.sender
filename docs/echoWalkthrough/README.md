@@ -4,7 +4,7 @@ Any.sender is a general purpose transaction relayer that is responsible for gett
 
 The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
 
-**Note**: The whole demo takes place on the Ropsten network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
+**Note**: The whole demo takes place on the Ropsten network, so ensure that any urls you use (e.g. etherscan, infura) are for that network.
 
 ## Prerequisites
 1. Install [Node](https://nodejs.org/en/download/), if you dont have it already. 
@@ -25,15 +25,15 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     npm i
     ```
 
-5. Get access to a JSON RPC url for the Ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, Select the View Project button, select the Ropsten endpoint from the dropdown and copy the url. eg. ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
+5. Get access to a JSON RPC url for the Ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, Select the View Project button, select the Ropsten endpoint from the dropdown and copy the url. e.g. ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
 
-    You can save the json rpc url into [scratchpad.tx](./scratchpad.txt), you'll need it later.
+    Copy the json rpc url for later use.
 
 6. If you already have an Ethereum address you'd like to test with, you can use that - you'll need to export the private key (you can also export keyfile, or a mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
     ```
     node generateAccount.js
     ```
-    and copy the private key and address for later use. You can save them into [scratchpad.txt](./scratchpad.txt).
+    Copy the private key and address for later use.
 
 7. Get some ropsten Eth for the user account you just created. 
 
@@ -41,6 +41,7 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     ```
     ADDRESS="<address here>"; if hash curl 2>&-; then curl https://faucet.ropsten.be/donate/$ADDRESS; else wget -O - https://faucet.ropsten.be/donate/$ADDRESS; fi
     ```
+    The faucet will greylist you when you're succesul.
 
     Otherwise you can vist either of these websites and input the user address. WARNING: they can both be a bit temperamental:
     * https://faucet.ropsten.be/
@@ -50,11 +51,11 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     1. You have a jsonRpcUrl of the form `ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
     2. You have a private key, keyfile or mnemonic of a user account
     3. You have an address of a user account
-    4. The address has been funded with ETH. You can check the value at: https://ropsten.etherscan.io/address/\<you address here\>
+    4. The address has been funded with ETH. You can check the value at: `https://ropsten.etherscan.io/address/<you address here>`
 
 ## First run - not enough balance.
 
-Having completed the setup lets start by running the `echo` script. Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. You'll need your key details and the json rpc url, and to choose a message to send to the echo echo contract eg "Hiyo echo!".
+Having completed the setup lets start by running the `echo` script. Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. You'll need your key details and the json rpc url, and to choose a message to send to the echo contract e.g. "Hiyo echo!".
 
 The echo command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 ```
