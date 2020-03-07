@@ -1,5 +1,5 @@
 const withKeyArgs = currentYargs => {
-  currentYargs
+  return currentYargs
     .option("privKey", {
       description: "A user private key",
       alias: "k",
