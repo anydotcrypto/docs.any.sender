@@ -31,7 +31,7 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
 
 6. If you already have an Ethereum address you'd like to test with, you can use that - you'll need to export the private key (you can also export keyfile, or a mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
     ```
-    node ./generateAccount.js
+    node generateAccount.js
     ```
     and copy the private key and address for later use. You can save them into [scratchpad.txt](./scratchpad.txt).
 
@@ -58,11 +58,11 @@ Having completed the setup lets start by running the echoRecipe. Users need to h
 
 The echo recipe command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 ```
-node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
+node echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 example with dummy variables:
 ```
-node ./echoRecipe.js --jsonRpc=--jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
+node echoRecipe.js --jsonRpc=--jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
 ```
 
 Execute the command! You should receive the following message:
@@ -79,7 +79,7 @@ You can find more details about topping up balance [here](../payments.md), but f
 Alternatively, execute the `topUp.js` script:
 
 ```
-node ./topUp.js --jsonRpc=<value> --privKey=<value> --value=0.5
+node topUp.js --jsonRpc=<value> --privKey=<value> --value=0.5
 ```
 
 Note: The `topUp.js` script has the same authentication options as the echo receipe script: `--privKey`, `--mnemonic` or the `--keyfile --password`.
@@ -94,7 +94,7 @@ Now that the user has been topped up let's run the echo script again, this time 
 
 Run the echo script again, inserting the same values as the first run:
 ```
-node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
+node echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 this time you should get a result that looks something like:
 
