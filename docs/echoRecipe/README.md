@@ -9,41 +9,42 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
 ## Prerequisites
 1. Install [Node](https://nodejs.org/en/download/), if you dont have it already. 
 2. Clone this docs repo:
-```
-git clone https://github.com/PISAresearch/docs.any.sender.git
-```
+   
+    ```
+    git clone https://github.com/PISAresearch/docs.any.sender.git
+    ```
 
 3. Change directory to the echoRecipe directory
-```
-cd docs.any.sender/docs/echoRecipe
-```
+
+    ```
+    cd docs.any.sender/docs/echoRecipe
+    ```
 
 4. Install packages in this folder - npm is installed as part of node.
-```
-npm i
-```
+    ```
+    npm i
+    ```
 
 5. Get access to a json rpc url for the ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, find the ropsten url from inside the project of the form - ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
 
-You can save the json rpc url into [scratchpad.tx](./scratchpad.txt), you'll need it later.
+    You can save the json rpc url into [scratchpad.tx](./scratchpad.txt), you'll need it later.
 
 6. If you already have an Ethereum address you'd like to test with, you can use that - you'll need to export the private key (you can also export keyfile, or a mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
-```
-node ./generateAccount.js
-```
-and copy the private key and address for later use. You can save them into [scratchpad.txt](./scratchpad.txt).
+    ```
+    node ./generateAccount.js
+    ```
+    and copy the private key and address for later use. You can save them into [scratchpad.txt](./scratchpad.txt).
 
 7. Get some ropsten Eth for the user account you just created. 
 
-If you have curl or wget installed you can also get eth from the faucet by running the following command:
-```
-ADDRESS="<address here>"; if hash curl 2>&-; then curl https://faucet.ropsten.be/donate/$ADDRESS; else wget -O - https://faucet.ropsten.be/donate/$ADDRESS; fi
-```
+    If you have curl or wget installed you can also get eth from the faucet by running the following command:
+    ```
+    ADDRESS="<address here>"; if hash curl 2>&-; then curl https://faucet.ropsten.be/donate/$ADDRESS; else wget -O - https://faucet.ropsten.be/donate/$ADDRESS; fi
+    ```
 
-Otherwise you can vist either of these websites and input the user address. WARNING: they can both be a bit temperamental:
-* https://faucet.ropsten.be/
-* https://faucet.metamask.io/
-
+    Otherwise you can vist either of these websites and input the user address. WARNING: they can both be a bit temperamental:
+    * https://faucet.ropsten.be/
+    * https://faucet.metamask.io/
 
 ## First run - not enough balance.
 
@@ -188,13 +189,13 @@ const relayTx = {
   relayContractAddress: relayContractAddress
 };
 ```
-* from: The user whose balance will be used. This account must also sign the relay transaction
-* to: The destination of the transaction, in this case we're targeting the echo contract
-* data: The data to be executed at the target, we formed this earlier using the echo contract ABI
-* deadlineBlockNumber: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
-* gas: The amount of gas allocated to the call. This should be the same as a normal transaction
-* refund: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the refund amount. See [guarantees](../guarantees.md) for more details.
-* relayContractAddress: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C). This ensures that the user can verify the deployed Relay contract that any.sender will use.
+* **from**: The user whose balance will be used. This account must also sign the relay transaction
+* **to**: The destination of the transaction, in this case we're targeting the echo contract
+* **data**: The data to be executed at the target, we formed this earlier using the echo contract ABI
+* **deadlineBlockNumber**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
+* **gas**: The amount of gas allocated to the call. This should be the same as a normal transaction
+* **refund**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the refund amount. See [guarantees](../guarantees.md) for more details.
+* **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C). This ensures that the user can verify the deployed Relay contract that any.sender will use.
 
 #### 6. Subscribe to the relay event
 Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.
