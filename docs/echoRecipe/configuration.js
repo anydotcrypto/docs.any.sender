@@ -6,15 +6,30 @@ const args = parseArgs.parse(process.argv);
 const apiUrl = args.anySenderApi;
 const receiptSignerAddress = args.receiptSigner;
 const relayContractAddress = args.relayContract;
-const userWallet = args.privKey
-  ? new ethers.Wallet(args.privKey)
-  : ethers.Wallet.fromEncryptedJson(
-      readFileSync(args.encryptedJson),
-      args.password
-    );
+let userWallet;
+if (args.privKey) userWallet = new ethers.Wallet(args.privKey);
+else if (args.mnemonic) userWallet = new ethers.Wallet(args.mnemonic);
+else {
+  userWallet = ethers.Wallet.fromEncryptedJson(
+    readFileSync(args.keyfil),
+    args.password
+  );
+}
 
 const message = args.msg;
-const jsonRpcUrl = args.jsonRpc;
+let jsonRpcUrl;
+if (args.jsonRpc.startsWith("https://")) {
+  jsonRpcUrl = args.jsonRpc.substr(8);
+} else if (args.jsonRpc.startsWith("http://")) {
+  jsonRpcUrl = args.jsonRpc.substr(7);
+} else jsonRpcUrl = args.jsonRpc;
+
+if (!jsonRpcUrl.startsWith("ropsten")) {
+  throw new Error("--jsonRpc is not for ropsten network");
+}
+jsonRpcUrl = "https://" + jsonRpcUrl;
+
+args.jsonRpc;
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
   {

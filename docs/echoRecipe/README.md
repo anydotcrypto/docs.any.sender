@@ -4,11 +4,10 @@ Any.sender is a general purpose transaction relayer that is responsible for gett
 
 The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
 
-#### Note
-The whole demo takes place on the ROPSTEN network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
+**Note**: The whole demo takes place on the ROPSTEN network, so ensure that any urls you use (eg. etherscan, infura) are for that network.
 
 ## Prerequisites
-1. Install [Node](https://nodejs.org/en/download/). 
+1. Install [Node](https://nodejs.org/en/download/), if you dont have it already. 
 2. Clone this docs repo:
 ```
 git clone https://github.com/PISAresearch/docs.any.sender.git
@@ -16,7 +15,7 @@ git clone https://github.com/PISAresearch/docs.any.sender.git
 
 3. Change directory to the echoRecipe directory
 ```
-cd docs/echoRecipe
+cd docs.any.sender/docs/echoRecipe
 ```
 
 4. Install packages in this folder - npm is installed as part of node.
@@ -24,30 +23,39 @@ cd docs/echoRecipe
 npm i
 ```
 
-5. Get access to a json rpc url for the ropsten network. [Infura.io](https://infura.io/) is fine for this.
+5. Get access to a json rpc url for the ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, find the ropsten url from inside the project of the form - ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
 
-6. Get a user account with some Ropsten eth. You can use any kind of wallet that can export a private key or an encrypted json file. I suggest creating a new throw away Ropsten account with like Metamask.
+You can save the json rpc url into [scratchpad.tx](./scratchpad.txt), you'll need it later.
 
-7. Get some ropsten Eth from a faucet. You can use either of these, both of them can be a bit temperamental:
+6. If you already have an Ethereum address you'd like to test with, you can use that - you'll need to export the private key (you can also export keyfile, or a mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
+```
+node ./generateAccount.js
+```
+and copy the private key and address for later use. You can save them into [scratchpad.txt](./scratchpad.txt).
+
+7. Get some ropsten Eth for the user account you just created. 
+
+If you have curl or wget installed you can also get eth from the faucet by running the following command:
+```
+ADDRESS="<address here>"; if hash curl 2>&-; then curl https://faucet.ropsten.be/donate/$ADDRESS; else wget -O - https://faucet.ropsten.be/donate/$ADDRESS; fi
+```
+
+Otherwise you can vist either of these websites and input the user address. WARNING: they can both be a bit temperamental:
 * https://faucet.ropsten.be/
 * https://faucet.metamask.io/
 
-8. Choose a message to send! E.g. "Hello world!"
 
 ## First run - not enough balance.
 
-Let's start by running the echoRecipe. The user account doesn't currently have any balance with any.sender, so we expect this to fail. You'll need your private key (without a 0x prefix) and the json rpc url, and to choose a message.
+Having completed the setup you should have a jsonRpcUrl and a private key/account. Lets start by running the echoRecipe. Users need to have balance with any.sender, which user does not yet. We expect the echo script to fail at this point, so let's verify this by running the it. You'll need your key details and the json rpc url, and to choose a message to send to the echo echo contract eg "Hiyo echo!".
 
-Export your private details from the wallet created in prerequisite step 6. If you exported a private key, insert values into the command below.
+The echo recipe command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 ```
 node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
-
 ```
-
-If you exported a encrypted json file, use the command below:
+example with dummy variables:
 ```
-node ./echoRecipe.js --jsonRpc=<value> --encryptedJson=<value> --password=<value> --msg=<value>
-
+node ./echoRecipe.js --jsonRpc=--jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
 ```
 
 Execute the command! You should receive the following message:
@@ -59,17 +67,15 @@ Not enough balance. Balance is: 0 wei.
 
 To top up balance with any.sender we need to send some funds to the relay contract address. 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C. 
 
-You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. Do this by sending a transaction, with value of 0.5 ETH to the relay contract address using your wallet software. 
+You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. Do this by sending a transaction, with value of 0.5 ETH to the relay contract address. You can do this using your wallet software if you exported your keys from a wallet previously, or by using the `topUp.js` script.
 
 Alternatively, execute the `topUp.js` script:
 
 ```
 node ./topUp.js --jsonRpc=<value> --privKey=<value> --value=0.5
 ```
-or
-```
-node ./topUp.js --jsonRpc=<value> --encryptedJson=<value> --password=<value> --value=0.5
-```
+
+Note: The `topUp.js` script has the same authentication options as the echo receipe script: `--privKey`, `--mnemonic` or the `--keyfile --password`.
 
 After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by inserting the user address in the url: 
 ```
@@ -79,10 +85,11 @@ https://api.pisa.watch/any.sender.ropsten/balance/<user-address>
 ## Second run - success!
 Now that the user has been topped up let's run the echo script again, this time it should be successful. After running the script and getting a successful result, we'll open the script and walk through it line by line, explaining what any.sender is doing and how to communicate with it.
 
+Run the echo script again, inserting the same values as the first run:
 ```
 node ./echoRecipe.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
-you should get a result that looks something like:
+this time you should get a result that looks something like:
 
 ```
 Current balance: 609999999993928805
@@ -102,7 +109,9 @@ Tx relayed after 1 block. Pretty cool, I guess. (⌐■_■)
 See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a5f78ca271e6f139bd82f4a44d9a671a994dd8e#eventlog
 ```
 
-## Walkthrough
+Go to the link in the output, did you see your message?
+
+## Code walkthrough
 
 Now let's go through the code line by line, dissecting what's happening. Open [echoRecipe.js](./echoRecipe.js) in a text editor.
 
@@ -133,8 +142,8 @@ const echoContractAddress = config.echoContractAddress;
 const echoAbi = config.echoAbi;
 const relayContractAddress = config.relayContractAddress;
 ```
-* userWallet: An ethers.js wallet created from the privKey, or the encryptedJsonFile command line args
-* provider: An ethers.js provider for access to Ropsten JSON RPC.
+* userWallet: An ethers.js wallet created from the privKey, or the keyfile command line args
+* provider: An ether.js provider for access to Ropsten JSON RPC.
 * apiUrl: The url of the any.sender API
 * receiptSignerAddress: When the any.sender API accepts a relay request, it signs the transaction with a known receipt signer. In the event that any.sender fails to send a transaction before a deadline the user can submit the relay transaction along with the receipt signer signature to the [Adjudicator contract](https://ropsten.etherscan.io/address/0xCe6d434782ADD5A20B825daAD84119a454ec6dC9#code), which will ensure the user receives compensation. You can read more about the guarantees offered by any.sender [here](../guarantees.md).
 * anySenderClient - a thin client for communicating with the any.sender API

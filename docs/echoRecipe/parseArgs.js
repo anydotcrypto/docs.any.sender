@@ -1,9 +1,10 @@
 const yargs = require("yargs");
+const { withKeyArgs } = require("parseKeyArgs");
 
 const parseArgs = yargs
   .scriptName("echoRecipe")
   .usage(
-    "$0 --jsonRpc=<value> ( --privKey=<value> | (--encryptedJson=<value> --password=<value>)) [--msg=<value>] [--anySenderApi=<value>] [--relayContract=<value>] [--receiptSigner=<value>]"
+    "$0 --jsonRpc=<value> ( --privKey=<value> | (--keyfile=<value> --password=<value>)) [--msg=<value>] [--anySenderApi=<value>] [--relayContract=<value>] [--receiptSigner=<value>]"
   )
   .help()
   .option("anySenderApi", {
@@ -35,29 +36,5 @@ const parseArgs = yargs
     string: true,
     alias: "j",
     demandOption: true
-  })
-  .option("privKey", {
-    description: "A user private key",
-    alias: "k",
-    string: true
-  })
-  .option("encryptedJson", {
-    description: "An encrypted json keyfile for the user",
-    alias: "f",
-    string: true
-  })
-  .option("password", {
-    description: "A password for the encrypted json file",
-    alias: "p",
-    string: true
-  })
-  .conflicts("password", "privKey")
-  .conflicts("encryptedJson", "privKey")
-  .check(argv => {
-    if (!((argv.password && argv.encryptedJson) || argv.privKey)) {
-      throw new Error(
-        "MISSING ARGS: Either user private key or json-file+password must be provided."
-      );
-    } else return true;
   });
-module.exports = { parseArgs };
+module.exports = { parseArgs: withKeyArgs(parseArgs) };
