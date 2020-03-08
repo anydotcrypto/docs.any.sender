@@ -4,9 +4,7 @@ any.sender is a general-purpose transaction relayer and its only job is to guara
 
 You can configure the payload as you like, but in this tutorial, we will just send a string message to an echo contract. 
 
-Our example echo contract can be found [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). 
-
-All transactions sent using any.sender is processed via our Relay contract to record a log that we completed the job (and thus enforce accountability). Check out the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx) to find your job!
+Our example echo contract can be found [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). All transactions sent using any.sender is processed via our Relay contract to record a log that we completed the job (and thus enforce accountability). Check out the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx) to find your job!
 
 **Note**: The whole demo takes place on the Ropsten network, so ensure that any urls you use (e.g. etherscan, infura) are for that network.
 
