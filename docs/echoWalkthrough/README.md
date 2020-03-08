@@ -1,8 +1,12 @@
-# Echo Walkthrough
+# Echo Walkthrough - any.sender tutorial 
 
-Any.sender is a general purpose transaction relayer that is responsible for getting a transaction delivered. You can configure the payload to anything you like, but in this demo we just send a string message to an echo contract.
+any.sender is a general-purpose transaction relayer and its only job is to guarantee your transactions get accepted in the Ethereum blockchain by a deadline. 
 
-The echo contract just echoes whatever is sent to it in an event. You can take a look at the contract [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). Also take a look at the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx), since any.sender relays your transaction via a Relay contract your transaction will show up as an internal transaction.
+You can configure the payload as you like, but in this tutorial, we will just send a string message to an echo contract. 
+
+Our example echo contract can be found [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). 
+
+All transactions sent using any.sender is processed via our Relay contract to record a log that we completed the job (and thus enforce accountability). Check out the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx) to find your job!
 
 **Note**: The whole demo takes place on the Ropsten network, so ensure that any urls you use (e.g. etherscan, infura) are for that network.
 
@@ -25,31 +29,36 @@ The echo contract just echoes whatever is sent to it in an event. You can take a
     npm i
     ```
 
-5. Get access to a JSON RPC url for the Ropsten network. If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, Select the View Project button, select the Ropsten endpoint from the dropdown and copy the url. e.g. ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282. 
+5. Get access to a JSON RPC url for the Ropsten network. 
 
-    Copy the json rpc url for later use.
+If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, Select the View Project button, select the Ropsten endpoint from the dropdown and copy the url.
 
-6. If you already have an Ethereum address you'd like to test with, you can use that - you'll need to export the private key (you can also export keyfile, or a mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
+    Copy the json rpc url (e.g. https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282) for later use.
+
+6. If you already have an Ethereum address on Ropsten, then you'll need to export the private key (or the keyfile/mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
     ```
     node generateAccount.js
     ```
     Copy the private key and address for later use.
 
-7. Get some ropsten Eth for the user account you just created. You can use the following faucet: https://faucet.ropsten.be/
+7. You can use a faucet to get some ropsten eth for your new account: https://faucet.ropsten.be/
     
-    It can be a bit temperamental though, if you're unable to get Ropsten Eth that way you can import your private key into [MetaMask](https://metamask.io/) and use their faucet: https://faucet.metamask.io/
+   Although the faucet website can be a bit temperamental. If it doesn't work, then you can import your private key into [MetaMask](https://metamask.io/) and use their faucet: https://faucet.metamask.io/
 
-    If you're still unable to get some, tweet at our twitter account @anydotcrypto, and we'll send you some :)
+    If you're still unable to get some, tweet at us @anydotcrypto, and we'll send you some :)
 
-8. Checklist
-    1. You have a jsonRpcUrl of the form `ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
-    2. You have a private key, keyfile or mnemonic of a user account
-    3. You have an address of a user account
-    4. The address has been funded with ETH. You can check the value at: `https://ropsten.etherscan.io/address/<you address here>`
+8. Final Checklist
+    1. **Infura setup.** You have a jsonRpcUrl of the form `https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
+    2. **Keys.** You have a private key, keyfile or mnemonic of an account (and its public address)
+    3. **Ropsten eth.** The address has been funded with ETH. You can check the value at: `https://ropsten.etherscan.io/address/<you address here>`
 
 ## First run - not enough balance.
 
-Having completed the setup lets start by running the `echo` script. Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. You'll need your key details and the json rpc url, and to choose a message to send to the echo contract e.g. "Hiyo echo!".
+Lets start by running the `echo` script. 
+
+Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it. 
+
+You'll need your key details and the json rpc url, and to choose a message to send to the echo contract e.g. "Hi echo!".
 
 The echo command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 ```
@@ -57,7 +66,7 @@ node echo.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 example with dummy variables:
 ```
-node echo.js --jsonRpc=--jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
+node echo.js --jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
 ```
 
 Execute the command - you should receive the following message:
@@ -69,7 +78,9 @@ Not enough balance. Balance is: 0 wei.
 
 To top up balance with any.sender we need to send some funds to the relay contract address. 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C. 
 
-You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. Do this by sending a transaction, with value of 0.5 ETH (any amount above 0.2 ETH should be fine for this demo) to the relay contract address. You can do this using your wallet software if you exported your keys from a wallet previously, or by using the `topUp.js` script.
+You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. 
+
+To deposit, send a transaction with value of 0.5 ETH (any amount above 0.2 ETH is fine for this tutorial) to the relay contract address. You can do this using your wallet software if you exported your keys from a wallet previously, or by using the `topUp.js` script.
 
 To execute the `topUp.js` script:
 
@@ -79,7 +90,7 @@ node topUp.js --jsonRpc=<value> --privKey=<value> --value=0.5
 
 Note: The `topUp.js` script has the same authentication options as the `echo` script: `--privKey`, `--mnemonic` or the `--keyfile --password`.
 
-After sending funds to the relay contract the any.sender payment gateway will wait 10 confirmations before confirming the deposit. You can view the status of your balance by inserting the user address in the url: 
+The any.sender payment gateway will wait 10 confirmations before confirming your deposit. You can view the status of your balance by inserting the user address in the url: 
 ```
 https://api.pisa.watch/any.sender.ropsten/balance/<user-address>
 ```
@@ -91,7 +102,7 @@ Run the echo script again, inserting the same values as the first run:
 ```
 node echo.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
-this time you should get a result that looks something like:
+If all goes well, this should be your result: 
 
 ```
 Current balance: 609999999993928805
@@ -111,7 +122,7 @@ Tx relayed after 1 block. Pretty cool, I guess. (⌐■_■)
 See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a5f78ca271e6f139bd82f4a44d9a671a994dd8e#eventlog
 ```
 
-Go to the link in the output, did you see your message? Click the Event Logs tab if it's not already selected.
+Go to the link in the output, did you see your message? Click the Event Logs tab if it is not already selected.
 
 ## Code walkthrough - what actually happened
 
