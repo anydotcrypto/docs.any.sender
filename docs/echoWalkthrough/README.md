@@ -4,7 +4,7 @@ any.sender is a general-purpose transaction relayer and its only job is to guara
 
 You can configure the payload as you like, but in this tutorial, we will just send a string message to an echo contract. 
 
-Our example echo contract can be found [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). All transactions sent using any.sender is processed via our Relay contract to record a log that we completed the job (and thus enforce accountability). Check out the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx) to find your job!
+Our example echo contract can be found [here](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#code). All transactions sent using any.sender are processed via our Relay contract to record a log that we completed the job (and thus enforce accountability). Check out the [Internal Transactions tab](https://ropsten.etherscan.io/address/0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83#internaltx) so see the previous echos!
 
 **Note**: The whole demo takes place on the Ropsten network, so ensure that any urls you use (e.g. etherscan, infura) are for that network.
 
@@ -29,9 +29,9 @@ Our example echo contract can be found [here](https://ropsten.etherscan.io/addre
 
 5. Get access to a JSON RPC url for the Ropsten network. 
 
-If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an account do the following: Register, verify mail, create new project in Infura, Select the View Project button, select the Ropsten endpoint from the dropdown and copy the url.
+   If you don't have access to a Ropsten node you can create an account with [Infura.io](https://infura.io/). To create an    account do the following: Register, verify mail, create new project in Infura, Select the View Project button and select the Ropsten endpoint from the dropdown.
 
-    Copy the json rpc url (e.g. https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282) for later use.
+   Copy the json rpc url (e.g. https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282) for later use.
 
 6. If you already have an Ethereum address on Ropsten, then you'll need to export the private key (or the keyfile/mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
     ```
@@ -46,7 +46,7 @@ If you don't have access to a Ropsten node you can create an account with [Infur
     If you're still unable to get some, tweet at us @anydotcrypto, and we'll send you some :)
 
 8. Final Checklist
-    1. **Infura setup.** You have a jsonRpcUrl of the form `https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
+    1. **Json RPC url.** You have a jsonRpcUrl of the form `https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282`
     2. **Keys.** You have a private key, keyfile or mnemonic of an account (and its public address)
     3. **Ropsten eth.** The address has been funded with ETH. You can check the value at: `https://ropsten.etherscan.io/address/<you address here>`
 
