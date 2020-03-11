@@ -4,7 +4,7 @@ any.sender has a pay-per-use model. Users pay up front for credit with the any.s
 ### Depositing
 The easiest way to make a deposit is to send funds to the any.sender contract address using MetaMask or any wallet of your choice. The fallback function of the contract will assign the balance to the sender using `msg.sender`. The balance API allows to check current credit, that becomes available after 10 confirmations (typically 2-3 minutes).
 
-Here is a code example sing ethers.js:
+Here is a code example using ethers.js:
 
 ```ts
 // top up credit by 1 ETH using the fallback function
