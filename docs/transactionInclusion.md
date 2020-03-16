@@ -1,6 +1,6 @@
 # Transaction inclusion
 
-Managing a transaction from the point it's broadcast until the point that it's mined isn't as simple as it sounds. Transactions compete to be mined in a volatile gas market making it hard to predict when a transaction will be mined. Transactions from an account must be ordered by nonce, which adds a further complication as transactions can effectively only be mined as quickly as the lowest price item before them in the queue. 
+Managing a transaction from the point it's broadcast until the point that it's mined isn't as simple as it sounds. Transactions compete to be mined in a volatile gas market making it hard to predict when a transaction will be mined. Transactions from an account must be ordered by nonce, which adds a further complication as transactions can effectively only be mined as quickly as the lowest price transaction before them in the queue. 
 
 You can find more detail about the problems associated with managing transactions at the start of [this](https://docs.google.com/presentation/d/1gWrEjJICL23583pqKIsKg9HxIFUo6j_AvexrM1GPHvw/edit#slide=id.g703d72a88b_0_0) presentation.
 
