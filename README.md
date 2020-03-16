@@ -30,61 +30,62 @@ Essential features:
 - **No more lost transactions.** The service monitors and progressively bumps the fee for all pending transactions, ensuring your transaction gets mined on time, every time.  
 - **Delegated fees via meta-transactions.** The service allows DApps to pay gas fees for their users, meaning their customers no longer need ETH to interact with their DApp. 
 - **Plug & play.** Designed with extensibility in mind, the any.sender service can be made to work with any smart contract. 
-- **Low gas overhead.** The whole accountable relaying logic adds only 70k gas to the transaction.
+- **Low gas overhead.** The whole accountable relaying logic adds only 45k gas to the transaction.
 
 Advanced features: 
 
-- **Re-org safety.** We monitor transactions many blocks after it is mined, so even deep re-orgs won't shake us from ensuring your transaction gets confirmed. 
+- **Re-org safety.** We monitor transactions many blocks after they are mined, so even deep re-orgs won't shake us from ensuring your transaction gets confirmed. 
 - **Congestion safe.** any.sender tracks network gas prices and adjusts fees as needed. If you really need your transaction to be mined, even network congestion won't stop you.
 - **Concurrent in-flight transactions.** Users can submit several transactions at a time, without the worry of previous transactions getting stuck. The any.sender service employs novel replay protection and manages a pool of relayers, ensuring users can submit several transactions at a time and they all get confirmed in any order. 
 - **Smart-contract enforced accountability.** Although any.sender's _raison d'etre_ is to never miss a transaction, if it does happen then an on-chain contract ensures the any.sender will issue a compensation (or get slashed). We never expect it to happen, but it ensures the customer can swiftly enforce accountability if we fail our promise. 
 
 ## Contents
 
-We've put together a range of documentation to help you get started. 
+* Tutorials and examples
+    * [Simple echo walkthrough](./docs/echoWalkthrough)
+    * [Ballot voting demo](https://github.com/stonecoldpat/anysender-voting)
+* In depth
+    * [Client library](./docs/client.md)
+    * [Payments](./docs/payments.md)
+    * [Contracts](https://github.com/PISAresearch/contracts.any.sender)
+    * [Accountability guarantees](./docs/guarantees.md)
+    * [Transaction inclusion](./docs/transactionInclusion.md)
+    * [API](./docs/API.md)
 
-If you want to learn how: 
-
-- Any.sender works under the hood, check out [Contracts](https://github.com/PISAresearch/contracts.any.sender) and [Guarantees](./docs/guarantees.md). 
-- To get started with the any.sender client & depositing funds, check out [API](./docs/API.md) and [Client library](./docs/client.md).
-- To build using any.sender via an example, check our recipes [Simple echo](./docs/echoWalkthrough) and [Ballot voting](https://github.com/stonecoldpat/anysender-voting)
-
-Finally, if you don't want to use our client library, you can also check out our super-simple [API](./docs/API.md)
-
-## Quick guide on how to get started
+## Quick guide on how to get started - for more details follow the [echo walkthrough](./docs/echoWalkthrough)
 
 1. Install the client lib
 
-```
-npm i @any-sender/client
-```
+    ```
+    npm i @any-sender/client
+    ```
 
 2. Use your favourite wallet to top up balance with any.sender. Send funds directly to our relay contract address to top up gas credit. See [payments](./docs/payments.md) for more details.
 
 3. Create and sign a relay transaction:
 
-```typescript
-// a relay tx looks a lot like a regular tx
-const deadlineBlockNumber = (await provider.getBlockNumber()) + 405;
-const relayTx = {
-  from: userWallet.address, // source address
-  to: echoContractAddress, // target address
-  gas: 100000, // transaction gas limit
-  deadlineBlockNumber, // a deadline in the future
-  data: "0x", // transaction data
-  refund: parseEther("0.01").toString(), // compensation in case of failure
-  relayContractAddress // the relay contract to use
-};
-
-// authorise the transaction using the 'from' wallet
-const id = AnySenderClient.relayTxId(relayTx);
-const signature = await userWallet.signMessage(arrayify(id));
-const signedTx = { ...relayTx, signature };
-```
+    ```typescript
+    // a relay tx looks a lot like a regular tx
+    const deadlineBlockNumber = (await provider.getBlockNumber()) + 405;
+    const relayTx = {
+      from: userWallet.address, // source address
+      to: echoContractAddress, // target address
+      gas: 100000, // transaction gas limit
+      deadlineBlockNumber, // a deadline in the future
+      data: "0x", // transaction data
+      refund: parseEther("0.01").toString(), // compensation in case of failure
+      relayContractAddress // the relay contract to use
+    };
+    
+    // authorise the transaction using the 'from' wallet
+    const id = AnySenderClient.relayTxId(relayTx);
+    const signature = await userWallet.signMessage(arrayify(id));
+    const signedTx = { ...relayTx, signature };
+    ```
 
 4. Relay!
-```ts
-const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
-// any.sender returns a signed receipt as prove that it accepted the relay tx
-const signedReceipt = await client.relay(signedTx);
-```
+    ```ts
+    const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
+    // any.sender returns a signed receipt as proof that it accepted the relay tx
+    const signedReceipt = await client.relay(signedTx);
+    ```
