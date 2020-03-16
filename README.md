@@ -49,7 +49,7 @@ Advanced features:
     * [Payments](./docs/payments.md)
     * [Contracts](https://github.com/PISAresearch/contracts.any.sender)
     * [Accountability guarantees](./docs/guarantees.md)
-    * [Transaction inclusion strategy](./docs/transactionInclusion.md)
+    * [Transaction inclusion](./docs/transactionInclusion.md)
     * [API](./docs/API.md)
 
 ## Quick guide on how to get started - for more details follow the [echo walkthrough](./docs/echoWalkthrough)

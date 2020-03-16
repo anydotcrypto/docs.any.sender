@@ -8,5 +8,5 @@
     * [Payments](./payments.md)
     * [Contracts](https://github.com/PISAresearch/contracts.any.sender)
     * [Accountability guarantees](./guarantees.md)
-    * [Transaction inclusion strategy](./transactionInclusion.md)
+    * [Transaction inclusion](./transactionInclusion.md)
     * [API](./API.md)
