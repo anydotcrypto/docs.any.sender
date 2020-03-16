@@ -8,5 +8,5 @@
     * [Payments](./payments.md)
     * [Contracts](https://github.com/PISAresearch/contracts.any.sender)
     * [Accountability guarantees](./guarantees.md)
-    * [Queueing strategy](./enqueueingStrategy.md)
+    * [Transaction inclusion strategy](./transactionInclusion.md)
     * [API](./API.md)

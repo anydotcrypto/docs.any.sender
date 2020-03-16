@@ -1,10 +1,12 @@
-# Queueing strategy
+# Transaction inclusion strategy
 
 The moving target of the gas market presents a unique challenge to Ethereum users and developers. Gas prices estimates can quickly become invalidated as the gas market moves. Transactions, that should have been mined in minutes due to the estimate at the time of broadcast, can take days in practice. 
 
 This problem is further exacerbated by concurrency, or transactions broadcast in quick succession. Since transactions from a single account can only be mined in consecutive nonce order, a transaction with a bad price estimate broadcast at a lower nonce will hold up all transactions with a higher nonce.
 
 The combination of multiple keys and fee replacements allows any.sender to dynamically adjust fees to keep up with the market, whilst also allowing for a flexible, concurrent system. This is what allows any.sender to guarantee that a transaction is never held up by other transactions, and that its price can always be adjusted to stay relevant to the current market.
+
+You can find more detail about the problems associated with managing transactions at the start of [this](https://docs.google.com/presentation/d/1gWrEjJICL23583pqKIsKg9HxIFUo6j_AvexrM1GPHvw/edit#slide=id.g703d72a88b_0_0) presentation.
 
 ### Transaction replacement
 Transaction replacement is the major tool at our disposal. Ethereum nodes allow the transaction at a given nonce to be replaced with another, as long as the gas price is increased by a certain percentage. Nodes can set this increase individually but the defaults are 12.5% for [Parity](https://github.com/openethereum/openethereum/blob/9da1304539d4182981673711fe7a8bcc20fbbcab/miner/src/pool/scoring.rs#L38) and 10% for [Geth](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options). This means that if the gas market increases in price we can replace a transaction on the network with one of a higher price so that it'll still be mined in reasonable time.

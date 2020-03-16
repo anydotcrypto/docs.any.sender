@@ -49,7 +49,7 @@ Advanced features:
     * [Payments](./docs/payments.md)
     * [Contracts](https://github.com/PISAresearch/contracts.any.sender)
     * [Accountability guarantees](./docs/guarantees.md)
-    * [Queueing strategy](./docs/enqueueingStrategy.md)
+    * [Transaction inclusion strategy](./docs/transactionInclusion.md)
     * [API](./docs/API.md)
 
 ## Quick guide on how to get started - for more details follow the [echo walkthrough](./docs/echoWalkthrough)
@@ -86,6 +86,6 @@ Advanced features:
 4. Relay!
     ```ts
     const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
-    // any.sender returns a signed receipt as prove that it accepted the relay tx
+    // any.sender returns a signed receipt as proof that it accepted the relay tx
     const signedReceipt = await client.relay(signedTx);
     ```
