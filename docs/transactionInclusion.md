@@ -9,7 +9,7 @@ To solve these problems any.sender uses a combination of transaction replacement
 ## Gas market movement
 #### Problem 
 
-The moving target of the gas market presents a unique challenge to Ethereum users and developers. Transactions are broadcast with a gas price that is relevant to the market at the time of broadcast. But since transactions take some time to mine, and the gas market continues to move after a transaction is broadcast, these gas prices can quickly become invalidated. Transactions, that should have been mined in minutes due to the estimate at the time of broadcast, can take days in practice.
+The moving target of the gas market presents a unique challenge to Ethereum users and developers. Transactions are broadcast with a gas price that is relevant to the market at the time of broadcast. But since transactions take some time to mine, and the gas market continues to move after a transaction is broadcast, transaction prices can quickly become irrelevant to the market prices. Transactions, that should have been mined in minutes due to the estimate at the time of broadcast, can take days in practice.
 
 #### Solution - Transaction replacement
 Ethereum nodes allow the transaction at a given nonce to be replaced with another, as long as the gas price is increased by a certain percentage. Nodes can set this increase individually but the defaults are 12.5% for [Parity](https://github.com/openethereum/openethereum/blob/9da1304539d4182981673711fe7a8bcc20fbbcab/miner/src/pool/scoring.rs#L38) and 10% for [Geth](https://github.com/ethereum/go-ethereum/wiki/Command-Line-Options). This means that if the gas market increases in price we can replace a transaction on the network with one of a higher price so that it'll still be mined in reasonable time.
