@@ -21,7 +21,7 @@ The gas market movement problem is further exacerbated by concurrency, or transa
 
 #### Solution - Transaction replacement + multiple sending accounts
 
-Transaction replacement means that we can replace the fields of a transaction,except `nonce`, which effectively allows us to reorder transactions as long as we we bump their prices. So if an account has recently broadcast some low priority items, with low gas price and they are still in pending, we can still use this same account to broadcast a new high priority transaction by replacing the lowest nonce transaction. Given this we can ensure that highest priorities transactions are always front of the queue, and are never held up by low gas prices.
+Transaction replacement means that we can replace the fields of a transaction, except `nonce`, which effectively allows us to reorder transactions as long as we we bump their prices. So if an account has recently broadcast some low priority items, with low gas price and they are still in pending, we can still use this same account to broadcast a new high priority transaction by replacing the lowest nonce transaction. Given this we can ensure that highest priorities transactions are always front of the queue, and are never held up by low gas prices.
 
 However transaction replacement can add additional cost. In the worst case moving a transaction to the front of the queue may require all transactions of a lower nonce to need replacement - increasing their fee. It may be undesirable to increase the fees of low priority items which are not time sensitive, so in some cases any.sender sends transactions from different accounts.
 
