@@ -2,7 +2,7 @@
 
 The moving target of the gas market presents a unique challenge to Ethereum users and developers. Gas prices estimates can quickly become invalidated as the gas market moves. Transactions, that should have been mined in minutes due to the estimate at the time of broadcast, can take days in practice. 
 
-This problem is further excerbated by concurrency, or transactions broadcast in quick succession. Since transactions from a single address can only be mined in consecutive nonce order, a transaction with a bad price estimate broadcast at a lower nonce will hold up all transactions with a higher nonce.
+This problem is further exacerbated by concurrency, or transactions broadcast in quick succession. Since transactions from a single address can only be mined in consecutive nonce order, a transaction with a bad price estimate broadcast at a lower nonce will hold up all transactions with a higher nonce.
 
 The combination of multiple keys and fee replacements allows any.sender to dynamically adjust fees to keep up with the market, whilst also allowing for a flexible, concurrent system. This is what allows any.sender to guarantee that a transaction is never held up by other transactions, and that it's price can always be adjusted to stay relevant to the current market.
 
