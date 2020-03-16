@@ -30,11 +30,11 @@ Essential features:
 - **No more lost transactions.** The service monitors and progressively bumps the fee for all pending transactions, ensuring your transaction gets mined on time, every time.  
 - **Delegated fees via meta-transactions.** The service allows DApps to pay gas fees for their users, meaning their customers no longer need ETH to interact with their DApp. 
 - **Plug & play.** Designed with extensibility in mind, the any.sender service can be made to work with any smart contract. 
-- **Low gas overhead.** The whole accountable relaying logic adds only 70k gas to the transaction.
+- **Low gas overhead.** The whole accountable relaying logic adds only 45k gas to the transaction.
 
 Advanced features: 
 
-- **Re-org safety.** We monitor transactions many blocks after it is mined, so even deep re-orgs won't shake us from ensuring your transaction gets confirmed. 
+- **Re-org safety.** We monitor transactions many blocks after they are mined, so even deep re-orgs won't shake us from ensuring your transaction gets confirmed. 
 - **Congestion safe.** any.sender tracks network gas prices and adjusts fees as needed. If you really need your transaction to be mined, even network congestion won't stop you.
 - **Concurrent in-flight transactions.** Users can submit several transactions at a time, without the worry of previous transactions getting stuck. The any.sender service employs novel replay protection and manages a pool of relayers, ensuring users can submit several transactions at a time and they all get confirmed in any order. 
 - **Smart-contract enforced accountability.** Although any.sender's _raison d'etre_ is to never miss a transaction, if it does happen then an on-chain contract ensures the any.sender will issue a compensation (or get slashed). We never expect it to happen, but it ensures the customer can swiftly enforce accountability if we fail our promise. 
