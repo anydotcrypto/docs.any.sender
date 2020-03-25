@@ -16,9 +16,9 @@ The [Echo Walkthrough](./docs/echoWalkthrough/) is a start to finish walkthrough
 
 ### Ropsten
 * API: https<nolink>://api.pisa.watch/any.sender.ropsten
-* Relay contract: 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C
-* Adjudicator contract: 0xCe6d434782ADD5A20B825daAD84119a454ec6dC9
-* LockableDeposit contract: 0xDA342E509220034e75822B753629fa212Fd4D443
+* Relay contract: 0x4D0969B57052B5F94ED8f8ff2ceD27264E0F268C
+* Adjudicator contract: 0xD949Bd427728B8F3028Fd00356fd8194069fcD18
+* LockableDeposit contract: 0x2D1A73512F107668C15BF0f1Ccc8dfb45f1a2cCE
 * Receipt signer: 0xe41743Ca34762b84004D3ABe932443FC51D561D5
 
 ## Features
@@ -73,7 +73,7 @@ Advanced features:
       gas: 100000, // transaction gas limit
       deadlineBlockNumber, // a deadline in the future
       data: "0x", // transaction data
-      refund: parseEther("0.01").toString(), // compensation in case of failure
+      compensation: parseEther("0.01").toString(), // compensation in case of failure
       relayContractAddress // the relay contract to use
     };
     

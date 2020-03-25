@@ -17,7 +17,7 @@ const parseArgs = yargs
     description: "The address of the any.sender relay contract",
     string: true,
     alias: "r",
-    default: "0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C"
+    default: "0x4D0969B57052B5F94ED8f8ff2ceD27264E0F268C"
   })
   .option("receiptSigner", {
     description: "The address of the any.sender receipt signer",

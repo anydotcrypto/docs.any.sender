@@ -195,7 +195,7 @@ const relayTx = {
   data: data,
   deadlineBlockNumber: deadline,
   gas: 100000, // should be plenty
-  refund: "500000000", // 5 gwei
+  compensation: "500000000", // 5 gwei
   relayContractAddress: relayContractAddress
 };
 ```
@@ -204,7 +204,7 @@ const relayTx = {
 * **data**: The data to be executed at the target, we formed this earlier using the echo contract ABI
 * **deadlineBlockNumber**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
 * **gas**: The amount of gas allocated to the call. This should be the same as a normal transaction
-* **refund**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the refund amount. See [guarantees](../guarantees.md) for more details.
+* **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See [guarantees](../guarantees.md) for more details.
 * **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C). This ensures that the user can verify the deployed Relay contract that any.sender will use.
 
 #### 6. Subscribe to the relay event
