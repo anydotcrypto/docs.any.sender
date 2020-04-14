@@ -74,7 +74,7 @@ Not enough balance. Balance is: 0 wei.
 
 ## Funding the user
 
-To top up balance with any.sender we need to send some funds to the relay contract address. 0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C. 
+To top up balance with any.sender we need to send some funds to the relay contract address. 0x4D0969B57052B5F94ED8f8ff2ceD27264E0F268C. 
 
 You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. 
 
@@ -205,7 +205,7 @@ const relayTx = {
 * **deadlineBlockNumber**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
 * **gas**: The amount of gas allocated to the call. This should be the same as a normal transaction
 * **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See [guarantees](../guarantees.md) for more details.
-* **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xe8468689AB8607fF36663EE6522A7A595Ed8bC0C). This ensures that the user can verify the deployed Relay contract that any.sender will use.
+* **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0x4D0969B57052B5F94ED8f8ff2ceD27264E0F268C). This ensures that the user can verify the deployed Relay contract that any.sender will use.
 
 #### 6. Subscribe to the relay event
 Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.
