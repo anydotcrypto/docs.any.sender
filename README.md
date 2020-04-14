@@ -16,8 +16,8 @@ The [Echo Walkthrough](./docs/echoWalkthrough/) is a start to finish walkthrough
 
 ### Ropsten
 * API: https<nolink>://api.pisa.watch/any.sender.ropsten
-* Relay contract: 0x4D0969B57052B5F94ED8f8ff2ceD27264E0F268C
-* Adjudicator contract: 0xD949Bd427728B8F3028Fd00356fd8194069fcD18
+* Relay contract: 0xa404d1219Ed6Fe3cF2496534de2Af3ca17114b06
+* Adjudicator contract: 0x29C031B5d6978f9C1d85CdD252297d2C95d51Fe8
 * LockableDeposit contract: 0x2D1A73512F107668C15BF0f1Ccc8dfb45f1a2cCE
 * Receipt signer: 0xe41743Ca34762b84004D3ABe932443FC51D561D5
 
