@@ -185,7 +185,7 @@ const data = echoInterface.functions.echo.encode([
 ```
 
 #### 5. Form the relay tx
-The relay tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](./relayTransaction.md).
+The relay tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](../relayTransaction.md).
 ```js
 const currentBlock = await provider.getBlockNumber();
 const deadline = currentBlock + 405;

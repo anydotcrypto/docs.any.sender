@@ -8,11 +8,13 @@
     "properties": {
         "from": {
             "$id": "#/properties/from",
-            "type": "string"
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
         },
         "signature": {
             "$id": "#/properties/signature",
-            "type": "string"
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{130}$"
         },
         "data": {
             "$id": "#/properties/data",
@@ -33,15 +35,18 @@
         },
         "compensation": {
             "$id": "#/properties/compensation",
-            "type": "string"
+            "type": "string",
+            "pattern": "^[0-9]+$"
         },
         "relayContractAddress": {
             "$id": "#/properties/relayContractAddress",
-            "type": "string"
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
         },
         "to": {
             "$id": "#/properties/to",
-            "type": "string"
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
         }
     }
 }
