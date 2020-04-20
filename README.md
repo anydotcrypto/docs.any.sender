@@ -14,7 +14,6 @@ The [Echo Walkthrough](./docs/echoWalkthrough/) is a start to finish walkthrough
 
 ## Addresses
 
-### Ropsten
 |      | Ropsten | Mainnet |
 | --- | --- | --- |
 | **API** | https://api.anydot.dev/any.sender.ropsten | https://api.anydot.dev/any.sender.mainnet |
