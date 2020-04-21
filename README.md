@@ -1,5 +1,7 @@
 # any.sender
 
+**BETA**: Although any.sender is fast approaching production readiness it is currently only at v0.2.1 beta. Please only use with small funds and for non-critical transactions.
+
 ### Transactions made simple!
 
 The any.sender service is a simple and efficient way of sending transactions to Ethereum. 
