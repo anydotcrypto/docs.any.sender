@@ -11,7 +11,7 @@ const parseArgs = yargs
     description: "The url of the any.sender api",
     string: true,
     alias: "a",
-    default: "https://api.pisa.watch/any.sender.ropsten"
+    default: "https://api.anydot.dev/any.sender.ropsten"
   })
   .option("relayContract", {
     description: "The address of the any.sender relay contract",

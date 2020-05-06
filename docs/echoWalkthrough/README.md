@@ -90,7 +90,7 @@ Note: The `topUp.js` script has the same authentication options as the `echo` sc
 
 The any.sender payment gateway will wait 10 confirmations before confirming your deposit. You can view the status of your balance by inserting the user address in the url: 
 ```
-https://api.pisa.watch/any.sender.ropsten/balance/<user-address>
+https://api.anydot.dev/any.sender.ropsten/balance/<user-address>
 ```
 
 ## Second run - success!
