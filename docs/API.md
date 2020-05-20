@@ -4,8 +4,9 @@ The REST API has two endpoints: /relay and /balance.
 
 ## Relay
 
-| Endpoint | /relay |
+| Relay | |
 | --- | --- |
+| Endpoint | /relay |
 | Method | POST |
 | Content-Type | application/json |
 | Request body format | [Relay transaction](./relayTransaction.md) |
@@ -13,8 +14,9 @@ The REST API has two endpoints: /relay and /balance.
 
 ## Balance
 
-| Endpoint | /balance/\<address\> |
+| Balance | |
 | --- | --- |
+| Endpoint | /balance/\<address\> |
 | Method | GET |
 | Content-Type | N/A |
 | Request body format | N/A |
