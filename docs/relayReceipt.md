@@ -1,5 +1,5 @@
 # Relay Receipt
-A relay response includes the [relay transaction](./relayTransaction.md) and two additional fields: `signature` and `id`.
+A relay response includes the [relay transaction](./relayTransaction.md) and two additional fields: `receiptSignature` and `id`.
 
 ## Fields
 ```

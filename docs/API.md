@@ -4,6 +4,8 @@ The REST API has two endpoints: /relay and /balance.
 
 ## Relay
 
+Relays the supplied transaction, returns a signed receipt that guarantees transaction submission.
+
 | Relay | |
 | --- | --- |
 | Endpoint | /relay |
@@ -13,6 +15,8 @@ The REST API has two endpoints: /relay and /balance.
 | Response body format | [Relay receipt](./relayReceipt.md) |
 
 ## Balance
+
+Returns the current any.sender balance of an address. This is the amount of funds reserved for this address to pay for gas.
 
 | Balance | |
 | --- | --- |
