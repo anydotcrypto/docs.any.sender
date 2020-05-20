@@ -4,15 +4,25 @@ The REST API has two endpoints: /relay and /balance.
 
 ## Relay
 
-The relay endpoint expects a POST with application/json body. The body is a [relay transaction](./relayTransaction.md).
-
-The response is a [relay receipt](./relayReceipt.md) which includes the relay transaction itself and a signature from the [receipt signer](../README.md#addresses).The signature should be validated against the receipt signer address.
+| Endpoint | /relay |
+| --- | --- |
+| Method | POST |
+| Content-Type | application/json |
+| Request body format | [Relay transaction](./relayTransaction.md) |
+| Response body format | [Relay receipt](./relayReceipt.md) |
 
 ## Balance
 
-The balance endpoint expects a GET with the address as its single path parameter: `/balance/<address>`. It returns the balance of the address in the form:
+| Endpoint | /balance/\<address\> |
+| --- | --- |
+| Method | GET |
+| Content-Type | N/A |
+| Request body format | N/A |
+| Response body format | Balance response (see below) |
+
+#### Balance response format
 ```json
 {
-    "balance": "<balance>"
+    "balance": "string"
 }
 ```
