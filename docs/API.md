@@ -4,7 +4,7 @@ The REST API has two endpoints: /relay and /balance.
 
 ## Relay
 
-Relays the supplied transaction, returns a signed receipt that guarantees transaction submission.
+Relays the supplied transaction, returns a signed receipt that [guarantees](./guarantees.md) transaction submission.
 
 | Relay | |
 | --- | --- |
