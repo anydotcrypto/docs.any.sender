@@ -42,7 +42,7 @@ const run = async () => {
     data: data,
     deadlineBlockNumber: deadline,
     gas: 100000, // should be plenty
-    compensation: "500000000", // 5 gwei
+    compensation: "500000000", // 0.5 gwei
     relayContractAddress: relayContractAddress
   };
 
