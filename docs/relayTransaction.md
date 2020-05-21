@@ -50,5 +50,5 @@ The value of the compensation that the user will be owed if any.sender fails to 
 The address of the relay contract that will be used to relay this transaction. This is a necessary for proving accountable behaviour on-chain.
 
 ### signature (bytes)
-A signature made by the `from` authority over the full relay transaction data, using this [digest](https://github.com/PISAresearch/contracts.any.sender/blob/master/versions/0.1.6/contracts/RelayTxStruct.sol#L22).
+A signature made by the `from` authority over the full relay transaction data, using this [digest](https://github.com/PISAresearch/contracts.any.sender/blob/e7d9cf8c26bdcae67e39f464b4a102a8572ff468/versions/0.2.1/contracts/core/RelayTxStruct.sol#L23).
 
