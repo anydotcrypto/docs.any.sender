@@ -1,5 +1,4 @@
-import { providers, Contract, utils } from "ethers";
-import { abi } from "@uniswap/v2-core/build/UniswapV2Factory.json";
+import { providers, utils } from "ethers";
 
 const pairCreatedEvent =
   "event PairCreated(address indexed token0, address indexed token1, address pair, uint)";
@@ -51,5 +50,3 @@ export const getPairs = async (
     pair: string;
   }[];
 };
-
-export const getPair = (token0: string, token1: string) => {};
