@@ -6,11 +6,10 @@ An example of using the any.sender client library to interact with Uniswap. The 
 
 ## Prerequisites
 1. [Node](https://nodejs.org/en/)
-2. [Pnpm](https://pnpm.js.org/) - all commands should be run with pnpm, you can install it with `npm i -g pnpm`
 
 ## Commands
-1. Install: `pnpm i`
-2. Start: `pnpm run start` - NOTE: you will have to update the script config before starting
+1. Install: `npm i`
+2. Start: `npm run start` - NOTE: you will have to update the script config before starting
 
 ## Configuration
 Set these before running the bot
