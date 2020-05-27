@@ -1,0 +1,24 @@
+{
+  "name": "uniswap-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "execute": "ts-node ./src/index.ts",
+    "preinstall": "node -e \"!process.env.npm_config_user_agent.startsWith('pnpm/') && !console.log('Install pnpm globally using \\`npm i -g pnpm\\` then do \\`pnpm i\\` to install dependencies in this repository\\n') && process.exit(1)\"",
+    "preuninstall": "node -e \"!process.env.npm_config_user_agent.startsWith('pnpm/') && !console.log('Install pnpm globally using \\`npm i -g pnpm\\` then do \\`pnpm i\\` to install dependencies in this repository\\n') && process.exit(1)\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^8.10.1"
+  },
+  "dependencies": {
+    "@any-sender/client": "0.2.1-beta.27",
+    "@types/node": "^14.0.5",
+    "@uniswap/sdk": "^2.0.5",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.0.0-beta.0",
+    "ethers": "^4.0.47"
+  }
+}
