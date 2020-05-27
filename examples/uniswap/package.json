@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "execute": "ts-node ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "preinstall": "node -e \"!process.env.npm_config_user_agent.startsWith('pnpm/') && !console.log('Install pnpm globally using \\`npm i -g pnpm\\` then do \\`pnpm i\\` to install dependencies in this repository\\n') && process.exit(1)\"",
     "preuninstall": "node -e \"!process.env.npm_config_user_agent.startsWith('pnpm/') && !console.log('Install pnpm globally using \\`npm i -g pnpm\\` then do \\`pnpm i\\` to install dependencies in this repository\\n') && process.exit(1)\""
   },

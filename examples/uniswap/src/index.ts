@@ -10,27 +10,10 @@ import {
   Route,
   Fraction,
 } from "@uniswap/sdk";
+import * as config from "./config";
 import { providers, Contract, Wallet, utils } from "ethers";
 import { abi as routerAbi } from "@uniswap/v2-periphery/build/UniswapV2Router01.json";
 import { abi as Erc20Abi } from "@uniswap/v2-core/build/IUniswapV2ERC20.json";
-
-///////////////////////
-/// CUSTOM SETTINGS ///
-///////////////////////
-
-const privKey = ""; // your private key
-const jsonRpcUrl = ""; // the ethereum json rpc eg: https://ropsten.infura.io/v3/<insert infura token here>
-const chainId = ChainId.ROPSTEN; // only works on ROPSTEN and MAINNET
-const sellPoint = 200; // The Dai per Eth price point at which to sell ETH
-const buyPoint = 185; // The Dai per Eth price point at which to buy ETH
-const slippagePercentage = 0.05; // the percentage of slippage allowed. Warning: setting this too low will cause all trades to fail.
-// We recommend at least 1%, but it depends which market is being traded in, and the exact amounts involved.
-const fundingAmountEth = 0; // the amount of ETH to trade with - will be sent to a proxy account
-const tradeSizeEth = 0; // the amount of eth to be traded each time (useful for testing). Leave as 0 to trade the full amount. Can only go to 6 decimal places
-
-///////////////////////
-/// CUSTOM SETTINGS ///
-///////////////////////
 
 const WEI = 1000000000000000000;
 const wait = (timeMs: number) =>
@@ -85,10 +68,7 @@ const tradeDai = async (
 
   if (toEth) {
     // approve the funds before trading
-    const inputAmount = utils.parseUnits(
-      trade.inputAmount.toFixed(),
-      trade.inputAmount.token.decimals
-    );
+    const inputAmount = toBn(trade.inputAmount);
     const approveData = new Contract(
       daiToken.address,
       Erc20Abi,
@@ -109,15 +89,8 @@ const tradeDai = async (
     const txData = await routerContract.interface.functions[
       "swapExactTokensForETH"
     ].encode([
-      utils.parseUnits(
-        trade.inputAmount.toFixed(),
-        trade.inputAmount.token.decimals
-      ),
-
-      utils.parseUnits(
-        trade.minimumAmountOut(slippageFraction).toFixed(),
-        trade.outputAmount.token.decimals
-      ),
+      toBn(trade.inputAmount),
+      toBn(trade.minimumAmountOut(slippageFraction)),
       trade.route.path.map((a) => a.address),
       await wallet.any.getProxyAccountAddress(),
       currentTimestamp + 180,
@@ -136,10 +109,7 @@ const tradeDai = async (
     const tradeData = await routerContract.interface.functions[
       "swapExactETHForTokens"
     ].encode([
-      utils.parseUnits(
-        trade.minimumAmountOut(slippageFraction).toFixed(),
-        trade.outputAmount.token.decimals
-      ),
+      toBn(trade.minimumAmountOut(slippageFraction)),
       trade.route.path.map((a) => a.address),
       await wallet.any.getProxyAccountAddress(),
       currentTimestamp + 180,
@@ -148,10 +118,7 @@ const tradeDai = async (
     const tradeTx = await wallet.any.sendTransaction({
       to: routerContract.address,
       data: tradeData,
-      value: utils.parseUnits(
-        trade.inputAmount.toFixed(),
-        trade.inputAmount.token.decimals
-      ),
+      value: toBn(trade.inputAmount),
     });
     const result = await tradeTx.wait();
     console.log(`Trade executed: ${result.transactionHash}`);
@@ -193,11 +160,14 @@ const topUpAnyDotSender = async (
 };
 
 const run = async (
+  chainId: ChainId,
   slippagePercentage: number,
   ethSellPoint: number,
   ethBuyPoint: number,
   fundingAmountEth: number,
-  tradeSizeEth: number
+  tradeSizeEth: number,
+  privKey: string,
+  jsonRpcUrl: string
 ) => {
   if (ethSellPoint < ethBuyPoint)
     throw new Error("Sell point cannot be below the buy point.");
@@ -262,7 +232,10 @@ const run = async (
     }
 
     // trade!
-    if (toBn(tokenAmount).lt(ethBuyPoint * factor) && balances.eth.gt(0)) {
+    if (
+      toBn(tokenAmount).lt(ethBuyPoint * factor) &&
+      balances.dai.gt(new utils.BigNumber(tradeSizeEth).mul(daiPerEth).mul(WEI))
+    ) {
       console.log("Issue ETH buy");
       // issue a buy
       await tradeDai(
@@ -276,7 +249,7 @@ const run = async (
       );
     } else if (
       toBn(tokenAmount).gt(ethSellPoint * factor) &&
-      balances.dai.gt(0)
+      balances.eth.gt(new utils.BigNumber(tradeSizeEth).mul(WEI))
     ) {
       console.log("Issue DAI buy");
       // issue a sell
@@ -299,9 +272,12 @@ const run = async (
 };
 
 run(
-  slippagePercentage,
-  sellPoint,
-  buyPoint,
-  fundingAmountEth,
-  tradeSizeEth
+  config.chainId,
+  config.slippagePercentage,
+  config.sellPoint,
+  config.buyPoint,
+  config.fundingAmountEth,
+  config.tradeSizeEth,
+  config.privKey,
+  config.jsonRpcUrl
 ).catch((err) => console.error(err));
