@@ -1,6 +1,6 @@
 # Uniswap price-action bot example
 
-!WARNING!: this bot is just an example, use it for trading real funds at your own risk.
+WARNING!: this bot is an example implementation and not meant for production, use it for trading real funds at your own risk.
 
 An example of using the any.sender client library to interact with Uniswap. The bot monitors the DAI/ETH market and sells at pre-configured high price and buys at a pre-configured low price
 
