@@ -12,7 +12,7 @@ An example of using the any.sender client library to interact with Uniswap. The 
 2. Start: `npm run start` - NOTE: you will have to update the script config before starting
 
 ## Configuration
-Set these before running the bot
+Set these (in [config.ts](./src/config.ts)) before running the bot
 
 #### privKey
 Set this to the privKey containing ETH. This key will deposit funds to any.sender to pay for gas if it does not already have a balance there. It should also contain an ETH balance for transferring some starting ETH to a proxy account contract that the bot will create for trading.
