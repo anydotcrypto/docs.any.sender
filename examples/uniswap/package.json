@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@any-sender/client": "0.2.1-beta.27",
-    "@types/node": "^14.0.5",
-    "@uniswap/sdk": "^2.0.5",
-    "@uniswap/v2-core": "^1.0.1",
+    "@types/node": "14.0.5",
+    "@uniswap/sdk": "2.0.5",
+    "@uniswap/v2-core": "1.0.1",
     "@uniswap/v2-periphery": "^1.0.0-beta.0",
-    "ethers": "^4.0.47"
+    "ethers": "4.0.47"
   }
 }
