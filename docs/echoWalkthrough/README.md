@@ -74,7 +74,7 @@ Not enough balance. Balance is: 0 wei.
 
 ## Funding the user
 
-To top up balance with any.sender we need to send some funds to the relay contract address. 0xa404d1219Ed6Fe3cF2496534de2Af3ca17114b06. 
+To top up balance with any.sender we need to send some funds to the relay contract address. 0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7. 
 
 You can find more details about topping up balance [here](../payments.md), but for now we can just send funds to the fallback function. 
 
@@ -190,22 +190,24 @@ The relay tx defines all the properties of what any.sender must do. A relay tx i
 const currentBlock = await provider.getBlockNumber();
 const deadline = currentBlock + 405;
 const relayTx = {
+  chainId: 3,
   from: userWallet.address,
   to: echoContractAddress,
   data: data,
-  deadlineBlockNumber: deadline,
-  gas: 100000, // should be plenty
-  compensation: "500000000", // 5 gwei
+  deadline,
+  gasLimit: 100000, // should be plenty
+  compensation: "5000000000", // 5 gwei
   relayContractAddress: relayContractAddress
 };
 ```
+* **chainId**: The chain id for the Ethereum network being connected to
 * **from**: The user whose balance will be used. This account must also sign the relay transaction
 * **to**: The destination of the transaction, in this case we're targeting the echo contract
 * **data**: The data to be executed at the target, we formed this earlier using the echo contract ABI
-* **deadlineBlockNumber**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
-* **gas**: The amount of gas allocated to the call. This should be the same as a normal transaction
+* **deadline**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
+* **gasLimit**: The amount of gas allocated to the call. This should be the same as a normal transaction
 * **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See [guarantees](../guarantees.md) for more details.
-* **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0xa404d1219Ed6Fe3cF2496534de2Af3ca17114b06). This ensures that the user can verify the deployed Relay contract that any.sender will use.
+* **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7). This ensures that the user can verify the deployed Relay contract that any.sender will use.
 
 #### 6. Subscribe to the relay event
 Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.

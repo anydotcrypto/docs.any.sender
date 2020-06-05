@@ -20,9 +20,9 @@ The [Echo Walkthrough](./docs/echoWalkthrough/) is a start to finish walkthrough
 | --- | --- | --- |
 | **API** | https://api.anydot.dev/any.sender.ropsten | https://api.anydot.dev/any.sender.mainnet |
 | **Receipt signer** | 0xe41743Ca34762b84004D3ABe932443FC51D561D5 | 0x02111c619c5b7e2aa5c1f5e09815be264d925422 |
-| **Relay contract** | 0xa404d1219Ed6Fe3cF2496534de2Af3ca17114b06 | 0xa404d1219Ed6Fe3cF2496534de2Af3ca17114b06 |
-| **Adjudicator contract** | 0x29C031B5d6978f9C1d85CdD252297d2C95d51Fe8 | 0x29C031B5d6978f9C1d85CdD252297d2C95d51Fe8 |
-| **Lockable deposit contract** | 0x2D1A73512F107668C15BF0f1Ccc8dfb45f1a2cCE | 0x2D1A73512F107668C15BF0f1Ccc8dfb45f1a2cCE |
+| **Relay contract** | 0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7 | 0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7 |
+| **Adjudicator contract** | 0xAa517b16cAADc44b542c843AAfcaf274f6965016 | 0xAa517b16cAADc44b542c843AAfcaf274f6965016 |
+| **Lockable deposit contract** | 0xc617c0Fb33B7B6413b60beaB1bA0979Ae3166f54 | 0xc617c0Fb33B7B6413b60beaB1bA0979Ae3166f54 |
 
 ## Features
 
@@ -69,12 +69,13 @@ Advanced features:
 
     ```typescript
     // a relay tx looks a lot like a regular tx
-    const deadlineBlockNumber = (await provider.getBlockNumber()) + 405;
+    const deadline = (await provider.getBlockNumber()) + 405;
     const relayTx = {
+      chainId: 3,
       from: userWallet.address, // source address
       to: echoContractAddress, // target address
-      gas: 100000, // transaction gas limit
-      deadlineBlockNumber, // a deadline in the future
+      gasLimit: 100000, // transaction gas limit
+      deadline, // a deadline in the future
       data: "0x", // transaction data
       compensation: parseEther("0.01").toString(), // compensation in case of failure
       relayContractAddress // the relay contract to use

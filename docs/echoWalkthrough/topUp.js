@@ -12,7 +12,7 @@ const parseArgs = yargs
     description: "The address of the any.sender relay contract",
     string: true,
     alias: "r",
-    default: "0xa404d1219Ed6Fe3cF2496534de2Af3ca17114b06"
+    default: "0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7"
   })
   .option("value", {
     description: "The value to top up.",
