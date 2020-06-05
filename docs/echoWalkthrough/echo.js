@@ -8,7 +8,9 @@ const run = async (
   message,
   echoContractAddress,
   echoAbi,
-  relayContractAddress
+  relayContractAddress,
+  apiUrl,
+  receiptSignerAddress
 ) => {
   // set up the any sender client
   const anySenderClient = new AnyDotSenderCoreClient({
@@ -23,6 +25,10 @@ const run = async (
       `Not enough balance. Balance is: ${balance.toString()} wei.`
     );
   console.log("Current balance: " + balance.toString());
+
+  console.log("hi")
+  await provider.getBlockNumber()
+  console.log("bye")
 
   // form a relay to the echo contract
   // first construct the data
@@ -100,5 +106,7 @@ run(
   config.message,
   config.echoContractAddress,
   config.echoAbi,
-  config.relayContractAddress
+  config.relayContractAddress,
+  config.apiUrl,
+  config.receiptSignerAddress
 ).catch((err) => console.error(err.message));
