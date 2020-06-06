@@ -13,7 +13,7 @@ A relay transaction can be validated against this [json schema](./relayTx.schema
   "from": string (address)
   "to": string (address)
   "gasLimit": number (uint256)
-  "deadline": number (uint256)
+  "deadline": number (uint256) or 0 (uint256)
   "data": string (bytes)
   "compensation": string (number uint256) // number as a string - stringified base 10
   "relayContractAddress": string (address),
@@ -38,7 +38,9 @@ The gas limit to provided to the transaction for execution. This is the same fie
 ### deadline (uint256)
 The block by which this transaction must be mined. This allows any.sender a large window to mine the transaction, although it will endeavour to get the transaction mined long before this deadline. As confidence in the abilities of any.sender increase this minimum deadline limit will be lowered.
 
-**BETA**: Minimum deadline must be 400 greater than current block
+The deadline cana optionally be set to 0. In this case the any.sender API will fill in a deadline (currentBlock + 400) and populate it in the returned receipt. If the hash of the relay transaction is being used to observe whether the transaction has been mined the hash should be calculated with the deadline populated from any.sender, as this is the transaction that will be submitted.
+
+**BETA**: The deadline must current head number + 400. There is a tolerance of 20 blocks above and below 400 to allow for chain views being out of sync.
 
 ### data (hex string bytes)
 The abi encoded call data. This is the same field, and contains the same data, as the `data` field in a standard Ethereum transaction.

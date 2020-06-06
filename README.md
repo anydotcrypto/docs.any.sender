@@ -10,9 +10,9 @@ Its API handles the entire transaction process on behalf of the user, so they do
 
 any.sender endeavours to save precious development time by handling all edge cases for transaction delivery and getting it mined reliably. You, the user, can simply focus on making your dapp great and we'll take care of getting transactions mined on time, every time. 
 
-## [Try it yourself](./docs/echoWalkthrough/)
+## [Try it yourself](./docs/coreClient/walkthrough/)
 
-The [Echo Walkthrough](./docs/echoWalkthrough/) is a start to finish walkthrough of sending a transaction to any.sender. All you need is some Ropsten ETH and a connection to a Ropsten RPC. This is the easiest place to start to get a grip on how to interact with the any.sender API.
+The [Core Client Echo Walkthrough](./docs/coreClient/walkthrough/) is a start to finish walkthrough of sending a transaction to any.sender using the basic core client. All you need is some Ropsten ETH and a connection to a Ropsten RPC. This is the easiest place to start to get a grip on how to interact with the any.sender API.
 
 ## Addresses
 
@@ -44,18 +44,18 @@ Advanced features:
 
 ## Contents
 
-* Tutorials and examples
-    * [Simple echo walkthrough](./docs/echoWalkthrough)
-    * [Ballot voting demo](https://github.com/stonecoldpat/anysender-voting)
+
 * In depth
-    * [Client library](./docs/client.md)
+    * [API](./docs/API.md)
+    * [Core client library](./docs/coreClient)
     * [Payments](./docs/payments.md)
     * [Contracts](https://github.com/PISAresearch/contracts.any.sender)
     * [Accountability guarantees](./docs/guarantees.md)
     * [Transaction inclusion](./docs/transactionInclusion.md)
-    * [API](./docs/API.md)
+* Tutorials and examples
+    * [Core client walkthrough](./docs/coreClient/walkthrough)
 
-## Quick guide on how to get started - for more details follow the [echo walkthrough](./docs/echoWalkthrough)
+## Quick guide on how to get started - for more details follow the [core client echo walkthrough](./docs/coreClient/walkthrough/)
 
 1. Install the client lib
 
@@ -82,14 +82,14 @@ Advanced features:
     };
     
     // authorise the transaction using the 'from' wallet
-    const id = AnySenderClient.relayTxId(relayTx);
+    const id = AnyDotSenderCoreClient.relayTxId(relayTx);
     const signature = await userWallet.signMessage(arrayify(id));
     const signedTx = { ...relayTx, signature };
     ```
 
 4. Relay!
     ```ts
-    const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
+    const client = new AnyDotSenderCoreClient({ apiUrl: anySenderUrl, receiptSignerAddress });
     // any.sender returns a signed receipt as proof that it accepted the relay tx
     const signedReceipt = await client.relay(signedTx);
     ```

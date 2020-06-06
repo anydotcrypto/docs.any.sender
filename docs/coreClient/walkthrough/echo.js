@@ -1,4 +1,5 @@
 const { ethers } = require("ethers");
+const { arrayify } = require("ethers/utils");
 const { AnyDotSenderCoreClient } = require("@any-sender/client");
 const config = require("./configuration");
 
@@ -25,10 +26,6 @@ const run = async (
       `Not enough balance. Balance is: ${balance.toString()} wei.`
     );
   console.log("Current balance: " + balance.toString());
-
-  console.log("hi")
-  await provider.getBlockNumber()
-  console.log("bye")
 
   // form a relay to the echo contract
   // first construct the data
@@ -60,10 +57,9 @@ const run = async (
   const signedTx = { ...relayTx, signature };
 
   // subscribe to the relay event, so we know when the transaction has been relayed
-  // subscribe to the relay event, so we know when the transaction has been relayed
   console.log();
   console.log("Subscribing to relay event.");
-  const topics = AnyDotSenderCoreClient.getRelayExecutedEventTopics(relayTx);
+  const topics = AnyDotSenderCoreClient.getRelayExecutedEventTopics(receipt.relayTransaction);
   provider.once({ address: relayContractAddress, topics }, async (event) => {
     const blocksUntilMined = event.blockNumber - currentBlock;
     console.log();

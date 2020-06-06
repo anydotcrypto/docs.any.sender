@@ -16,10 +16,10 @@ Our example echo contract can be found [here](https://ropsten.etherscan.io/addre
     git clone https://github.com/PISAresearch/docs.any.sender.git
     ```
 
-3. Change directory to the echoWalkthrough directory
+3. Change to this directory
 
     ```
-    cd docs.any.sender/docs/echoWalkthrough
+    cd docs.any.sender/docs/coreClient/walkthrough
     ```
 
 4. Install packages in this folder - npm is installed as part of node.
@@ -130,28 +130,22 @@ Now let's go through the code line by line, dissecting what's happening. Open [e
 
 ```js
 const { ethers } = require("ethers");
-const { AnySenderClient } = require("@any-sender/client");
+const { AnyDotSenderCoreClient } = require("@any-sender/client");
 const config = require("./configuration");
 ```
 
 The script imports:
 * [ethers.js](https://github.com/ethers-io/ethers.js) - to handle access to the JSON RPC and cryptographic functions like the user's wallet
-* AnySenderClient - a lightweight wrapper for the any.sender API. It also provides some utility functions, for example to form digests ready for signing, or to create the event topics to watch for relay events
+* AnyDotSenderCoreClient - a lightweight wrapper for the any.sender API. It also provides some utility functions, for example to form digests ready for signing, or to create the event topics to watch for relay events
 * config - the command line args (parsed with [yargs](https://github.com/yargs/yargs)) and some defaults.
 
 #### 2. Configuration variables
 We declare a run function that we'll execute later, and assign all the variables from config. All the configuration variables (except echoContract and echoAbi) can be set by the command line, but if they're not supplied some Ropsten defaults are already configured.
 ```js
-const userWallet = config.userWallet;
-const provider = new ethers.providers.JsonRpcProvider(config.jsonRpcUrl);
-const anySenderClient = new AnySenderClient(
-  config.apiUrl,
-  config.receiptSignerAddress
-);
-const message = config.message;
-const echoContractAddress = config.echoContractAddress;
-const echoAbi = config.echoAbi;
-const relayContractAddress = config.relayContractAddress;
+const anySenderClient = new AnyDotSenderCoreClient({
+  apiUrl,
+  receiptSignerAddress
+});
 ```
 * userWallet: An ethers.js wallet created from the privKey, or the keyfile command line args
 * provider: An ether.js provider for access to Ropsten JSON RPC.
@@ -194,7 +188,7 @@ const relayTx = {
   from: userWallet.address,
   to: echoContractAddress,
   data: data,
-  deadline,
+  deadline: deadline,
   gasLimit: 100000, // should be plenty
   compensation: "5000000000", // 5 gwei
   relayContractAddress: relayContractAddress
@@ -209,10 +203,18 @@ const relayTx = {
 * **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See [guarantees](../guarantees.md) for more details.
 * **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7). This ensures that the user can verify the deployed Relay contract that any.sender will use.
 
-#### 6. Subscribe to the relay event
+#### 6. Sign the relay transacation
+The user now creates a digest from the relay transaction and signs it. The signature is then added to the relayTx json ready to be sent.
+```js
+const id = AnyDotSenderCoreClient.relayTxId(relayTx);
+const signature = await userWallet.signMessage(arrayify(id));
+const signedTx = { ...relayTx, signature };
+```
+
+#### 7. Subscribe to the relay event
 Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.
 ```js
-const topics = AnySenderClient.getRelayExecutedEventTopics(relayTx);
+const topics = AnyDotSenderCoreClient.getRelayExecutedEventTopics(relayTx);
 provider.once(
   { address: relayContractAddress, topics },
   async event => {
@@ -242,14 +244,14 @@ provider.on("block", block => {
 });
 ```
 
-#### 7. Send the relay transaction
+#### 8. Send the relay transaction
 Now that everything is set up, all that's left to do is to send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
 ```js
 const receipt = await anySenderClient.relay(signedTx);
 ```
 The returned receipt contains the receipt signer's signature, and can be stored until the user is sure the transaction has been mined. This signature is also checked inside the relay function to ensure it corresponds to the receipt signer used to construct the client.
 
-#### 8. Wait ...
+#### 9. Wait ...
 We execute the run function which will send the relay transaction and wait until it's mined.
 ```js
 run().catch(err => console.error(err.message));

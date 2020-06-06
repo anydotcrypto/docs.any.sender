@@ -17,7 +17,7 @@ const topUpTransaction = await userWallet.sendTransaction({
 await topUpTransaction.wait(20)
 
 // check the balance
-const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
+const client = new AnyDotSenderCoreClient({ apiUrl: anySenderUrl, receiptSignerAddress });
 const balance = await client.balance(userWallet.address);
 console.log(balance.toString());
 ```
@@ -41,7 +41,7 @@ await relayContract.connect(userWallet).depositFor(recipientAddress, { value: pa
 ### Checking balance
 Checking balance can be done by calling the `/balance` API. Note that 10 confirmations are required before the a new deposit will be recognised.
 ```ts
-const client = new AnySenderClient(anySenderUrl, receiptSignerAddress);
+const client = new AnyDotSenderCoreClient({ apiUrl: anySenderUrl, receiptSignerAddress });
 const balance = await client.balance(userWallet.address);
 ```
 
