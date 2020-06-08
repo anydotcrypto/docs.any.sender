@@ -12,7 +12,7 @@ A relay response includes the [relay transaction](./relayTransaction.md) and two
 
 ### id (bytes32)
 
-The `id` is this [digest](https://github.com/PISAresearch/contracts.any.sender/blob/master/versions/0.1.6/contracts/RelayTxStruct.sol#L22). It is the same `id` which is signed by the `from` address making the relay transaction.
+The `id` is this [digest](https://github.com/PISAresearch/contracts.any.sender/blob/b13be3dff24989fd24783ae3d79104124a38b2fa/versions/0.3.0/contracts/core/RelayTxStruct.sol#L23). It is the same `id` which is signed by the `from` address making the relay transaction.
 
 ### receiptSignature (bytes)
 
