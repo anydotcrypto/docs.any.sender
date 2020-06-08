@@ -27,16 +27,6 @@ const balance = await client.balance(userWallet.address);
 console.log(balance.toString());
 ```
 
-Funds can also be deposited with other methods documented below.
-
-#### Deposit function
-
-Alternatively, calling the `deposit` function on the `Relay` contract will assign the `msg.sender` of the transaction with the `msg.value` amount.
-
-```ts
-await relayContract.connect(userWallet).deposit({ value: parseEther("1") });
-```
-
 #### Delegated deposit
 
 The `depositFor` functions allows the delegation of any.sender credit. The `recipient` address will have their credit increased by the `msg.value` amount.
