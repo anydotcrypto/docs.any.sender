@@ -59,7 +59,7 @@ const run = async (
   // subscribe to the relay event, so we know when the transaction has been relayed
   console.log();
   console.log("Subscribing to relay event.");
-  const topics = AnyDotSenderCoreClient.getRelayExecutedEventTopics(receipt.relayTransaction);
+  const topics = AnyDotSenderCoreClient.getRelayExecutedEventTopics(relayTx);
   provider.once({ address: relayContractAddress, topics }, async (event) => {
     const blocksUntilMined = event.blockNumber - currentBlock;
     console.log();

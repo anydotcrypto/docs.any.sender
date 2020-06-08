@@ -12,3 +12,4 @@
 10. Update the contracts to v0.3.0
 11. Write an example for the standard client
 12. Notes on ordering
+13. Document the error codes for the API
