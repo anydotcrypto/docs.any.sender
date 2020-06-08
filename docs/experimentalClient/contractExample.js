@@ -74,4 +74,4 @@ const run = async (
   console.log("Proxy account exists: " + isProxyDeployed);
 };
 
-run(userWallet, provider, message, echoContractAddress, echoAbi);
+run(userWallet, provider, message, echoContractAddress, echoAbi).catch(err => err.message ? console.error(err.message) : err);;
