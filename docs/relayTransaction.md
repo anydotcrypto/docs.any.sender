@@ -38,7 +38,7 @@ The gas limit to provided to the transaction for execution. This is the same fie
 ### deadline (uint256)
 The block by which this transaction must be mined. This allows any.sender a large window to mine the transaction, although it will endeavour to get the transaction mined long before this deadline. As confidence in the abilities of any.sender increase this minimum deadline limit will be lowered.
 
-The deadline cana optionally be set to 0. In this case the any.sender API will fill in a deadline (currentBlock + 400) and populate it in the returned receipt. If the hash of the relay transaction is being used to observe whether the transaction has been mined the hash should be calculated with the deadline populated from any.sender, as this is the transaction that will be submitted.
+The deadline can optionally be set to 0. In this case the any.sender API will fill in a deadline (currentBlock + 400) and populate it in the returned receipt. If the hash of the relay transaction is being used to observe whether the transaction has been mined the hash should be calculated with the deadline populated from any.sender, as this is the transaction that will be submitted.
 
 **BETA**: The deadline must current head number + 400. There is a tolerance of 20 blocks above and below 400 to allow for chain views being out of sync.
 
