@@ -14,9 +14,14 @@ To import and use the any.sender client import the `any` object from the client 
 import { any } from "@any-sender/client";
 ```
 
-### any.sender(signer: Signer)
+### any.sender(signer: Signer, settings?: {} )
 
 Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer, eg `any.sender(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
+
+Optional setting can also be provided:
+* apiUrl: the url of the any.sender API defaults to the known instance for the provider network
+* receiptSigner: the url of the any.sender API defaults to known address for the provider network
+* pollingInterval: number. A polling interval to be used when monitoring for events. Defaults to the provider polling interval.
 
 #### Usage
 
@@ -94,9 +99,14 @@ const relayReceipt = await anyUserWallet.any.sendTransaction({ to: "<address>", 
 const transactionReceipt = await relayReceipt.wait();
 ```
 
-### any.sender(contract: Contract)
+### any.sender(contract: Contract, settings?: {})
 
 Because a contract object has dynamic properties we can't add an `any` property to it, so instead we replace the functions that send transactions. Contracts must be created with a signer, which must also be connected to a `provider` object.
+
+Optional setting can also be provided:
+* apiUrl: the url of the any.sender API defaults to the known instance for the provider network
+* receiptSigner: the url of the any.sender API defaults to known address for the provider network
+* pollingInterval: number. A polling interval to be used when monitoring for events. Defaults to the provider polling interval.
 
 #### Usage
 
@@ -105,6 +115,8 @@ const signer = new Wallet("<priv key>")
 const contract = new Contract("<address>", erc20Abi, signer);
 const anyContract = any.sender(contract);
 ```
+
+### Functions
 
 Each of the functions that send transactions have been replaced to instead send transactions via any.sender. They also now have a different signature. Each function has the normal function arguments, but now has overrides relevant to any.sender. Additionally the functions return a relay receipt, instead of a transaction response.
 
