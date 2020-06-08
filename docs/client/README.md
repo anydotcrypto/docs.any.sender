@@ -143,7 +143,7 @@ const relayReceipt = await anyContract.functions.transfer("10", "<address>", {ga
 const transactionReceipt = await relayReceipt.wait();
 ```
 
-# Echo Walkthrough - any.sender tutorial
+# Full example and walkthrough
 
 any.sender is a general-purpose transaction relayer and its only job is to guarantee your transactions get accepted in the Ethereum blockchain by a deadline.
 
