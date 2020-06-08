@@ -67,15 +67,13 @@ const signedReceipt = await client.relay({ ...relayTx, signature });
 
 ```ts
 import { AnyDotSenderCoreClient } from "@any-sender/client";
-import { arrayify } from "ethers/utils";
 import { Wallet, ethers } from "ethers";
-import { JsonRpcProvider } from "ethers/providers";
 
 // prerequisites
-const apiUrl = "https://api.pisa.watch/any.sender.ropsten";
+const apiUrl = "https://api.anydot.dev/any.sender.ropsten";
 const receiptSignerAddress = "<to fill>"; // see [Addresses](../API.md#addresses)
 const userWallet = new Wallet("<to fill>");
-const provider = new JsonRpcProvider("<to fill>");
+const provider = new ethers.providers.JsonRpcProvider("<to fill>");
 const address = "<address>";
 
 // set up the any sender client
@@ -107,7 +105,7 @@ const relayTx = {
 
 // sign the relay transaction
 const id = AnyDotSenderCoreClient.relayTxId(relayTx);
-const signature = await userWallet.signMessage(arrayify(id));
+const signature = await userWallet.signMessage(ethers.utils.arrayify(id));
 const signedTx = { ...relayTx, signature };
 
 // send the transaction

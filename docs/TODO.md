@@ -13,3 +13,4 @@
 11. Write an example for the standard client
 12. Notes on ordering
 13. Document the error codes for the API
+14. Replace the docs in the main readme
