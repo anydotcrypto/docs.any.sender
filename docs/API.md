@@ -1,5 +1,7 @@
 # API
 
+See [Addresses](./addresses.md) for instance and contract addresses.
+
 ## Methods
 
 The REST API has two endpoints: /relay and /balance.
