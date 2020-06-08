@@ -47,4 +47,4 @@ const run = async (
     console.log(`See your message at https://ropsten.etherscan.io/tx/${txReceipt.transactionHash}#eventlog`);
 };
 
-run(userWallet, provider, message, echoContractAddress, echoAbi);
+run(userWallet, provider, message, echoContractAddress, echoAbi).catch(err => err.message ? console.error(err.message) : err);;

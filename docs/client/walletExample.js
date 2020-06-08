@@ -4,8 +4,8 @@ const { any } = require("@any-sender/client");
 
 // prerequisites
 const message = "Hello world";
-const userWallet = new Wallet("<to fill>");
-const provider = new JsonRpcProvider("<to fill>");
+const userWallet = new Wallet("0x75b1649a597858a785fc8fc7d6bfb113cd6e83f663cf904d7aa09d3fe6928d37");
+const provider = new JsonRpcProvider("https://ropsten.infura.io/v3/7333c8bcd07b4a179b0b0a958778762b");
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
     {
@@ -54,4 +54,4 @@ const run = async (
     console.log(`See your message at https://ropsten.etherscan.io/tx/${txReceipt.transactionHash}#eventlog`);
 };
 
-run(userWallet, provider, message, echoContractAddress, echoAbi);
+run(userWallet, provider, message, echoContractAddress, echoAbi).catch(err => err.message ? console.error(err.message) : err);
