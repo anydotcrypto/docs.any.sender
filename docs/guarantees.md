@@ -2,7 +2,7 @@
 
 See the [contracts](https://github.com/PISAresearch/contracts.any.sender) for exact functionality
 
-The any.sender service promises to get relay transactions mined before a user-specified `deadlineBlockNumber`.
+The any.sender service promises to get relay transactions mined before a user-specified `deadline`.
 
 Four smart contracts enforce the promise: 
 - `Relay`: Executes the relay transaction 
