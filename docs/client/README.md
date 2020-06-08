@@ -370,4 +370,4 @@ It returns a typical transaction receipt after the transaction is confirmed incl
   );
 ```
 
-Easy! Now check out the code in `walletExample.js` and see if you can spot the small differences :)
+Easy! Now check out the code in [walletExample](./walletExample.js) and see if you can spot the differences :)
