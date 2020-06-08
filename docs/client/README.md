@@ -16,7 +16,7 @@ import { any } from "@any-sender/client";
 
 ### any.sender(signer: Signer, settings?: {} )
 
-Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer, eg `any.sender(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
+Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.sender(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
 
 Optional setting can also be provided:
 * apiUrl: the url of the any.sender API defaults to the known instance for the provider network
@@ -139,7 +139,7 @@ Each of the functions that send transactions have been replaced to instead send 
 const signer = new Wallet("<priv key>")
 const contract = new Contract("<address>", erc20Abi, signer);
 const anyContract = any.sender(contract);
-const relayReceipt = await anyContract.functions.transfer("10", "<address>", {gasLimit: 200000 });
+const relayReceipt = await anyContract.functions.transfer( "<recipient address>", "10", {gasLimit: 200000 });
 const transactionReceipt = await relayReceipt.wait();
 ```
 
