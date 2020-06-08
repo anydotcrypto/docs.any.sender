@@ -36,7 +36,7 @@ We recommend trying any.sender on the Ropsten network and to get started we are 
 
 * The [Core Client](./docs/coreClient/) is a light-weight wrapper around the API to take care of basic functionality of sending a transaction via any.sender. Use this client as a raw wrapper for the [API](./docs/API.md).
 
-* The [Experimental-Client](./docs/experimental-client/) takes care of deploying and managing a wallet contract on behalf of the signer. It auto-deploys the wallet contract when the first transaction is issued & takes care of all replay protection. It currently supports our [MetaTx library](https://github.com/anydotcrypto/metatransactions/) and we plan to support Gnosis Safe.
+* The [Experimental Client](./docs/experimentalClient/) takes care of deploying and managing a wallet contract on behalf of the signer. It auto-deploys the wallet contract when the first transaction is issued & takes care of all replay protection. It currently supports our [MetaTx library](https://github.com/anydotcrypto/metatransactions/) and we plan to support Gnosis Safe.
 
 ## Quick guide on how to get started
 
@@ -81,7 +81,7 @@ We have put together a collection of documents to explain how any.sender works u
 
 - In depth documentation
   - [any.sender API](./docs/API.md)
-  - [Client library](./docs/core)
+  - [Client library](./docs/client)
   - [Core client library](./docs/coreClient)
   - [Experimental client library](./docs/experimentalClient)
   - [Payments](./docs/payments.md)
