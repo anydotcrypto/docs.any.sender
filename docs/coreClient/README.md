@@ -1,6 +1,6 @@
 # Core Client
 
-any.sender ships with a client library for easier access to the API. At the core of the library is the Core Client, which delivers the least functionality but it also the least opinionated. It has some core tools for working any.sender, including calculating hashes and topics. The Core Client does not require access to a signing key, all signing takes place outside the library. Most applications will be better suited to use the standard library [LINK] as it's more straightforward and easier to use, but some may prefer the smaller dependency of the Core Client.
+The Core Client delivers the least functionality but it also the least opinionated. It has some core tools for working any.sender, including calculating hashes and topics. The Core Client does not require access to a signing key, all signing takes place outside the library. Most applications will be better suited to use the [standard client](../client/README.md) as it's more straightforward and easier to use, but some may prefer the smaller dependency of the Core Client.
 
 ```
 npm i @any-sender/client
@@ -19,7 +19,7 @@ const client = new AnyDotSenderCoreClient({ apiUrl, receiptASignerddress });
 
 ## Static methods
 
-### relayTxId(tx: UnsignedRelayTransaction)
+### relayTxId(tx: UnsignedRelayTransaction) : string
 
 Calculates the id of a transaction ready for signature. The `UnsignedRelayTransaction` is identical to a [relay transaction](../relayTransaction.md) with the signature omitted.
 
@@ -28,7 +28,7 @@ const id = AnyDotSenderCoreClient.relayTxId(relayTx);
 const signature = await userWallet.signMessage(arrayify(id));
 ```
 
-### getRelayExecutedEventTopics(tx: UnsignedRelayTransaction)
+### getRelayExecutedEventTopics(tx: UnsignedRelayTransaction) : string[]
 
 Expects a relay transaction and returns the event topics to observe from the relay contract to be notified when that transaction is relayed
 
@@ -45,7 +45,7 @@ provider.once(
 
 ## Instance methods
 
-### balance(address: string)
+### balance(address: string) : Promise<BigNumber>
 
 Gets the balance of the provided address, returns `BigNumber`.
 
@@ -53,7 +53,7 @@ Gets the balance of the provided address, returns `BigNumber`.
 const balance = await client.balance(userWallet.address);
 ```
 
-### relay (tx: RelayTransaction)
+### relay (tx: RelayTransaction) : Promise<RelayTransactionReceipt>
 
 Informs the any.sender service to relay the provided [transaction](../relayTransaction.md).
 

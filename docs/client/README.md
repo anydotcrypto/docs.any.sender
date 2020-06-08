@@ -1,3 +1,136 @@
+# Client
+
+The any.sender client is the easiest way to interact with the any.sender API. It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
+
+**Note:** it's important to ensure that the Signer or Contract is connected to an ethers provider.
+
+## Signer
+
+### Import
+
+To import and use the any.sender client import the `any` object from the client library:
+
+```ts
+import { any } from "@any-sender/client";
+```
+
+### any.sender(signer: Signer)
+
+Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer, eg `any.sender(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
+
+#### Usage
+
+```ts
+const anyUserWallet = any.sender(connectedUser);
+```
+
+### signer.any.getBalance() : Promise<BigNumber>
+
+The `getBalance` function on the `any` property returns the signers balance with any.sender.
+
+#### Usage
+
+```ts
+const anyUserWallet = any.sender(connectedUser);
+const balance = await anyUserWallet.any.getBalance();
+```
+
+### signer.any.deposit(amount: BigNumberish, overrides?: TransactionOverrides) : Promise<TransactionResponse>
+
+Deposit some credit for the signer on any.sender. This will send a normal transaction to any.sender and excepts any of the normal transaction overrides such as `nonce` and `gasLimit`
+
+On mainnet any.sender waits for 35 confirmations before registering the balance update, on ropsten it's 12.
+
+#### Usage
+
+```ts
+const anyUserWallet = any.sender(connectedUser);
+const tx = await anyUserWallet.any.deposit("1000000000000000000"); // 1 ETH
+await tx.wait(40);
+```
+
+### signer.any.depositFor(amount: BigNumberish, recipient: string, overrides?: TransactionOverrides) : Promise<TransactionResponse>
+
+Deposit some credit for another user on any.sender. This will send a normal transaction to any.sender and excepts any of the normal transaction overrides such as `nonce` and `gasLimit`
+
+On mainnet any.sender waits for 35 confirmations before registering the balance update, on ropsten it's 12.
+
+#### Usage
+
+```ts
+const anyUserWallet = any.sender(connectedUser);
+const recipient = "<to fill>";
+const tx = await anyUserWallet.any.deposit("1000000000000000000", recipient); // 1 ETH
+await tx.wait(40);
+```
+
+### signer.any.sendTransaction(tx: { to: string, data: string, compensation?: string, gaslimit?: number }) : RelayTransactionReceipt
+
+Sends a transaction via any.sender. Mandatory fields:
+* **to**: same as a normal transaction
+* **data**: same as a normal transaction
+
+Optional fields:
+* **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+* **gasLimit**: same as a normal transaction
+
+Notice that there is no option to provide a nonce. Maintains the order in which it receives transactions from the same sender, so if you need to guarantee order wait until the `sendTransaction` function returns before sending the next one. Likewise if ordering is not a requirement you can send transactions concurrently.
+
+#### Returns data
+`sendTransaction` returns a signed receipt object of the form:
+```
+{
+    "relayTransaction": RelayTransaction, // the same as the input tx
+    "id": string, // an id for this transaction, created by hashing the relay transaction
+    "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
+    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+}
+```
+#### Usage
+
+```ts
+const anyUserWallet = any.sender(connectedUser);
+const relayReceipt = await anyUserWallet.any.sendTransaction({ to: "<address>", data: "<data>" });
+const transactionReceipt = await relayReceipt.wait();
+```
+
+### any.sender(contract: Contract)
+
+Because a contract object has dynamic properties we can't add an `any` property to it, so instead we replace the functions that send transactions. Contracts must be created with a signer, which must also be connected to a `provider` object.
+
+#### Usage
+
+```ts
+const signer = new Wallet("<priv key>")
+const contract = new Contract("<address>", erc20Abi, signer);
+const anyContract = any.sender(contract);
+```
+
+Each of the functions that send transactions have been replaced to instead send transactions via any.sender. They also now have a different signature. Each function has the normal function arguments, but now has overrides relevant to any.sender. Additionally the functions return a relay receipt, instead of a transaction response.
+
+#### Optional overrides
+* **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+* **gasLimit**: same as a normal transaction
+
+#### Return data
+```
+{
+    "relayTransaction": RelayTransaction, // the relay transaction that was sent to any.sender
+    "id": string, // an id for that transaction, created by hashing the relay transaction
+    "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
+    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+}
+```
+
+#### Usage
+```ts
+const signer = new Wallet("<priv key>")
+const contract = new Contract("<address>", erc20Abi, signer);
+const anyContract = any.sender(contract);
+const relayReceipt = await anyContract.functions.transfer("10", "<address>", {gasLimit: 200000 });
+const transactionReceipt = await relayReceipt.wait();
+```
+
 # Echo Walkthrough - any.sender tutorial
 
 any.sender is a general-purpose transaction relayer and its only job is to guarantee your transactions get accepted in the Ethereum blockchain by a deadline.
