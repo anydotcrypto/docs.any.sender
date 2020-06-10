@@ -4,9 +4,7 @@ const { any } = require("@any-sender/client");
 
 // prerequisites
 const message = "Hello world";
-const userWallet = new Wallet(
-  "21A13BB36805692782A1F337F0DE0F82DBBF2679AC150FB38B8811D3AB438AC1"
-);
+const userWallet = new Wallet("<private key>");
 const provider = new JsonRpcProvider(
   "https://ropsten.infura.io/v3/7333c8bcd07b4a179b0b0a958778762b"
 );
@@ -76,6 +74,8 @@ const run = async (
   );
 
   // Let's double check the proxy account was deployed.
+  console.log("Balance: " + (await userAnyWallet.any.getBalance()));
+
   const isProxyDeployed = await userAnyWallet.any.isProxyAccountDeployed();
   console.log("Proxy account exists: " + isProxyDeployed);
 };
