@@ -16,7 +16,7 @@ import { any } from "@any-sender/client";
 
 ### any.senderAccount(signer: Signer, settings?: {} )
 
-Adds any.sender functionality with wallet contract support to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.senderAcccount(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
+Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.senderAcccount(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
 
 Optional setting can also be provided:
 
