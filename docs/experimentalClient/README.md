@@ -16,7 +16,7 @@ import { any } from "@any-sender/client";
 
 ### any.senderAccount(signer: Signer, settings?: {} )
 
-Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.senderAcccount(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
+Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.senderAcccount(signer).sendTransaction(tx)` does not send transactions via any.sender, it is just a normal transaction from the signer. 
 
 Optional setting can also be provided:
 
@@ -32,11 +32,11 @@ const connectedUser = userWallet.connect(provider);
 const anyUserWallet = any.senderAccount(connectedUser);
 ```
 
-Just like the Client, it has [getBalance(), deposit() & depositFor()](https://github.com/anydotcrypto/docs.any.sender/tree/master/docs/client), so please check the documentation there for more information. We only cover new functionality introduced to manage the wallet contracts.
+Just like the Client, it has [getBalance(), deposit() & depositFor()](https://github.com/anydotcrypto/docs.any.sender/tree/master/docs/client), so please check the Client documentation for more information. We take this opportunity to only cover new functionality introduced in the experimental client library to manage wallet contracts.
 
-### signer.any.getProxyAcccountAddress() : Promise<string>
+### signer.any.getProxyAcccountAddress() : Promise\<string\>
 
-The `getProxyAcccountAddress` function on the `any` property returns the address of the proxy contract. Every signing key has a deterministic proxy contract as it is deployed using CREATE2. As a result, it is safe to send funds to the proxy contract before it is deployed on the network.
+The `getProxyAcccountAddress` function on the `any` property returns the address of the wallet contract. Every signing key has a deterministic wallet contract as it is deployed using CREATE2. It is safe to send funds to the wallet contract address before it is deployed on the network. 
 
 #### Usage
 
@@ -45,10 +45,9 @@ const anyUserWallet = any.senderAccount(connectedUser);
 const walletContractAddress = await anyUserWallet.any.getProxyAccountAddresss();
 ```
 
-### signer.any.isProxyAccountDeployed() : Promise<boolean>
+### signer.any.isProxyAccountDeployed() : Promise\<boolean\>
 
-The `isProxyAccountDeployed()` function on the `any` property returns whether the wallet contract is already deployed on the network. If the contract is not deployed, then our library will auto-deploy it when user sends their first transaction (e.g. we batch the deployment & meta-transaction into a single transaction).
-
+The `isProxyAccountDeployed()` function on the `any` property returns whether the wallet contract is already deployed on the network. If the wallet contract is not deployed, then our library will auto-deploy the wallet contract when the user sends their first transaction. e.g., we automatically batch the wallet contract deployment and the authorised meta-transaction in a single transaction. 
 #### Usage
 
 ```ts
@@ -57,9 +56,9 @@ const isProxyDeployed = await anyUserWallet.any.isProxyAccountDeployed();
 if(isProxyDeployed) { ... }
 ```
 
-### signer.any.getDeployProxyAccountTransaction() : Promise<MinimalTx>
+### signer.any.getDeployProxyAccountTransaction() : Promise\<MinimalTx\>
 
-The `getDeployProxyAccountTransaction` function on the `any` property returns a `MinimalTx` that contains `{ to: string, data: string}`. This provides you flexibility on how the contract wallet is deployed. Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender (e.g. we batch the deployment & meta-transaction into a single transaction).
+The `getDeployProxyAccountTransaction` function on the `any` property returns a `MinimalTx` that contains `{ to: string, data: string}`. This provides you flexibility on how the contract wallet is deployed. Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender. So there is no explicit requirement to use this function. 
 
 #### Usage
 
@@ -72,11 +71,11 @@ const tx = await anyUserWallet.sendTransaction({
 }); // A normal transaction
 ```
 
-### signer.any.deployProxyAccount(overrides: { gasLimit?, value?, gasPrice? }): Promise<TransactionResponse>
+### signer.any.deployProxyAccount(overrides: { gasLimit?, value?, gasPrice? }): Promise\<TransactionResponse\>
 
-The `deployProxyAccount` function on the `any` property returns a `TransactionResponse`. It sends the Ethereum Transaction to the network (not via any.sender). Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender (e.g. we batch the deployment & meta-transaction into a single transaction).
+The `deployProxyAccount` function on the `any` property returns a `TransactionResponse`. It sends the Ethereum Transaction to the network (not via any.sender). Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender. So there is no explicit requirement to use this function. 
 
-### signer.any.sendTransaction(tx: { to: string, data: string, compensation?: string, gaslimit?: number }) : RelayTransactionReceipt
+### signer.any.sendTransaction(tx: { to: string, data: string, compensation?: string, gaslimit?: number }) : Promise\<RelayTransactionReceipt\>
 
 Sends a transaction via any.sender. Mandatory fields:
 
@@ -316,7 +315,7 @@ We declare a run function that we'll execute later, and assign all the variables
 - `echoContractAddress`: Address of the [Echo Contract](https://ropsten.etherscan.io/address/0xCe6d434782ADD5A20B825daAD84119a454ec6dC9#code) on the Ropsten Network.
 - `abi`: Defines the interface for the contract.
 
-We only had to modify `userWallet` and `provider`. Although you can modify `message` to change what the Echo contract will broadcast. Of course, we have the `echoContractAddress` and `abi` that defines the interface for the contract.
+We only had to modify `userWallet` and `provider`. Although you can modify `message` to change what the Echo contract will broadcast. 
 
 #### 3. Wrapping the Signer with any.sender functionality
 
@@ -387,7 +386,7 @@ console.log("Transaction sent, waiting for blocks to be mined.");
 const txReceipt = await relayReceipt.wait();
 ```
 
-It returns a typical transaction receipt after the transaction is confirmed including the transaction hash. This is useful if you want to print a nice etherscan link:
+It returns a transaction receipt after the transaction is confirmed including the transaction hash. This is useful if you want to print a nice etherscan link:
 
 ```
   console.log(
