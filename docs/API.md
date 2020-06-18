@@ -24,20 +24,20 @@ any.sender guarantees that transactions from the same address will be mined in t
 
 #### Error codes
 
-In most cases, you should expect the 200 OK response from any.sender that the job was accepted. However, there is a range of potential error codes that can be returned if the job is malformed or if there is a server-side issue.
+The API can return the following HTTP status codes:
 
 | Code | Return Messsage                               | Description                                                                                                                                                                                 |
 | ---- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 200  | Success                                       | All good!                                                                                                                                                                                   |
-| 400  | Data validation error                         | Unable to validate the relay transaction. Please check at the values sent.                                                                                                                  |
-| 402  | Insufficient funds                            | You need to top up your account.                                                                                                                                                            |
-| 409  | Transaction already sent                      | We have sent the same transaction recently for you. If you want to send the same transaction twice in a short period of time, then just tweak the gasLimit field.                           |
-| 429  | Too many requests.                            | We have a global rate limit of 6 calls per second. We plan to increase limit over time and you can just try again.                                                                          |
+| 400  | Data validation error                         | Unable to validate the relay transaction. Please check the values sent.                                                                                                                     |
+| 402  | Insufficient funds                            | You need to top up your account. Please check our [payment documentation](./payments.md).                                                                                                   |
+| 409  | Transaction already sent                      | We have sent the same transaction recently for you. If you want to send the same transaction twice in a short period of time, then just increment the gasLimit field by 1.                  |
+| 429  | Too many requests.                            | Our global rate limit of 6 calls per second. We plan to increase this limit overtime, but try again shortly.                                                                                |
 | 500  | Internal server error                         | An unexpected error occurred server-side. Please contact us.                                                                                                                                |
 | 502  | Internal server error.                        | An unexpected error occurred server-side. Please contact us.                                                                                                                                |
 | 503  | Service initialising, please try again later. | Our relayer is starting up. Please wait.                                                                                                                                                    |
 | 503  | No available sender.                          | Configuration error for any.sender. Please contact us.                                                                                                                                      |
-| 503  | Max pending gas reached.                      | Our relayer cannot accept any more jobs as we are trying to broadcast at least 120 million gas (12 blocks) of transactions. We plan to increase limit overtime, but just try again shortly. |
+| 503  | Max pending gas reached.                      | Our relayer cannot accept any more jobs as we are trying to broadcast at least 120 million gas (12 blocks) of transactions. We plan to increase this limit overtime, but try again shortly. |
 
 ### Balance
 
@@ -50,6 +50,18 @@ Returns the current any.sender balance of an address. This is the amount of fund
 | Content-Type         | N/A                          |
 | Request body format  | N/A                          |
 | Response body format | Balance response (see below) |
+
+#### Error codes
+
+The API can return the following HTTP status codes:
+
+| Code | Return Messsage                               | Description                                                                                                  |
+| ---- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 200  | Success                                       | All good!                                                                                                    |
+| 400  | Data validation error                         | Unable to validate the address. Please check the address is formatted correctly.                             |
+| 429  | Too many requests.                            | Our global rate limit of 6 calls per second. We plan to increase this limit overtime, but try again shortly. |
+| 502  | Internal server error.                        | An unexpected error occurred server-side. Please contact us.                                                 |
+| 503  | Service initialising, please try again later. | Our relayer is starting up. Please wait.                                                                     |
 
 #### Balance response format
 
