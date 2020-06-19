@@ -33,7 +33,7 @@ The API can return the following HTTP status codes:
 | 402  | Insufficient funds                            | You need to top up your account. Please check our [payment documentation](./payments.md).                                                                                                   |
 | 409  | Transaction already sent                      | We have sent the same transaction recently for you. If you want to send the same transaction twice in a short period of time, then increment the gasLimit field by 1.                       |
 | 429  | Too many requests.                            | Our global rate limit of 6 calls per second. We plan to increase this limit overtime. Please try again.                                                                                     |
-| 500  | Internal server error                         | An unexpected error occurred server-side. Please contact us.                                                                                                                                |
+| 500  | Internal server error.                        | An unexpected error occurred server-side. Please contact us.                                                                                                                                |
 | 502  | Internal server error.                        | An unexpected error occurred server-side. Please contact us.                                                                                                                                |
 | 503  | Service initialising, please try again later. | Our relayer is starting up. Please wait.                                                                                                                                                    |
 | 503  | No available sender.                          | Configuration error for any.sender. Please contact us.                                                                                                                                      |
@@ -60,6 +60,7 @@ The API can return the following HTTP status codes:
 | 200  | Success                                       | All good!                                                                                               |
 | 400  | Data validation error                         | Unable to validate the address. Please check the address is formatted correctly.                        |
 | 429  | Too many requests.                            | Our global rate limit of 6 calls per second. We plan to increase this limit overtime. Please try again. |
+| 500  | Internal server error.                        | An unexpected error occurred server-side. Please contact us.                                            |
 | 502  | Internal server error.                        | An unexpected error occurred server-side. Please contact us.                                            |
 | 503  | Service initialising, please try again later. | Our relayer is starting up. Please wait.                                                                |
 
