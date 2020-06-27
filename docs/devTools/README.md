@@ -2,7 +2,18 @@
 
 Local development tools for deploying the [any.sender contracts](https://github.com/PISAresearch/contracts.any.sender) and hosting a mock any.sender API instance. We also have a live [ropsten API](../addresses.md) for when you're ready to take it to the next level :)
 
-## Deploying contracts locally
+```js
+import { deploy, any } from "@any-sender/client"
+
+// deploy contracts needed for local development
+await deploy.contracts(provider);
+
+// wrap a signer with any.sender, since this signer is connected
+// to a local provider it automatically uses a mock api
+const signerDot = any.sender(signer)
+```
+
+## Contracts
 
 To deploy the contracts import the `deploy` object from the `@any-sender/client` package.  The deploy object has a `contracts` function which accepts a provider and returns a promise of the contracts. Call this at the start of your tests before wrapping objects with `any.sender()`.
 
@@ -15,7 +26,7 @@ Can be an ethers `JsonRpcProvider`, `AsyncSendable` or a json rpc url as a `stri
 
 #### options?: DeployOptions
 An object containing options for the contract deployments. This parameter is optional.
-```
+```js
 {
     funder?: string | number;
     shardInterval?: number;
@@ -32,7 +43,7 @@ An object containing options for the contract deployments. This parameter is opt
 * `deployMetaTxContracts`: Whether to deploy the metatransaction hub, and the proxy account deployer. Default is true.
 
 #### Returns
-```
+```js
 Promise<{
     funder?: string | number;
     shardInterval?: number;
@@ -44,7 +55,7 @@ Promise<{
 Returns a promise of an object containing the `relay`, `adjudicator`, `lockableDeposit`, `relayer` contracts and the `receiptSigner` signer.
 
 #### Example
-```
+```js
 import { deploy } from "@any-sender/client;
 const contracts = await deploy.contracts(provider);
 ```
