@@ -24,7 +24,7 @@ Can be an ethers `JsonRpcProvider`, `AsyncSendable` or a json rpc url as a `stri
 }
 ```
 
-* `funder`: The address or index of the wallet that will be used to fund the any.sender deployment. If not supplied last wallet returned by provider.listAccounts will be used for this.
+* `funder`: The address or index of the wallet that will be used to fund the any.sender deployment. Defaults to the last signer returned by `provider.listAccounts`.
 * `shardInterval`: The data registry shard interval. The number of blocks before a shard can be rotated. Defaults to 180000.
 * `compensationPeriod`: The adjudicator compensation period. The number of blocks any.sender is allowed to give out compensation. Defaults to 180000.
 * `withdrawalPeriod`: The minimum amount of time between a withdrawal request and a withdrawal in the lockable deposit contract. Defaults to 360000.
