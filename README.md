@@ -81,6 +81,7 @@ We have put together a collection of documents to explain how any.sender works u
 
 - In depth documentation
   - [API](./docs/API.md)
+  - [Dev tools](./docs/devTools)
   - [Client library](./docs/client)
   - [Core client library](./docs/coreClient)
   - [Experimental client library](./docs/experimentalClient)
