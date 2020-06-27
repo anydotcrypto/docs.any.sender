@@ -4,7 +4,7 @@ Local development tools for deploying the [any.sender contracts](https://github.
 
 ## Deploying contracts locally
 
-To deploy the contracts import the `deploy` object from the `@any-sender/client` package.  The deploy object has an `contracts` function which accepts a provider and returns a promise of the contracts. Call this at some point in your tests before wrapping objects with `any.sender()`.
+To deploy the contracts import the `deploy` object from the `@any-sender/client` package.  The deploy object has a `contracts` function which accepts a provider and returns a promise of the contracts. Call this at the start of your tests before wrapping objects with `any.sender()`.
 
 ```
 contracts(provider: Provider, options?: DeployOptions) => Promise<Contracts>
