@@ -8,29 +8,23 @@ To deploy the contracts import the `deploy` object from the `@any-sender/client`
 
 
 ```
-contracts(
-    provider: JsonRpcProvider 
-            | AsyncSendable 
-            | string, 
-    options?: {
-        funder?: string | number;
-        shardInterval?: number;
-        compensationPeriod?: number;
-        withdrawalPeriod?: number;
-        deployMetaTxContracts?: boolean;
-    }) => Promise<{
-        relay,
-        adjudicator,
-        lockableDeposit,
-        receiptSigner,
-        relayer
-    }>
+contracts(provider: Provider, options?: DeployOptions) => Promise<Contracts>
 ```
 
-#### provider
+#### provider: JsonRpcProvider | AsyncSendable | string
 Can be an ethers `JsonRpcProvider`, `AsyncSendable` or a json rpc url as a `string`.
 
-#### options
+#### options: DeployOptions
+```
+{
+    funder?: string | number;
+    shardInterval?: number;
+    compensationPeriod?: number;
+    withdrawalPeriod?: number;
+    deployMetaTxContracts?: boolean;
+}
+```
+
 * `funder`: The address or index of the wallet that will be used to fund the any.sender deployment. If not supplied last wallet returned by provider.listAccounts will be used for this.
 * `shardInterval`: The data registry shard interval. The number of blocks before a shard can be rotated. Defaults to 180000.
 * `compensationPeriod`: The adjudicator compensation period. The number of blocks any.sender is allowed to give out compensation. Defaults to 180000.
@@ -38,7 +32,16 @@ Can be an ethers `JsonRpcProvider`, `AsyncSendable` or a json rpc url as a `stri
 * `deployMetaTxContracts`: Whether to deploy the metatransaction hub, and the proxy account deployer. Default is true.
 
 #### Returns
-A object containing the `relay`, `adjudicator`, `lockableDeposit`, `relayer` contracts and the `receiptSigner` signer.
+```
+Promise<{
+    funder?: string | number;
+    shardInterval?: number;
+    compensationPeriod?: number;
+    withdrawalPeriod?: number;
+    deployMetaTxContracts?: boolean;
+}>
+```
+An object containing the `relay`, `adjudicator`, `lockableDeposit`, `relayer` contracts and the `receiptSigner` signer.
 
 
 #### Example
