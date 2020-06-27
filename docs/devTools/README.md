@@ -6,7 +6,6 @@ Local development tools for deploying the [any.sender contracts](https://github.
 
 To deploy the contracts import the `deploy` object from the `@any-sender/client` package.  The deploy object has an `contracts` function which accepts a provider and returns a promise of the contracts. Call this at some point in your tests before wrapping objects with `any.sender()`.
 
-
 ```
 contracts(provider: Provider, options?: DeployOptions) => Promise<Contracts>
 ```
@@ -14,7 +13,7 @@ contracts(provider: Provider, options?: DeployOptions) => Promise<Contracts>
 #### provider: JsonRpcProvider | AsyncSendable | string
 Can be an ethers `JsonRpcProvider`, `AsyncSendable` or a json rpc url as a `string`.
 
-#### options: DeployOptions
+#### options?: DeployOptions
 ```
 {
     funder?: string | number;
@@ -41,8 +40,7 @@ Promise<{
     deployMetaTxContracts?: boolean;
 }>
 ```
-An object containing the `relay`, `adjudicator`, `lockableDeposit`, `relayer` contracts and the `receiptSigner` signer.
-
+Returns a promise of an object containing the `relay`, `adjudicator`, `lockableDeposit`, `relayer` contracts and the `receiptSigner` signer.
 
 #### Example
 ```
