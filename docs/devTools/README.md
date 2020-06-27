@@ -4,7 +4,7 @@ Local development tools for deploying the [any.sender contracts](https://github.
 
 ## Deploying contracts locally
 
-To deploy the contracts import the `deploy` object from the @any-sender/client package.  The deploy object has an `contracts` function which accepts a provider and returns a promise of the contracts. Call this at some point in your tests before wrapping objects with `any.sender()`.
+To deploy the contracts import the `deploy` object from the `@any-sender/client` package.  The deploy object has an `contracts` function which accepts a provider and returns a promise of the contracts. Call this at some point in your tests before wrapping objects with `any.sender()`.
 
 
 ```
@@ -54,4 +54,8 @@ npm run start
 ```
 
 ## Local API mocking
-When the `any.sender()` function wraps a contract or signer that's connected to a local rpc provider, the function automatically detects that a local provider is being used and instead of calling a real API instance will instead create a mock any.sender API internally from the provider. The mock API has a reduced feature set, as an example it doesnt wait a number of confirmations for a deposit to be recognised, but instead recognises the deposit immediately. Whilst the mock is useful in unit/integration testing it's important to test your code against our live ropsten API before going to production. Look at [example.js](./example.js) to see the mock being used in conjuction with a local provider.
+When the `any.sender()` function wraps a contract or signer that's connected to a local rpc provider, the function automatically detects that a local provider is being used and instead of calling a real API instance will instead create a mock any.sender API internally from the provider. The mock API has a reduced feature set, as an example it doesnt wait a number of confirmations for a deposit to be recognised, but instead recognises the deposit immediately. 
+
+Whilst the mock is useful in unit/integration testing it's important to test your code against our live [ropsten API](../addresses.md) before going to production. 
+
+Check out at [example.js](./example.js) to see the mock being used in conjuction with a local provider.
