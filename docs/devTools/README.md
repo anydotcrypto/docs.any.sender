@@ -46,7 +46,7 @@ A object containing the `relay`, `adjudicator`, `lockableDeposit`, `relayer` con
 import { deploy } from "@any-sender/client;
 const contracts = await deploy.contracts(provider);
 ```
-You can see a full runnable example in [example.js](./example.js). To run it, first install packages, then run.
+You can see a full runable example in [example.js](./example.js). To run it, first install packages, then run.
 ```
 cd docs/devTools
 npm i
