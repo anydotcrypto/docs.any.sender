@@ -14,7 +14,7 @@ contracts(provider: Provider, options?: DeployOptions) => Promise<Contracts>
 Can be an ethers `JsonRpcProvider`, `AsyncSendable` or a json rpc url as a `string`.
 
 #### options?: DeployOptions
-An object containing options for the contract deployments. The parameter is optional.
+An object containing options for the contract deployments. This parameter is optional.
 ```
 {
     funder?: string | number;
