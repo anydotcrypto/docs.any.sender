@@ -1,6 +1,6 @@
 # Dev tools
 
-Local development tools for deploying the [any.sender contracts](https://github.com/PISAresearch/contracts.any.sender) and hosting a mock any.sender instance. We also have a live ropsten API for when you're ready to take it to the next level :)
+Local development tools for deploying the [any.sender contracts](https://github.com/PISAresearch/contracts.any.sender) and hosting a mock any.sender API instance. We also have a live [ropsten API](../addresses.md) for when you're ready to take it to the next level :)
 
 ## Deploying contracts locally
 
