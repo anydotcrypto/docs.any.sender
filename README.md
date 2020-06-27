@@ -75,11 +75,7 @@ Here is a super-quick example on how to get started using the core-client librar
 
 For more details see the [client documentation and walkthrough](./docs/client/)
 
-## Further & In-depth Reading
-
-We have put together a collection of documents to explain how any.sender works under the hood alongside some code examples of how to use the service.
-
-- In depth documentation
+## Further reading & In-depth docs
   - [API](./docs/API.md)
   - [Dev tools](./docs/devTools)
   - [Client library](./docs/client)
