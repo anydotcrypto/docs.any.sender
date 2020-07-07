@@ -77,7 +77,7 @@ Returns a promise of an object containing the `relay`, `adjudicator`, `lockableD
 
 ## Local API mocking
 
-When the `any.sender()` function wraps a contract or signer that's connected to a local rpc provider, the function automatically detects if a mock API has been enabled being used and instead of calling a real API instance will instead create a mock any.sender API internally from the provider. The mock API has a reduced feature set, as an example it doesnt wait a number of confirmations for a deposit to be recognised, but instead recognises the deposit immediately.
+When the `any.sender()` function wraps a contract or signer that's connected to a local rpc provider, the function detects if a mock API has been enabled uses it instead of making remote calls to our live APIs. The mock API has a reduced feature set, as an example it doesnt wait a number of confirmations for a deposit to be recognised, but instead recognises the deposit immediately.
 
 Whilst the mock is useful in unit/integration testing it's important to test your code against our live [ropsten API](../addresses.md) before going to production.
 
@@ -90,3 +90,18 @@ Call this at the start of your tests to give the any.sender client access to a g
 ### disableMockApi(): void
 
 Call this when you no longer need the mock
+
+## CLI
+
+The dev tools can also executed from the command line using the `@any-sender/dev-tools-cli` package. This package puts an any.sender command on the path with starts a local chain, a deploys contracts and hosts any.sender via a local url.
+
+```sh
+npm i -g @any-sender/dev-tools-cli
+any.sender
+```
+
+Or if you wish to run your own development chain and attach any.sender to it you can pass the development chain url to the any.sender command with the `--jsonRpcUrl` command
+
+```sh
+any.sender --jsonRpcUrl http://localhost:8545
+```
