@@ -1,4 +1,9 @@
-const { deploy, any } = require("@any-sender/client");
+const {
+  deploy,
+  enableMockApi,
+  disableMockApi,
+} = require("@any-sender/dev-tools");
+const { any } = require("@any-sender/client");
 const { ethers } = require("ethers");
 const { parseEther } = require("ethers/utils");
 const Ganache = require("ganache-core");
@@ -24,7 +29,7 @@ const run = async () => {
   console.log((await userDot.any.getBalance()).toString());
 
   // disable the mock api, since we dont need it any more
-  disaleMockApi();
+  disableMockApi();
 };
 
 run();
