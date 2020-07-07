@@ -83,11 +83,11 @@ Whilst the mock is useful in unit/integration testing it's important to test you
 
 Check out at [example.js](./example.js) to see the mock being used in conjuction with a local provider.
 
-### enableMockApi(): void
+#### enableMockApi(): void
 
 Call this at the start of your tests to give the any.sender client access to a global mock
 
-### disableMockApi(): void
+#### disableMockApi(): void
 
 Call this when you no longer need the mock
 
