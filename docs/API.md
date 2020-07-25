@@ -1,6 +1,6 @@
 # API
 
-See [Addresses](./addresses.md) for instance and contract addresses.
+See [Addresses](./README.md#addresses) for instance and contract addresses.
 
 ## Methods
 
