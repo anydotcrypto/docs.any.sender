@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pisa.watch/schemas/status-response.json",
+  "type": "object",
+  "definitions": {
+    "broadcast": {
+      "$id": "#/definitions/broadcast",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ethTxHash", "broadcastTime", "gasPrice"],
+      "properties": {
+        "ethTxHash": {
+          "type": "string",
+          "minLength": 66,
+          "maxLength": 66
+        },
+        "broadcastTime": {
+          "type": "string"
+        },
+        "gasPrice": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "title": "Status response schema",
+  "required": ["broadcasts"],
+  "additionalProperties": false,
+  "properties": {
+    "broadcasts": {
+      "$id": "#/properties/broadcasts",
+      "type": "array",
+      "items": { "$ref": "#/definitions/broadcast" }
+    }
+  }
+}
