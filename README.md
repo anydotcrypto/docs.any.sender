@@ -4,12 +4,14 @@
 
 ### Announcement!
 
+Given the recent surge in network congestion from 15 gwei to 80+ gwei, we have decided to reduce the fee for using any.sender to **1% of the final gas cost**. See [Pricing](./docs//payments.md#pricing) for more information.
+
 We have released two new features for any.sender:
 
 - **Direct transaction.** The relay transaction is sent directly to the target contract and it is no longer routed via our relay contract. The gas overhead of using any.sender reduces **from 45k gas to 0 gas!**
 - **Status API.** To keep track of your relayed transaction, we now have a status service API to support fetching the list of published Ethereum transactions alongside the gas price issued for each transaction.
 
-Finally, even with this upgrade, any.sender is still non-custodial and never has access to your primary funds.
+Finally, any.sender is still non-custodial and never has access to your primary funds.
 
 ### Transactions made simple!
 
