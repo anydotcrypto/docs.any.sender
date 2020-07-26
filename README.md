@@ -4,7 +4,7 @@
 
 ### Announcement!
 
-Given the recent surge in network congestion from 15 gwei to 80+ gwei, we have decided to reduce the fee for using any.sender to **1% of the final gas cost**. See [Pricing](./docs//payments.md#pricing) for more information.
+The surge in network congestion has severely impacted the daily average fee as it has risen from 10-15 gwei to 80+. To help the community navigate the high-fee summer season, we have reducedthe any.sender fee to **1% of the final gas cost**. Please see [Pricing](./docs//payments.md#pricing) for more information.
 
 We have released two new features for any.sender:
 

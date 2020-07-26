@@ -63,7 +63,7 @@ Returns a [receipt](../relayReceipt.md) signed by the receipt signer address. Th
 const signedReceipt = await client.relay({ ...relayTx, signature });
 ```
 
-## Example - basic usage
+## Example - basic usage (direct transaction)
 
 ```ts
 import { AnyDotSenderCoreClient } from "@any-sender/client";
@@ -97,24 +97,21 @@ const relayTx = {
   from: userWallet.address,
   to: echoContractAddress,
   data: data,
-  deadline: deadline,
   gasLimit: 100000, // should be plenty
-  compensation: "500000000", // 5 gwei
-  relayContractAddress: "0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7",
 };
 
-// sign the relay transaction
+// sign the direct transaction
 const id = AnyDotSenderCoreClient.relayTxId(relayTx);
 const signature = await userWallet.signMessage(ethers.utils.arrayify(id));
 const signedTx = { ...relayTx, signature };
 
-// send the transaction
+// send the transaction & get signed receipt from any.sender
 const receipt = await anySenderClient.relay(signedTx);
 ```
 
 # Full example and walkthrough
 
-any.sender is a general-purpose transaction relayer and its only job is to guarantee your transactions get accepted in the Ethereum blockchain by a deadline.
+any.sender is a general-purpose transaction relayer and its only job is to guarantee your transactions get accepted in the Ethereum blockchain in a timely manner.
 
 You can configure the payload as you like, but in this tutorial, we will just send a string message to an echo contract.
 
@@ -170,7 +167,7 @@ Our example echo contract can be found [here](https://ropsten.etherscan.io/addre
 
 ## First run - not enough balance.
 
-Lets start by running the `echo` script.
+Lets start by running the `echo-direct.js` script to send a direct transaction.
 
 Users need to have balance with any.sender, which your user account does not yet. We expect the echo script to fail at this point, so let's verify this by running it.
 
@@ -179,13 +176,13 @@ You'll need your key details and the json rpc url, and to choose a message to se
 The echo command accepts one of `--privKey`, `--mnemonic` or the `--keyfile --password` options for authenticating the user account. It also requires the `--jsonRpc` to be set, along with a `--msg` of your choice.
 
 ```
-node echo.js --jsonRpc=<value> --privKey=<value> --msg=<value>
+node echo-direct.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 
 example with dummy variables:
 
 ```
-node echo.js --jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
+node echo-direct.js --jsonRpc=https://ropsten.infura.io/v3/268eda053b2a35cb846ee997fb879282 --privKey=0x9a7a70558b7e16e9874eaa35b51aa388b9a32e13607b38f5f4f53926ab1aff8b --msg="Hi from anydot!"
 ```
 
 Execute the command - you should receive the following message:
@@ -223,34 +220,26 @@ Now that the user has been topped up let's run the echo script again, this time 
 Run the echo script again, inserting the same values as the first run:
 
 ```
-node echo.js --jsonRpc=<value> --privKey=<value> --msg=<value>
+node echo-direct.js --jsonRpc=<value> --privKey=<value> --msg=<value>
 ```
 
 If all goes well, this should be your result:
 
 ```
-Current balance: 609999999993928805
+Current balance: 205956460494620122
+Sending relay tx: 0x3e3a880c0a6f5880fde712d549a82f2ae71d57f509ce92c1df9c563a86e8334d at block 8372940
 
-Subscribing to relay event.
-Sending relay tx with id: 0x3901e8b7998b1a03d0c1b73abca6b9ff7cb9f0c9f718bd50fc4384d7020d3706 at block 7467284
+Direct tx mined with id: 0x3e3a880c0a6f5880fde712d549a82f2ae71d57f509ce92c1df9c563a86e8334d at block 8372942
+Tx relayed after 0 block. Pretty cool, I guess. (⌐■_■)
 
-Receipt received for tx with id: 0x3901e8b7998b1a03d0c1b73abca6b9ff7cb9f0c9f718bd50fc4384d7020d3706
-Waiting for relay event...
-
-... block mined 7467285
-... block mined 7467286
-
-Relay tx mined with id: 0x3901e8b7998b1a03d0c1b73abca6b9ff7cb9f0c9f718bd50fc4384d7020d3706 at block 7467286
-Tx relayed after 1 block. Pretty cool, I guess. (⌐■_■)
-
-See your message at https://ropsten.etherscan.io/tx/0xe557d5feee1d2cc28cca4ce61a5f78ca271e6f139bd82f4a44d9a671a994dd8e#eventlog
+See your message at https://ropsten.etherscan.io/tx/0x7fc694cc130057657b63a541837e552a3585dd38fcb6a05ea9413569ecceed8e#eventlog
 ```
 
 Go to the link in the output, did you see your message? Click the Event Logs tab if it is not already selected.
 
 ## Code walkthrough - what actually happened
 
-Now let's go through the code line by line, dissecting what's happening. Open [echo.js](./echo.js) in a text editor.
+Now let's go through the code line by line, dissecting what's happening. Open [echo.js](./echo-direct.js) in a text editor.
 
 #### 1. Imports:
 
@@ -310,9 +299,9 @@ const data = echoInterface.functions.echo.encode([
 ]);
 ```
 
-#### 5. Form the relay tx
+#### 5. Form the direct transaction
 
-The relay tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](../relayTransaction.md).
+The accountable tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](../relayTransaction.md).
 
 ```js
 const currentBlock = await provider.getBlockNumber();
@@ -322,10 +311,7 @@ const relayTx = {
   from: userWallet.address,
   to: echoContractAddress,
   data: data,
-  deadline: deadline,
   gasLimit: 100000, // should be plenty
-  compensation: "5000000000", // 5 gwei
-  relayContractAddress: relayContractAddress,
 };
 ```
 
@@ -333,10 +319,8 @@ const relayTx = {
 - **from**: The user whose balance will be used. This account must also sign the relay transaction
 - **to**: The destination of the transaction, in this case we're targeting the echo contract
 - **data**: The data to be executed at the target, we formed this earlier using the echo contract ABI
-- **deadline**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
 - **gasLimit**: The amount of gas allocated to the call. This should be the same as a normal transaction
-- **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See [guarantees](../guarantees.md) for more details.
-- **relayContractAddress**: the address of the [relay contract address](https://ropsten.etherscan.io/address/0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7). This ensures that the user can verify the deployed Relay contract that any.sender will use.
+  Note a direct transaction does not have a deadline, compensation or relayContractAddress.
 
 #### 6. Sign the relay transacation
 
@@ -348,42 +332,27 @@ const signature = await userWallet.signMessage(arrayify(id));
 const signedTx = { ...relayTx, signature };
 ```
 
-#### 7. Subscribe to the relay event
+#### 7. Request transaction hashes from the Status API
 
-Before we send the transaction to any.sender we subscribe to the event that will be emitted when the transaction is mined. The any.sender client has a utility function for constructing the topics for this. If the relay contract emits a event with correct topics we'll consider the transaction to be relayed. We then print some feedback to the user.
-
-```js
-const topics = AnyDotSenderCoreClient.getRelayExecutedEventTopics(relayTx);
-provider.once(
-  { address: relayContractAddress, topics },
-  async event => {
-    const blocksUntilMined = event.blockNumber - currentBlock;
-    console.log();
-    console.log(
-      `Relay tx mined with id: ${event.topics[1]} at block ${event.blockNumber}`
-    );
-    console.log(
-      `Tx relayed after ${blocksUntilMined - 1} block${
-        blocksUntilMined > 2 ? "s" : ""
-      }. Pretty cool, I guess. (⌐■_■)`
-    );
-    console.log();
-    console.log(
-      `See your message at https://ropsten.etherscan.io/tx/${event.transactionHash#eventlog`
-    );
-    // remove the block listener so we can exit
-    provider.removeAllListeners("block");
-  }
-);
-```
-
-We also subscribe to the "block" event to feedback to the console when a new block is mined.
+The any.sender service sends the transaction to the network and bumps the transaction fee for nearly every new block until it is confirmed. Every fee bump changes the Ethereum transaction hash and this has an impact on the client as there is no single transaction hash to watch. In our example code, the client requests the list of transaction hashes from the any.sender API and then it can check with the provider if the transaction was confirmed in the blockchain.
 
 ```js
-provider.on("block", (block) => {
-  if (block !== currentBlock) console.log("... block mined", block);
-});
+await waitForConfirmation(provider, anySenderClient, id, sentAtBlock);
 ```
+
+To summarise what `waitForConfirmation` doing under the hood:
+
+```js
+const status = await anySenderClient.getStatus(id);
+
+    for (let i = 0; i < status.length; i++) {
+      const txReceipt = await provider.getTransactionReceipt(
+        status[i].ethTxHash
+      );
+      // Go through each transaction hash and check if it is confirmed.
+```
+
+If we find a confirmed transaction hash, then the echo script prints to the screen.
 
 #### 8. Send the relay transaction
 
