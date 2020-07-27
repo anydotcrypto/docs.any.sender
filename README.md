@@ -4,11 +4,11 @@
 
 ### Announcement!
 
-The daily average fee on Ethereum has risen from 10-15 gwei to 80+ gwei. We built any.sender to help the community navigate the high-fee season, but we did not expect it to arrive so soon. We have reduced the any.sender fee to **1% of the final gas cost** to ensure we are helping you save money. Please see [Pricing](./docs//payments.md#pricing) for more information.
+The daily average fee on Ethereum has risen from 10-15 gwei to 80+ gwei. We built any.sender to help the community navigate the high-fee season, but we did not expect it to arrive so soon. We have reduced the any.sender fee to **2% of the final gas cost** to ensure we are helping you save money. Please see [Pricing](./docs//payments.md#pricing) for more information.
 
 We have released two new features for any.sender:
 
-- **Direct transaction.** The relay transaction is sent directly to the target contract and it is no longer routed via our relay contract. The gas overhead of using any.sender reduces **from 45k gas to 0 gas!**
+- **Direct transaction.** The relay transaction is sent directly to the target contract and the gas overhead of using any.sender is reduced **from 45k gas to 0 gas!**
 - **Status API.** To keep track of your relayed transaction, we now have a status service API to support fetching the list of published Ethereum transactions alongside the gas price issued for each transaction.
 
 Finally, any.sender is still non-custodial and never has access to your primary funds.
