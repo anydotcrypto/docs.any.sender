@@ -301,11 +301,9 @@ const data = echoInterface.functions.echo.encode([
 
 #### 5. Form the direct transaction
 
-The accountable tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](../relayTransaction.md).
+The direct tx defines all the properties of what any.sender must do. A relay tx is very similar to a normal transaction except for a few fields. You can read more about the individual fields [here](../relayTransaction.md).
 
 ```js
-const currentBlock = await provider.getBlockNumber();
-const deadline = currentBlock + 405;
 const relayTx = {
   chainId: 3,
   from: userWallet.address,
@@ -320,7 +318,6 @@ const relayTx = {
 - **to**: The destination of the transaction, in this case we're targeting the echo contract
 - **data**: The data to be executed at the target, we formed this earlier using the echo contract ABI
 - **gasLimit**: The amount of gas allocated to the call. This should be the same as a normal transaction
-  Note a direct transaction does not have a deadline, compensation or relayContractAddress.
 
 #### 6. Sign the relay transacation
 
@@ -371,3 +368,29 @@ We execute the run function which will send the relay transaction and wait until
 ```js
 run().catch((err) => console.error(err.message));
 ```
+
+#### 10. What about accountable transactions?
+
+Check out the script `accountable-echo.js`. It copies the above tutorial, but it sends any.sender a financially accountable transaction in which we guarantee it will be confirmed in Ethereum by a future block deadline.
+
+An accountable transaction has three additional fields:
+
+```js
+const currentBlock = await provider.getBlockNumber();
+const deadline = currentBlock + 405;
+const relayTx = {
+  ...,
+  deadline: deadline,
+  compensation: "5000000000", // 5 gwei
+  relayContractAddress: relayContractAddress,
+};
+```
+
+A short explanation for each field:
+
+- **deadline**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
+- **gasLimit**: The amount of gas allocated to the call. This should be the same as a normal transaction
+- **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See guarantees for more details.
+- **relayContractAddress**: the address of the relay contract address. This ensures that the user can verify the deployed Relay contract that any.sender will use.
+
+Finally, all accountable transactions are sent via our relay contract to record a log that your transaction was confirmed on block X. It also emits an event when the relay transaction is confirmed. Our example code watches for the relay event in the contract to verify when the transaction is confirmed. While we recommend using the Status API to fetch the transaction hashes, you can also just watch for the events on-chain.

@@ -4,7 +4,7 @@
 
 ### Announcement!
 
-The surge in network congestion has severely impacted the daily average fee as it has risen from 10-15 gwei to 80+. To help the community navigate the high-fee summer season, we have reducedthe any.sender fee to **1% of the final gas cost**. Please see [Pricing](./docs//payments.md#pricing) for more information.
+The daily average fee on Ethereum has risen from 10-15 gwei to 80+ gwei. We built any.sender to help the community navigate the high-fee season, but we did not expect it to arrive so soon. We have reduced the any.sender fee to **1% of the final gas cost** to ensure we are helping you save money. Please see [Pricing](./docs//payments.md#pricing) for more information.
 
 We have released two new features for any.sender:
 

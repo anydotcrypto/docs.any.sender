@@ -51,7 +51,7 @@ const balance = await client.balance(userWallet.address);
 
 ### Pricing
 
-Given the rise of network fees, any.sender now **charges 1% of the final gas cost of the transaction** and there is zero gas overhead to use any.sender. To illustrate, if the final gas price for a transaction was 80 gwei, then we charge 0.8 gwei. The 1% fee covers the cost for us to run the any.sender service and the fee may change in the future depending on network conditions. Our goal, even taking into account our fee markup, is to save the customer money by using any.sender.
+Given the rise of network fees, any.sender now **charges 2% of the final gas cost of the transaction** and there is zero gas overhead to use any.sender. To illustrate, if the final gas price for a transaction was 80 gwei, then we charge 0.8 gwei. The 2% fee covers the gas and server cost to run the any.sender service and the fee will adjust in the future depending on the network conditions. Our goal, even taking into account our fee markup, is to save the customer money by using any.sender.
 
 ## Locked balance for pending transactions
 
