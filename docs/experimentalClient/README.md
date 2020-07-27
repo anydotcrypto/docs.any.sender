@@ -85,12 +85,18 @@ Sends a transaction via any.sender. Mandatory fields:
 
 Optional fields:
 
-- **compensation**: **Only valid for accounable transactions** - any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **type**: defines if the transaction is "direct" or "accountabe", it defaults to "direct".
 - **gasLimit**: same as a normal transaction
 
-Notice that there is no option to provide a nonce. any.sender relays all transactions in the order it is received, so if you want to guarantee order then wait until the `sendTransaction` returns before sending the next one. Likewise, if ordering is not important, then you can send the transactions to any.sender concurrently.
+Optional accountable transaction fields:
 
-Of course, if the wallet contract does not exist, then this function batches the call such that the wallet contract is deployed before the meta-transaction is executed. The batch is performed in a single Ethereum Transaction.
+- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
+- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
+
+Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
+
+**Wallet contract is not yet deployed?** No problem! This function batches the call such that the wallet contract is deployed before the meta-transaction is executed. The batch is performed in a single Ethereum Transaction.
 
 #### Returns data
 
@@ -114,6 +120,16 @@ const relayReceipt = await anyUserWallet.any.sendTransaction({
   data: "<data>",
 });
 const transactionReceipt = await relayReceipt.wait();
+```
+
+## Target contract
+
+### Import
+
+To import and use the any.sender client import the `any` object from the client library:
+
+```ts
+import { any } from "@any-sender/client";
 ```
 
 ### any.senderAccount(contract: Contract, settings?: {})
@@ -142,8 +158,20 @@ Each of the functions that send transactions have been replaced to instead send 
 
 #### Optional overrides
 
-- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+Optional fields:
+
+- **type**: defines if the transaction is "direct" or "accountabe", it defaults to "direct".
 - **gasLimit**: same as a normal transaction
+
+Optional accountable transaction fields:
+
+- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
+- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
+
+Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
+
+**Wallet contract is not yet deployed?** No problem! This function batches the call such that the wallet contract is deployed before the meta-transaction is executed. The batch is performed in a single Ethereum Transaction.
 
 #### Return data
 
