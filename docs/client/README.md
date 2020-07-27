@@ -8,7 +8,7 @@ The any.sender client is the easiest way to interact with the any.sender API. It
 
 ### Import
 
-To import and use the any.sender client import the `any` object from the client library:
+Use the `any` object to import any.sender from the client library:
 
 ```ts
 import { any } from "@any-sender/client";
@@ -16,9 +16,9 @@ import { any } from "@any-sender/client";
 
 ### any.sender(signer: Signer, settings?: {} )
 
-Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.sender(signer).sendTransaction(tx)` will not got via any.sender but will send a normal transaction from the signer.
+Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.sender(signer).sendTransaction(tx)` will not go via any.sender but will send a normal transaction from the signer.
 
-Optional setting can also be provided:
+Optionals setting can also be provided:
 
 - apiUrl: the url of the any.sender API defaults to the known instance for the provider network
 - receiptSigner: the url of the any.sender API defaults to known address for the provider network
@@ -79,21 +79,27 @@ Sends a transaction via any.sender. Mandatory fields:
 
 Optional fields:
 
-- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **type**: defines if the transaction is "direct" or "accountabe", it defaults to "direct".
 - **gasLimit**: same as a normal transaction
 
-Notice that there is no option to provide a nonce. Maintains the order in which it receives transactions from the same sender, so if you need to guarantee order wait until the `sendTransaction` function returns before sending the next one. Likewise if ordering is not a requirement you can send transactions concurrently.
+Optional accountable transaction fields:
+
+- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **deadline**: any.sender tries to get the transaction accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. BETA: It must be set to 0 or approximately 400 blocks in the future.
+- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. It does not need to be set/changed, but check [Addresses](../../README.md#addresses) for more information .
+
+Notice that there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
 #### Returns data
 
 `sendTransaction` returns a signed receipt object of the form:
 
-```
+```js
 {
     "relayTransaction": RelayTransaction, // the same as the input tx
     "id": string, // an id for this transaction, created by hashing the relay transaction
-    "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
-    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+    "receiptSignature": string, // a signature from any.sender to prove the job was accepted
+    "wait": function(confirmations: number): TransactionReceipt { ... }; // it waits until the transaction is mined. Returns a normal transaction receipt.
 }
 ```
 
@@ -128,21 +134,31 @@ const anyContract = any.sender(contract);
 
 ### Functions
 
-Each of the functions that send transactions have been replaced to instead send transactions via any.sender. They also now have a different signature. Each function has the normal function arguments, but now has overrides relevant to any.sender. Additionally the functions return a relay receipt, instead of a transaction response.
+When a function on a contract sends a transaction to Ethereum, we have changed it such that the transaction is sent via any.sender. Each function still has the normal function arguments, but it can include additional overrides relevant for any.sender. When the function is called, it returns a relay receipt instead of a transaction response and just to clarify, `response.wait()` still works and that will return a normal transaction receipt.
 
 #### Optional overrides
 
-- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+Optional fields:
+
+- **type**: defines if the transaction is "direct" or "accountabe", it defaults to "direct".
 - **gasLimit**: same as a normal transaction
+
+Optional accountable transaction fields:
+
+- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **deadline**: any.sender tries to get the transaction accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. BETA: It must be set to 0 or approximately 400 blocks in the future.
+- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. It does not need to be set/changed, but check [Addresses](../../README.md#addresses) for more information .
+
+Notice that there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
 #### Return data
 
-```
+```js
 {
     "relayTransaction": RelayTransaction, // the relay transaction that was sent to any.sender
     "id": string, // an id for that transaction, created by hashing the relay transaction
     "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
-    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+    "wait": function(confirmations: number): TransactionReceipt { ... } // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
 }
 ```
 
@@ -336,21 +352,19 @@ A signed relay receipt from the any.sender service is returned after the job is 
 
 ```ts
 { relayTransaction:
-   { compensation: '0',
-     data:
-      '0xf15da729000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000892d2d2048656c6c6f20776f726c64202d2d20286d6573736167652073656e7420627920307862366439653030303631323830624146333661636437426335363230363133354264413330324330206174204d6f6e204a756e20303820323032302031393a30393a353920474d542b303130302028427269746973682053756d6d65722054696d6529290000000000000000000000000000000000000000000000',
-     deadline: 8052536,
-     from: '0xb6d9e00061280bAF36acd7Bc56206135BdA302C0',
+   { data:
+      '0xf15da729000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000892d2d2048656c6c6f20776f726c64202d2d20286d6573736167652073656e7420627920307864613044323564374646393731423741354265463032454338423639313736366639394338306330206174204d6f6e204a756c20323720323032302031333a30333a303520474d542b303130302028427269746973682053756d6d65722054696d6529290000000000000000000000000000000000000000000000',
+     from: '0xda0D25d7FF971B7A5BeF02EC8B691766f99C80c0',
      gasLimit: 27445,
-     relayContractAddress: '0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7',
      to: '0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83',
      chainId: 3,
+     type: 'direct',
      signature:
-      '0x11e623aadd5240e0fbb4a49ed97c356c82a7ea186df575e3daa0772aac9258b06b9852063c60a740c5139699fbae8474d6d96b5ba603115d14fce83e9b65dbbf1c' },
+      '0xd5cbbdd5ccf4137ad026aa49afa78160d0c3b2edf3ece353779940ac19cd0b107f4b9bdabbfdd4a82fcb9187323cfed617c4f3689ede5c274191122992e911ef1c' },
   receiptSignature:
-   '0xe6938cf057665be65c25d6793585988c4d51e3a3e15e71e48d52a28d49dae3923496695a422ec5ddeec416693a38e7d27b965f4b18d8b29371a7e8aca8c3d46c1c',
+   '0xec2210dce170c2202f6be3dbaa115792557653ec00b5f31df4458e39f268e2ab30ed6d20dcac11fe96157dc2b0632b7c5f8afb4eebbf8314e987200eb3ec8aa11b',
   id:
-   '0x3a3e84f79fdd4d69347dd7fbb24994044ce5aa3903644c21813aeb6d2416a041',
+   '0xecefd81f4b55017d4e840cb8b10d52cd9be0e9e6d51b07d846943e47a8292586',
   wait: [AsyncFunction: wait] }
 ```
 

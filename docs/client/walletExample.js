@@ -53,6 +53,7 @@ const run = async (
   ]);
 
   const blockBeforeSend = await provider.getBlockNumber();
+
   // user the any.sendTransaction function to send via any.sender
   const relayReceipt = await userAnyWallet.any.sendTransaction({
     to: echoContractAddress,
