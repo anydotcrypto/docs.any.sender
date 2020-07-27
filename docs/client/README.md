@@ -82,7 +82,7 @@ Optional fields:
 - **type**: defines if the transaction is "direct" or "accountabe", it defaults to "direct".
 - **gasLimit**: same as a normal transaction
 
-Optional accountable transaction fields:
+Only applicable for accountable transactions (optional):
 
 - **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
 - **deadline**: any.sender tries to get the transaction accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. BETA: It must be set to 0 or approximately 400 blocks in the future.
@@ -293,11 +293,11 @@ Tx relayed after 0 block. Pretty cool, I guess. (⌐■_■)
 See your message at https://ropsten.etherscan.io/tx/0x6334b128f9237209a041add7f01d7f9fb11ee0e435b08c3dd55e597b4a9e5865#eventlog
 ```
 
-Go to the link in the output, did you see your message? Click the Event Logs tab if it is not already selected. Don't forget to repeat the above steps for `walletExample.js`!
+Go to the link in the output, did you see your message? Click the Event Logs tab if it is not already selected.
 
 ## Code walkthrough - what actually happened
 
-Now let's go through the code line by line, dissecting what's happening. Open [echo.js](./echo.js) in a text editor.
+Now let's go through the code line by line, dissecting what's happening. Open [contractExample.js](./contractExample.js) in a text editor.
 
 #### 1. Imports:
 
@@ -352,9 +352,17 @@ A signed relay receipt from the any.sender service is returned after the job is 
 
 ```ts
 { relayTransaction:
+<<<<<<< HEAD
    { data:
       '0xf15da729000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000892d2d2048656c6c6f20776f726c64202d2d20286d6573736167652073656e7420627920307864613044323564374646393731423741354265463032454338423639313736366639394338306330206174204d6f6e204a756c20323720323032302031333a30333a303520474d542b303130302028427269746973682053756d6d65722054696d6529290000000000000000000000000000000000000000000000',
      from: '0xda0D25d7FF971B7A5BeF02EC8B691766f99C80c0',
+=======
+   {
+     type: "direct",
+     data:
+      '0xf15da729000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000892d2d2048656c6c6f20776f726c64202d2d20286d6573736167652073656e7420627920307862366439653030303631323830624146333661636437426335363230363133354264413330324330206174204d6f6e204a756e20303820323032302031393a30393a353920474d542b303130302028427269746973682053756d6d65722054696d6529290000000000000000000000000000000000000000000000',
+     from: '0xb6d9e00061280bAF36acd7Bc56206135BdA302C0',
+>>>>>>> 3f54e22abf23d2ff13b8a58d691e8ddac6aa197e
      gasLimit: 27445,
      to: '0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83',
      chainId: 3,
