@@ -85,10 +85,10 @@ Optional fields:
 Only applicable for accountable transactions (optional):
 
 - **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
-- **deadline**: any.sender tries to get the transaction accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. BETA: It must be set to 0 or approximately 400 blocks in the future.
-- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. It does not need to be set/changed, but check [Addresses](../../README.md#addresses) for more information .
+- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
+- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
 
-Notice that there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
+Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives them from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
 #### Returns data
 
@@ -112,6 +112,16 @@ const relayReceipt = await anyUserWallet.any.sendTransaction({
   data: "<data>",
 });
 const transactionReceipt = await relayReceipt.wait();
+```
+
+## Contract
+
+### Import
+
+Use the `any` object to import any.sender from the client library:
+
+```ts
+import { any } from "@any-sender/client";
 ```
 
 ### any.sender(contract: Contract, settings?: {})
@@ -146,10 +156,10 @@ Optional fields:
 Optional accountable transaction fields:
 
 - **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
-- **deadline**: any.sender tries to get the transaction accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. BETA: It must be set to 0 or approximately 400 blocks in the future.
-- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. It does not need to be set/changed, but check [Addresses](../../README.md#addresses) for more information .
+- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
+- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
 
-Notice that there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
+Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
 #### Return data
 
