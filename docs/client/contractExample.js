@@ -4,12 +4,8 @@ const { any } = require("@any-sender/client");
 
 // prerequisites
 const message = "Hello world";
-const userWallet = new Wallet(
-  "21a13bb36805692782a1f337f0de0f82dbbf2679ac150fb38b8811d3ab438ac1"
-);
-const provider = new JsonRpcProvider(
-  "https://ropsten.infura.io/v3/7333c8bcd07b4a179b0b0a958778762b"
-);
+const userWallet = new Wallet("<key>");
+const provider = new JsonRpcProvider("<infura link>");
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
   {
@@ -53,7 +49,6 @@ const run = async (
     ).toString()})`
   );
 
-  console.log(relayReceipt);
   // wait until the transaction is mined
   console.log("Transaction sent, waiting for blocks to be mined.");
   const txReceipt = await relayReceipt.wait();
