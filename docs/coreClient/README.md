@@ -63,6 +63,14 @@ Returns a [receipt](../relayReceipt.md) signed by the receipt signer address. Th
 const signedReceipt = await client.relay({ ...relayTx, signature });
 ```
 
+### getStatus (relayTxId: string) : Promise<TxStatus[]>
+
+Gets status information about this relay tx id. `getStatus` returns an array of broadcasts, ordered from most recent to oldest, representing each of the times any.sender has broadcast this relay transaction, and at what price. See the [Status API](../API.md#Status)
+
+```ts
+const statusInfos = await client.getStatus(relayTxId);
+```
+
 ## Example - basic usage (direct transaction)
 
 ```ts
@@ -331,7 +339,7 @@ const signedTx = { ...relayTx, signature };
 
 #### 7. Request transaction hashes from the Status API
 
-The any.sender service sends the transaction to the network and bumps the transaction fee for nearly every new block until it is confirmed. Every fee bump changes the Ethereum transaction hash and this has an impact on the client as there is no single transaction hash to watch. In our example code, the client requests the list of transaction hashes from the any.sender API and then it can check with the provider if the transaction was confirmed in the blockchain.
+The any.sender service sends the transaction to the network and periodically bumps the transaction fee until the transaction is confirmed. Every fee bump changes the Ethereum transaction hash and this has an impact on the client as there is no single transaction hash to watch. In our example code, the client requests the list of transaction hashes from the any.sender API and then it can check with the provider if the transaction was confirmed in the blockchain.
 
 ```js
 await waitForConfirmation(provider, anySenderClient, id, sentAtBlock);
@@ -373,23 +381,27 @@ run().catch((err) => console.error(err.message));
 
 Check out the script `accountable-echo.js`. It copies the above tutorial, but it sends any.sender a financially accountable transaction in which we guarantee it will be confirmed in Ethereum by a future block deadline.
 
-An accountable transaction has three additional fields:
+An accountable transaction has some additional fields:
 
 ```js
 const currentBlock = await provider.getBlockNumber();
 const deadline = currentBlock + 405;
 const relayTx = {
-  ...,
+  chainId: 3,
+  from: userWallet.address,
+  to: echoContractAddress,
+  data: data,
   deadline: deadline,
-  compensation: "5000000000", // 5 gwei
+  gasLimit: 100000, // should be plenty
+  compensation: "500000000", // 0.5 gwei
   relayContractAddress: relayContractAddress,
+  type: "accountable", // accountable transaction type
 };
 ```
 
 A short explanation for each field:
 
 - **deadline**: The deadline by which this transaction MUST be mined. Although this is expected to reduce, the current beta requires that the deadline must be at least 400 blocks from the current block. Although this is far in future, the relay transaction is expected to be mined long before this time.
-- **gasLimit**: The amount of gas allocated to the call. This should be the same as a normal transaction
 - **compensation**: any.sender tries very hard to get a transaction mined before a deadline, but in the event that it's unable to, the user is owed a compensation specified by the compensation amount. See guarantees for more details.
 - **relayContractAddress**: the address of the relay contract address. This ensures that the user can verify the deployed Relay contract that any.sender will use.
 

@@ -1,6 +1,6 @@
 # any.sender
 
-**BETA**: While any.sender is fast approaching production readiness, we still consider it in beta and the latest release is v0.3.0 beta. We recommend using any.sender with small funds and non-critical transactions.
+**BETA**: While any.sender is fast approaching production readiness, we still consider it in beta and the latest release is v0.4.0 beta. We recommend using any.sender with small funds and non-critical transactions.
 
 ### Announcement!
 
@@ -22,8 +22,6 @@ Its API handles the entire transaction process on behalf of the user, so they do
 any.sender endeavours to save precious development time by handling all edge cases for transaction delivery and getting it mined reliably. You, the user, can simply focus on making your dapp great and we'll take care of getting transactions mined on time, every time.
 
 ## Features that make any.sender useful
-
-Sending a transaction via any.sender has **0 gas overhead.**
 
 Essential features:
 

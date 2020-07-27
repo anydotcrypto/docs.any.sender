@@ -4,7 +4,7 @@
 npm i @any-sender/dev-tools
 ```
 
-Local development tools for deploying the [any.sender contracts](https://github.com/PISAresearch/contracts.any.sender) and hosting a mock any.sender API instance. We also have a live [ropsten API](../addresses.md) for when you're ready to take it to the next level :)
+Local development tools for deploying the [any.sender contracts](https://github.com/PISAresearch/contracts.any.sender) and hosting a mock any.sender API instance. We also have a live [ropsten API](../../README#addresses) for when you're ready to take it to the next level :)
 
 ```js
 import { deploy, enableMockApi } from "@any-sender/dev-tools";
@@ -79,7 +79,7 @@ Returns a promise of an object containing the `relay`, `adjudicator`, `lockableD
 
 When the `any.sender()` function wraps a contract or signer that's connected to a local rpc provider, the function detects if a mock API has been enabled uses it instead of making remote calls to our live APIs. The mock API has a reduced feature set, as an example it doesnt wait a number of confirmations for a deposit to be recognised, but instead recognises the deposit immediately.
 
-Whilst the mock is useful in unit/integration testing it's important to test your code against our live [ropsten API](../addresses.md) before going to production.
+Whilst the mock is useful in unit/integration testing it's important to test your code against our live [ropsten API](../../README.md#addresses) before going to production.
 
 Check out at [example.js](./example.js) to see the mock being used in conjuction with a local provider.
 

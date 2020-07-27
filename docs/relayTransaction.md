@@ -15,19 +15,23 @@ Both relay transactions have a very similar structure to a normal transaction. T
 
 ### Fields
 
-A direct transaction is validated against this [json schema](./relayTx.schema.json).
+A direct transaction is validated against this [json schema](./directTransaction.schema.json).
 
 ```
 {
+  "type": "direct",
   "chainId": number,
   "from": string (address)
   "to": string (address)
   "gasLimit": number (uint256)
   "data": string (bytes)
-  "signature": string (bytes),
-  "type": number (uint256) // MUST be 0
+  "signature": string (bytes)
 }
 ```
+
+### type (string: "direct")
+
+A string with the value "direct", specifies that this is an direct tx.
 
 ### chainId (uint256)
 
@@ -61,10 +65,11 @@ A signature made by the `from` authority over the full relay transaction data, u
 
 ### Fields
 
-An accountable transaction is validated against this [json schema](./relayTx.schema.json).
+An accountable transaction is validated against this [json schema](./accountableTransaction.schema.json).
 
 ```
 {
+  "type": "accountable",
   "chainId": number,
   "from": string (address)
   "to": string (address)
@@ -73,10 +78,13 @@ An accountable transaction is validated against this [json schema](./relayTx.sch
   "data": string (bytes)
   "compensation": string (number uint256) // number as a string - stringified base 10
   "relayContractAddress": string (address),
-  "signature": string (bytes),
-  "type": number (uint256) // default is 0 (direct-transaction)
+  "signature": string (bytes)
 }
 ```
+
+### type (string: "accountable")
+
+A string with the value "accountable", specifies that this is an accountable tx.
 
 ### chainId (uint256)
 

@@ -58,7 +58,6 @@ const run = async (
     to: echoContractAddress,
     data: data,
     gasLimit: 100000,
-    type: 0,
   });
 
   // wait until the transaction is mined
