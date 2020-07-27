@@ -207,7 +207,7 @@ Our example echo contract can be found [here](https://ropsten.etherscan.io/addre
 
    Copy the json rpc url (e.g. https://ropsten.infura.io/v3/7333c8bcd07b4a179b0b0a958778762b) for later use.
 
-6. If you already have an Ethereum address on Ropsten, then you'll need to export the private key (or the keyfile/mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](./generateAccount.js)
+6. If you already have an Ethereum address on Ropsten, then you'll need to export the private key (or the keyfile/mnemonic) from your wallet. Otherwise you can create a new account by running [generateAccount.js](../coreClient/generateAccount.js)
 
    ```
    node generateAccount.js
@@ -234,7 +234,7 @@ Users need to have balance with any.sender, which your user account does not yet
 
 You'll need your key details and the json rpc url, and to choose a message to send to the echo contract e.g. "Hi echo!".
 
-Modify `walletContract.js` and fill in:
+Modify `walletExample.js` and fill in:
 
 ```
 const userWallet = new Wallet("<private key>");
@@ -291,7 +291,7 @@ Go to the link in the output, did you see your message? Click the Event Logs tab
 
 ## Code walkthrough - what actually happened
 
-Now let's go through the code line by line, dissecting what's happening. Open [echo.js](./echo.js) in a text editor.
+Now let's go through the code line by line, dissecting what's happening. Open [walletExample.js](./walletExample.js) in a text editor.
 
 #### 1. Imports:
 

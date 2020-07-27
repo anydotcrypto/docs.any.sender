@@ -277,11 +277,11 @@ Tx relayed after 0 block. Pretty cool, I guess. (⌐■_■)
 See your message at https://ropsten.etherscan.io/tx/0x6334b128f9237209a041add7f01d7f9fb11ee0e435b08c3dd55e597b4a9e5865#eventlog
 ```
 
-Go to the link in the output, did you see your message? Click the Event Logs tab if it is not already selected. Don't forget to repeat the above steps for `walletExample.js`!
+Go to the link in the output, did you see your message? Click the Event Logs tab if it is not already selected.
 
 ## Code walkthrough - what actually happened
 
-Now let's go through the code line by line, dissecting what's happening. Open [echo.js](./echo.js) in a text editor.
+Now let's go through the code line by line, dissecting what's happening. Open [contractExample.js](./contractExample.js) in a text editor.
 
 #### 1. Imports:
 
