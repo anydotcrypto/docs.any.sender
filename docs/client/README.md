@@ -79,10 +79,10 @@ Sends a transaction via any.sender. Mandatory fields:
 
 Optional fields:
 
-- **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+- **compensation**: **Only valid for accountable transactions** any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
 - **gasLimit**: same as a normal transaction
 
-Notice that there is no option to provide a nonce. Maintains the order in which it receives transactions from the same sender, so if you need to guarantee order wait until the `sendTransaction` function returns before sending the next one. Likewise if ordering is not a requirement you can send transactions concurrently.
+Notice that there is no option to provide a nonce. Maintains the order in which it receives transactions from the same sender, so if you need to guarantee order wait until the `sendTransaction` function returns before sending the next one. Likewise if ordering is not a requirement you can send transactions concurrently. See [this](../API.md#ordering) for more details.
 
 #### Returns data
 
@@ -336,13 +336,12 @@ A signed relay receipt from the any.sender service is returned after the job is 
 
 ```ts
 { relayTransaction:
-   { compensation: '0',
+   {
+     type: "direct",
      data:
       '0xf15da729000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000892d2d2048656c6c6f20776f726c64202d2d20286d6573736167652073656e7420627920307862366439653030303631323830624146333661636437426335363230363133354264413330324330206174204d6f6e204a756e20303820323032302031393a30393a353920474d542b303130302028427269746973682053756d6d65722054696d6529290000000000000000000000000000000000000000000000',
-     deadline: 8052536,
      from: '0xb6d9e00061280bAF36acd7Bc56206135BdA302C0',
      gasLimit: 27445,
-     relayContractAddress: '0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7',
      to: '0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83',
      chainId: 3,
      signature:
