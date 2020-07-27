@@ -337,7 +337,17 @@ const signature = await userWallet.signMessage(arrayify(id));
 const signedTx = { ...relayTx, signature };
 ```
 
-#### 7. Request transaction hashes from the Status API
+#### 7. Send the relay transaction
+
+Now that everything is set up, all that's left to do is to send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
+
+```js
+const receipt = await anySenderClient.relay(signedTx);
+```
+
+The returned receipt contains the receipt signer's signature, and can be stored until the user is sure the transaction has been mined. This signature is also checked inside the relay function to ensure it corresponds to the receipt signer used to construct the client.
+
+#### 8. Request transaction hashes from the Status API
 
 The any.sender service sends the transaction to the network and periodically bumps the transaction fee until the transaction is confirmed. Every fee bump changes the Ethereum transaction hash and this has an impact on the client as there is no single transaction hash to watch. In our example code, the client requests the list of transaction hashes from the any.sender API and then it can check with the provider if the transaction was confirmed in the blockchain.
 
@@ -345,7 +355,7 @@ The any.sender service sends the transaction to the network and periodically bum
 await waitForConfirmation(provider, anySenderClient, id, sentAtBlock);
 ```
 
-To summarise what `waitForConfirmation` doing under the hood:
+To summarise what `waitForConfirmation` is doing under the hood:
 
 ```js
 const status = await anySenderClient.getStatus(id);
@@ -359,15 +369,6 @@ const status = await anySenderClient.getStatus(id);
 
 If we find a confirmed transaction hash, then the echo script prints to the screen.
 
-#### 8. Send the relay transaction
-
-Now that everything is set up, all that's left to do is to send the relay transaction to the any.sender API. This `relay` function just sets some headers and executes a POST to the any.sender API with the relay transaction as the payload.
-
-```js
-const receipt = await anySenderClient.relay(signedTx);
-```
-
-The returned receipt contains the receipt signer's signature, and can be stored until the user is sure the transaction has been mined. This signature is also checked inside the relay function to ensure it corresponds to the receipt signer used to construct the client.
 
 #### 9. Wait ...
 

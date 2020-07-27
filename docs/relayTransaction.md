@@ -5,7 +5,7 @@ any.sender has two types of relay transactions:
 - **Direct transaction.** Best effort delivery and the relay transaction is sent directly to the target contract. It incurs 0 gas overhead.
 - **Accountable transaction.** Guaranteed delivery by a block deadline, but the transaction is sent via a relay contract. It incurs a 45k gas overhead.
 
-We recommend the **Direct Transaction** approach as there is no gas overhead when using the any.sender service and in the current implementation the _guaranteed delivery_ is just as good as the _best effort delivery_. In both cases, any.sender will continuously bump the fee until the transaction is confirmed.
+We recommend the **Direct Transaction** approach as there is no gas overhead when using the any.sender service and in the current implementation the _best effort delivery_ is just as good as the _guaranteed delivery_. In both cases, any.sender will continuously bump the fee until the transaction is confirmed.
 
 Both relay transactions have a very similar structure to a normal transaction. The main difference is that `gasPrice`, `value` and `nonce` have been removed. Accountable transactions have additional fields including `compensation`, `relayContractAddress`, and `deadline`. To preserve `msg.sender` and ETH transfers, we recommend users send transactions via a smart contract wallet.
 
