@@ -62,7 +62,7 @@ any.sender takes the relay transaction and packs it into an Ethereum transaction
   <img src="img/blockchain.png">
 </p>
 
-We recommend the user interacts with any.sender using a wallet contract. The address of the wallet contract will be `msg.sender` for the target contract that the customer wishes to execute.
+We recommend the user interacts with any.sender using a wallet contract. This ensures `msg.sender` for the target contract is the wallet contract's address. Otherwise, if the transaction executes the target contract directly, then the any.sender relayer is set as msg.sender. The overhead of using a wallet contract is approximately 26k gas per transaction.
 
 As we can see in the above Figure, the wallet contract can hold the users folds (even before it is deployed), send ERC20/eth, and it takes of replay protection / verifying the customer's signature. In general, there are plenty of benefits to use wallet contracts such as supporting concurrent (and out-of-order) transactions for better nonce management and batching several transactions into one (e.g. take flash loan, swap on uniswap, replay flash loan, atomically).
 
