@@ -64,7 +64,7 @@ any.sender takes the relay transaction and packs it into an Ethereum transaction
 
 We recommend that all relay transactions are sent via the customer's wallet contract. This ensures `msg.sender` for the target contract is the wallet contract's address. Otherwise, if the Ethereum transaction executes the target contract directly, then the any.sender relayer is set as msg.sender. More discussion around the [msg.sender problem](https://ethresear.ch/t/native-meta-transaction-proposal-roundup/7525). Thankfully, the overhead of using a wallet contract is approximately 26k gas per transaction.
 
-As we can see in the above Figure, the wallet contract can hold the users folds (even before it is deployed), send ERC20/eth, and it takes of replay protection / verifying the customer's signature. In general, there are plenty of benefits to use wallet contracts such as supporting concurrent (and out-of-order) transactions for better nonce management and batching several transactions into one (e.g. take flash loan, swap on uniswap, replay flash loan, atomically).
+Wallet contracts can hold the users funds (even before it is deployed) and send ERC 20 / ETH. They support more exotic replay protection to support concurrent (and out-of-order) transactions for easier nonce management and batching several transactions into one (e.g. take flash loan, swap on uniswap, replay flash loan, atomically). To execute the target contract, it simply needs to `CALL` into the target address with the supplied data.
 
 Check out our [client](./client) tooling for more information. It includes our recomended wallet contracts and it takes care of all replay protection/crafting the relay transaction/interacting with any.sender. As a developer, all you need to do is the following:
 
