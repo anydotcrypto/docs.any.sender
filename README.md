@@ -92,6 +92,7 @@ For more details see the [client documentation and walkthrough](./docs/client/)
 
 ## Further reading & In-depth docs
 
+- [Overview of any.sender](./docs/overview.md)
 - [API](./docs/API.md)
 - [Dev tools](./docs/devTools)
 - [Client library](./docs/client)

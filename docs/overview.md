@@ -12,7 +12,7 @@ any.sender has three core components:
 
 **Block cache.** We keep track of the latest N blocks in the blockchain and we associate a list of pending & confirmed relay transactions from our relayers for each block. This provides a performance benefit as we can verify ground-truth data locally and it helps the relayer handle forks (re-org protection) as it can verify whether a forked block has dropped a previously confirmed relay transaction and thus the relayer must broadcast it. Note it tracks the relay transaction and not the Ethereum transaction, so the relayer can always verify the relay transaction was confirmed.
 
-## Redunant any.sender instances
+## Redundant any.sender instances
 
 We run a single payment gateway and up to 3 instances of any.sender.
 
@@ -24,7 +24,9 @@ The primary any.sender instance is responsible for handling all transactions imm
 
 Before the customer can send a relay transaction to any.sender, they must have a positive balance on the service. Please check out [Payments](payments.md) for more information.
 
-![API of any.sender](img/api.png)
+<p align="center">
+  <img src="img/api.png">
+</p>
 
 The customer must prepare a relay transaction that is compatible with the any.sender service and more information can be found at [Relay Transaction](relayTransaction.md).
 
@@ -43,19 +45,22 @@ Assuming the relay transaction was validated and the balance was locked successf
 
 **Sending to Ethereum**.
 It is now up to any.sender to get the relay transaction accepted into the Ethereum blockchain. Behind the scenes, any.sender passes the relay transaction to the backup instances and to one relayer. This relayer estimates the initial base fee based on current network conditions, appends to the end of the transaction queue, packs into an Ethereum transaction and broadcasts it to the Ethereum network. It republishes the transaction nearly every other block until it is mined and then monitors the blockchain for re-org protection.
-monitors the blockchain and republishes the transaction every other block until it is mined.
 
-When the transaction is confirmed, and we are certain it is confirmed, the user is refunded any funds not spent from `LockedBalance`. Essentially, the refunded amount is `refundBalance = lockedBalance - (gasPrice*gasUsed + fee)`. We have opted for off-chain accounting as there is no gas overhead for that, but the full balance can be re-computed using on-chain data.
+When the transaction is confirmed, and we are certain it is confirmed, the user is refunded any funds not spent from `LockedBalance`. Essentially, the refunded amount is `refundBalance = lockedBalance - (gasPrice*gasUsed) + fee`. We have opted for off-chain accounting as it involves no gas overhead, but the full balance can be re-computed using on-chain data.
 
 ## Contract interaction
 
-We provide an overview for how to use any.sender for interacting with smart contracts. This section only considers **direct transactions**.
+We provide an overview for how any.sender interacts with your wallet contract and the target smart contract. This section only considers **direct transactions**.
 
-![blockeethtxthtxchain](img/ethtx.png)
+<p align="center">
+  <img src="img/ethtx.png">
+</p>
 
 any.sender takes the relay transaction and packs it into an Ethereum transaction. The `from` address of the transaction is one of any.sender's relay keys, but the `to`, `data` and `gasLimit` is set by the customer.
 
-![blockchain](img/blockchain.png)
+<p align="center">
+  <img src="img/blockchain.png">
+</p>
 
 We recommend the user interacts with any.sender using a wallet contract. The address of the wallet contract will be `msg.sender` for the target contract that the customer wishes to execute.
 
