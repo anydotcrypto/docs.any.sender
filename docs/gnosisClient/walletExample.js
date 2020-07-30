@@ -5,7 +5,7 @@ const { any } = require("@any-sender/client");
 // prerequisites
 const message = "Hello world";
 const userWallet = new Wallet("<priv key>");
-const provider = new JsonRpcProvider("<infura url>");
+const provider = new JsonRpcProvider("<json rpc url>");
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
   {
@@ -54,11 +54,14 @@ const run = async (
   const relayReceipt = await userAnyWallet.any.sendTransaction({
     to: echoContractAddress,
     data: data,
-    gasLimit: 100000,
+    gasLimit: 400000,
   });
 
   // wait until the transaction is mined
   console.log("Transaction sent, waiting for blocks to be mined.");
+  console.log(
+    `Your contract address will be ${await userAnyWallet.any.getWalletAddress()}`
+  );
   const txReceipt = await relayReceipt.wait();
 
   const blocksUntilMined = txReceipt.blockNumber - blockBeforeSend;
@@ -67,6 +70,7 @@ const run = async (
       blocksUntilMined > 2 ? "s" : ""
     }. Pretty cool, I guess. (⌐■_■)`
   );
+
   console.log(
     `See your message at https://ropsten.etherscan.io/tx/${txReceipt.transactionHash}#eventlog`
   );
