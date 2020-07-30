@@ -1,11 +1,11 @@
 const { JsonRpcProvider } = require("ethers/providers");
-const { Wallet, Contract } = require("ethers");
+const { Wallet, ethers } = require("ethers");
 const { any } = require("@any-sender/client");
 
 // prerequisites
 const message = "Hello world";
-const userWallet = new Wallet("<key>");
-const provider = new JsonRpcProvider("<infura link>");
+const userWallet = new Wallet("<priv key>");
+const provider = new JsonRpcProvider("<json rpc url>");
 const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
   {
@@ -37,20 +37,31 @@ const run = async (
   // the wallet must be connected to a provider
   const connectedUser = userWallet.connect(provider);
 
-  // create a Contract object for echo and wrap it with any.sender
-  const echo = new Contract(echoContractAddress, echoAbi, connectedUser);
-  const anyEcho = any.sender(echo);
+  // set up the any.sender client
+  const userAnyWallet = any.senderGnosis(connectedUser);
 
-  const blockBeforeSend = await provider.getBlockNumber();
-  // send the tx, all functions on the contract forward transactions to any.sender
-  const relayReceipt = await anyEcho.functions.echo(
+  // construct the data we want to send
+  const echoInterface = new ethers.utils.Interface(echoAbi);
+  const data = echoInterface.functions.echo.encode([
     `-- ${message} -- (message sent by ${userWallet.address} at ${new Date(
       Date.now()
-    ).toString()})`
-  );
+    ).toString()})`,
+  ]);
+
+  const blockBeforeSend = await provider.getBlockNumber();
+
+  // user the any.sendTransaction function to send via any.sender
+  const relayReceipt = await userAnyWallet.any.sendTransaction({
+    to: echoContractAddress,
+    data: data,
+    gasLimit: 400000,
+  });
 
   // wait until the transaction is mined
   console.log("Transaction sent, waiting for blocks to be mined.");
+  console.log(
+    `Your contract address will be ${await userAnyWallet.any.getWalletAddress()}`
+  );
   const txReceipt = await relayReceipt.wait();
 
   const blocksUntilMined = txReceipt.blockNumber - blockBeforeSend;
@@ -59,6 +70,7 @@ const run = async (
       blocksUntilMined > 2 ? "s" : ""
     }. Pretty cool, I guess. (⌐■_■)`
   );
+
   console.log(
     `See your message at https://ropsten.etherscan.io/tx/${txReceipt.transactionHash}#eventlog`
   );

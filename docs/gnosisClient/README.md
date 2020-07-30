@@ -1,13 +1,21 @@
-# Experimental Client
+# Gnosis Safe Client
 
-We are actively working on a client library that takes care of managing a wallet contract (or the relay hub) on your behalf. It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
+For an overview of how a wallet contract works with any.sender, please check out our [Overview of any.sender](../overview.md#wallet-contract-interaction).
+
+A client library for using Gnosis Safe as a wallet contract:
+
+- **Auto-deployment:** It batches the initial deployment of Gnosis Safe with the first transaction.
+- **Auto-wrapping:** Given a minimal transaction with `to`, `data` and `value` it takes care of wrapping the transaction such that it is sent via the Gnosis Safe contract.
+- **Replay protection:** It tracks the transaction nonce when signing the transaction.
+
+Our library takes care of handling the Gnosis Safe, so you only need to worry about what transactions you want to send. It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
 
 **Note:** it's important to ensure that the Signer or Contract is connected to an ethers provider.
 
-Before we continue you must install the experimental client library:
+Before we continue you must install the client library:
 
 ```
-npm i @any-sender/client@0.4.0-experimental.0
+npm i @any-sender/client
 ```
 
 ## Wallet Account Signer
@@ -20,7 +28,7 @@ To import and use the any.sender client import the `any` object from the client 
 import { any } from "@any-sender/client";
 ```
 
-### any.senderAccount(signer: Signer, settings?: {} )
+### any.senderGnosis(signer: Signer, settings?: {} )
 
 Adds any.sender functionality to a signer on an `any` property. This will not replace or effect any of the existing functions on the Signer. For example `any.senderAcccount(signer).sendTransaction(tx)` does not send transactions via any.sender, it is just a normal transaction from the signer.
 
@@ -35,54 +43,66 @@ Optional setting can also be provided:
 ```ts
 const userWallet = new Wallet("<private key>");
 const connectedUser = userWallet.connect(provider);
-const anyUserWallet = any.senderAccount(connectedUser);
+const anyUserWallet = any.senderGnosis(connectedUser);
 ```
 
-Just like the Client, it has [getBalance(), deposit() & depositFor()](https://github.com/anydotcrypto/docs.any.sender/tree/master/docs/client), so please check the Client documentation for more information. We take this opportunity to only cover new functionality introduced in the experimental client library to manage wallet contracts.
+Just like the Client, it has [getBalance(), deposit() & depositFor()](https://github.com/anydotcrypto/docs.any.sender/tree/master/docs/client), so please check the Client documentation for more information. We take this opportunity to only cover new functionality introduced in the experimental client library to manage wallet contracts. It also has some additional methods for managing and checking the gnosis contract, however these are only necessary to achieve fine grained control. If these are not used the client library will internally check if the Gnosis wallet is deployed, and if not create a batch function will deploy the contract before calling it with the transaction.
 
-### signer.any.getProxyAcccountAddress() : Promise\<string\>
+### signer.any.getWalletAddress() : Promise\<string\>
 
-The `getProxyAcccountAddress` function on the `any` property returns the address of the wallet contract. Every signing key has a deterministic wallet contract as it is deployed using CREATE2. It is safe to send funds to the wallet contract address before it is deployed on the network.
+The `getWalletAddress` function on the `any` property returns the address of the wallet contract. Every signing key has a deterministic wallet contract as it is deployed using CREATE2. It is safe to send funds to the wallet contract address before it is deployed on the network.
 
 #### Usage
 
 ```ts
-const anyUserWallet = any.senderAccount(connectedUser);
-const walletContractAddress = await anyUserWallet.any.getProxyAccountAddresss();
+const anyUserWallet = any.senderGnosis(connectedUser);
+const walletContractAddress = await anyUserWallet.any.getWalletAddress();
 ```
 
-### signer.any.isProxyAccountDeployed() : Promise\<boolean\>
+### signer.any.isWalletDeployed() : Promise\<boolean\>
 
-The `isProxyAccountDeployed()` function on the `any` property returns whether the wallet contract is already deployed on the network. If the wallet contract is not deployed, then our library will auto-deploy the wallet contract when the user sends their first transaction. e.g., we automatically batch the wallet contract deployment and the authorised meta-transaction in a single transaction.
+The `isWalletDeployed()` function on the `any` property returns whether the wallet contract is already deployed on the network. If the wallet contract is not deployed, then our library will auto-deploy the wallet contract when the user sends their first transaction. e.g., we automatically batch the wallet contract deployment and the authorised meta-transaction in a single transaction.
 
 #### Usage
 
 ```ts
-const anyUserWallet = any.senderAccount(connectedUser);
-const isProxyDeployed = await anyUserWallet.any.isProxyAccountDeployed();
+const anyUserWallet = any.senderGnosis(connectedUser);
+const isProxyDeployed = await anyUserWallet.any.isWalletDeployed();
 if(isProxyDeployed) { ... }
 ```
 
-### signer.any.getDeployProxyAccountTransaction() : Promise\<MinimalTx\>
+### signer.any.getWalletTransaction() : Promise\<MinimalTx\>
 
-The `getDeployProxyAccountTransaction` function on the `any` property returns a `MinimalTx` that contains `{ to: string, data: string}`. This provides you flexibility on how the contract wallet is deployed. Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender. So there is no explicit requirement to use this function.
+The `getWalletTransaction` function on the `any` property returns a `MinimalTx` that contains `{ to: string, data: string}`. This provides you flexibility on how the contract wallet is deployed. Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender. So there is no explicit requirement to use this function.
 
 #### Usage
 
 ```ts
-const anyUserWallet = any.senderAccount(connectedUser);
-const minimalTx = await anyUserWallet.any.getDeployProxyAccountTransaction();
+const anyUserWallet = any.senderGnosis(connectedUser);
+const minimalTx = await anyUserWallet.any.getWalletTransaction();
 const tx = await anyUserWallet.sendTransaction({
   to: minimalTx.to,
   data: minimalTx.data,
 }); // A normal transaction
 ```
 
-### signer.any.deployProxyAccount(overrides: { gasLimit?, value?, gasPrice? }): Promise\<TransactionResponse\>
+### signer.any.deployWallet(overrides: { gasLimit?, value?, gasPrice? }): Promise\<TransactionResponse\>
 
-The `deployProxyAccount` function on the `any` property returns a `TransactionResponse`. It sends the Ethereum Transaction to the network (not via any.sender). Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender. So there is no explicit requirement to use this function.
+The `deployWallet` function on the `any` property returns a `TransactionResponse`. It sends the Ethereum Transaction to the network (not via any.sender). Of course, if the wallet contract does not exist, then our library auto-deploys the wallet contract when the user is sending their first transaction via any.sender. So there is no explicit requirement to use this function.
 
-### signer.any.sendTransaction(tx: { to: string, data: string, compensation?: string, gaslimit?: number }) : Promise\<RelayTransactionReceipt\>
+### signer.any.sendTransaction(tx: { to: string, data: string, value?: BigNumber, callType?: CallType, compensation?: string, gaslimit?: number }) : Promise\<RelayTransactionReceipt\>
+
+```ts
+signer.any.sendTransaction(tx: {
+    to: string,
+    data?: string,
+    value?: BigNumber,
+    callType?: CallType,
+    compensation?: string,
+    type?: "accountable" | "direct",
+    gasLimit?: number
+    }): Promise<RelayTransactionReceipt>
+```
 
 Sends a transaction via any.sender. Mandatory fields:
 
@@ -92,13 +112,12 @@ Sends a transaction via any.sender. Mandatory fields:
 Optional fields:
 
 - **type**: defines if the transaction is "direct" or "accountabe", it defaults to "direct".
+- **callType**: whether to delegate call or call from the gnosis contract
 - **gasLimit**: same as a normal transaction
 
 Optional accountable transaction fields:
 
 - **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
-- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
-- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
 
 Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
@@ -108,23 +127,95 @@ Notice there is no option to provide a nonce. any.sender will publish transactio
 
 `sendTransaction` returns a signed receipt object of the form:
 
-```
+```ts
 {
-    "relayTransaction": RelayTransaction, // the same as the input tx
-    "id": string, // an id for this transaction, created by hashing the relay transaction
-    "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
-    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+    "relayTransaction": RelayTransaction, // Same relay transaction sent by the user.
+    "id": string, // Relay Transaction ID, created by hashing the relay transaction.
+    "receiptSignature": string, // Signaturefrom any.sender to prove that it accepted the job.
+    "wait": function(confirmations: number): TransactionReceipt {...} // Waits until the transaction is mined. Returns a normal transaction receipt.
 }
 ```
 
 #### Usage
 
 ```ts
-const anyUserWallet = any.senderAccount(connectedUser);
+const anyUserWallet = any.senderGnosis(connectedUser);
 const relayReceipt = await anyUserWallet.any.sendTransaction({
   to: "<address>",
   data: "<data>",
 });
+const transactionReceipt = await relayReceipt.wait();
+```
+
+### signer.any.sendBatchTransaction
+
+```ts
+signer.any.sendBatchTransaction(
+    transaction: [ {
+        to: string,
+        data: string,
+        value?: BigNumber,
+        revertOnFail?: boolean,
+        callType?: CallType
+    } ],
+    overrides?: {
+        compensation?: string,
+        type?: "accountable" | "direct",
+        gasLimit?: number
+    }
+): Promise<RelayTransactionReceipt>
+```
+
+Sends a batch of transactions, each has the following fields:
+
+- **to**: (string - mandatory) same as a normal transaction
+- **data**: (string - optional, defaults to 0x ) same as a normal transaction
+- **callType**: (Call = 0 or DelegateCall = 1 - optional, defaults to Call) whether to call or delegatecall from the wallet contract
+- **revertOnFail**: (boolean - optional, defaults to true) - whether to revert the whole batch if this transaction fails
+- **value**: (BigNumber - optional, defaults to 0) - amount to send from the wallet contract
+
+Options:
+
+- **type**: defines if the transaction is "direct" or "accountable", it defaults to "direct".
+- **gasLimit**: same as a normal transaction, will estimate if explicit gas isnt supplied
+- **value**: the amount to transfer out of the wallet contract
+- **compensation**: (Only available for accountable transactions) any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
+
+Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
+
+**Wallet contract is not yet deployed?** No problem! The same as `sendTransaction` the client library will batch a contract deployment with the transactions, if the wallet contract is not already deployed.
+
+#### Returns data
+
+`sendBatchTransaction` returns a signed receipt object of the form:
+
+```ts
+{
+    "relayTransaction": RelayTransaction, // Same relay transaction sent by the user.
+    "id": string, // Relay Transaction ID, created by hashing the relay transaction.
+    "receiptSignature": string, // Signaturefrom any.sender to prove that it accepted the job.
+    "wait": function(confirmations: number): TransactionReceipt {...} // Waits until the transaction is mined. Returns a normal transaction receipt.
+}
+```
+
+#### Usage
+
+```ts
+const anyUserWallet = any.senderGnosis(connectedUser);
+const relayReceipt = await anyUserWallet.any.sendBatchTransaction(
+  {
+    to: "<address>",
+    data: "<data>",
+  },
+  {
+    to: "<address>",
+    data: "<data>",
+  },
+  {
+    to: "<address>",
+    data: "<data>",
+  }
+);
 const transactionReceipt = await relayReceipt.wait();
 ```
 
@@ -138,11 +229,11 @@ To import and use the any.sender client import the `any` object from the client 
 import { any } from "@any-sender/client";
 ```
 
-### any.senderAccount(contract: Contract, settings?: {})
+### any.senderGnosis(contract: Contract, settings?: {})
 
 Because a contract object has dynamic properties we can't add an `any` property to it, so instead we replace the functions that send transactions. Contracts must be created with a signer, which must also be connected to a `provider` object.
 
-Of course, all transactions are sent via the wallet contract and the wallet contract is auto-deployed if necessary.
+All transactions are sent via the wallet contract and the wallet contract is auto-deployed if necessary.
 
 Optional setting can also be provided:
 
@@ -172,8 +263,6 @@ Optional fields:
 Optional accountable transaction fields:
 
 - **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
-- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
-- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
 
 Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
@@ -226,7 +315,7 @@ Our example echo contract can be found [here](https://ropsten.etherscan.io/addre
 3. Change to this directory
 
    ```
-   cd docs.any.sender/docs/experimentalClient
+   cd docs.any.sender/docs/gnosisClient
    ```
 
 4. Install packages in this folder - npm is installed as part of node.
@@ -357,7 +446,7 @@ We only had to modify `userWallet` and `provider`. Although you can modify `mess
 We wrap the `userWallet` with the any.sender functionality:
 
 ```ts
-const userAnyWallet = any.senderAccount(connectedUser);
+const userAnyWallet = any.senderGnosis(connectedUser);
 ```
 
 The `Wallet` has new functionality that is accessible via `userAnyWallet.any.*` and we have not overridden its original functionality.

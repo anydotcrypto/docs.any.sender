@@ -49,6 +49,7 @@ const run = async (
     gasLimit: 100000, // should be plenty
     compensation: "500000000", // 0.5 gwei
     relayContractAddress: relayContractAddress,
+    type: "accountable", // accountable transaction type
   };
 
   // sign the relay transaction

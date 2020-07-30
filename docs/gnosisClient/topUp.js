@@ -12,19 +12,19 @@ const parseArgs = yargs
     description: "The address of the any.sender relay contract",
     string: true,
     alias: "r",
-    default: "0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7",
+    default: "0x9b4FA5A1D9f6812e2B56B36fBde62736Fa82c2a7"
   })
   .option("value", {
     description: "The value to top up.",
     string: true,
     alias: "s",
-    default: "0.5",
+    default: "0.5"
   })
   .option("jsonRpc", {
     description: "A json rpc url.",
     string: true,
     alias: "j",
-    demandOption: true,
+    demandOption: true
   });
 
 const run = async () => {
@@ -46,10 +46,10 @@ const run = async () => {
   } else if (args.jsonRpc.startsWith("http://")) {
     jsonRpcUrl = args.jsonRpc.substr(7);
   } else jsonRpcUrl = args.jsonRpc;
-
-  //   if (!jsonRpcUrl.startsWith("ropsten")) {
-  //     throw new Error("--jsonRpc is not for ropsten network");
-  //   }
+  
+  if (!jsonRpcUrl.startsWith("ropsten")) {
+    throw new Error("--jsonRpc is not for ropsten network");
+  }
   jsonRpcUrl = "https://" + jsonRpcUrl;
 
   const provider = new ethers.providers.JsonRpcProvider(jsonRpcUrl);
@@ -63,7 +63,7 @@ const run = async () => {
   const tx = await connectedWallet.sendTransaction({
     to: args.relayContract,
     value: value,
-    gasPrice: 30000000000,
+    gasPrice: 30000000000
   });
   console.log(`Transaction https://ropsten.etherscan.io/tx/${tx.hash} sent.`);
   console.log("Waiting for mining.");
@@ -76,4 +76,4 @@ const run = async () => {
   await tx.wait(12);
   console.log("Transaction has 10 confirmation.");
 };
-run().catch((err) => console.error(err));
+run().catch(err => console.error(err));

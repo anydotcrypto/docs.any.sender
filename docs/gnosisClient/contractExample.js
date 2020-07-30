@@ -39,7 +39,7 @@ const run = async (
 
   // create a Contract object for echo and wrap it with any.sender
   const echo = new Contract(echoContractAddress, echoAbi, connectedUser);
-  const anyEcho = any.sender(echo);
+  const anyEcho = any.senderGnosis(echo);
 
   const blockBeforeSend = await provider.getBlockNumber();
   // send the tx, all functions on the contract forward transactions to any.sender

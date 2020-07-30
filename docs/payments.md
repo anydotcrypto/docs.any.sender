@@ -51,11 +51,7 @@ const balance = await client.balance(userWallet.address);
 
 ### Pricing
 
-Any.sender charges a 20% of the gas costs. Network gas costs are highly volatile, often rising and falling by 100s of percent. We dynamically follow these rises and dips, adjusting our gas prices to strike the right balance between low gas prices and mining in a timely manner. In this way we hope that, even taking in to account the fee markup, customers will overall save money by using any.sender.
-
-## Calculating gas prices
-
-The gas prices are calculated on-chain and emitted in an event so that the payment gateway can record how much gas was used in the transaction when it was mined, and at what price. The amount of ETH that was used can be obtained by adding the outputs of the `RelayExecuted` event in the `Relay` contract. See the [contracts](https://github.com/PISAresearch/contracts.any.sender) for more details.
+Given the rise of network fees, any.sender now **charges 2% of the final gas cost of the transaction** and there is zero gas overhead to use any.sender. To illustrate, if the final gas price for a transaction was 80 gwei, then we charge 1.6 gwei per gasUsed. The 2% fee covers the gas and server cost to run the any.sender service and the fee will adjust in the future depending on the network conditions. Our goal, even taking into account our fee markup, is to save the customer money by using any.sender.
 
 ## Locked balance for pending transactions
 

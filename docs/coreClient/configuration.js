@@ -24,13 +24,13 @@ if (args.jsonRpc.startsWith("https://")) {
   jsonRpcUrl = args.jsonRpc.substr(7);
 } else jsonRpcUrl = args.jsonRpc;
 
-if (!jsonRpcUrl.startsWith("ropsten")) {
-  throw new Error("--jsonRpc is not for ropsten network");
-}
+// if (!jsonRpcUrl.startsWith("ropsten")) {
+//   throw new Error("--jsonRpc is not for ropsten network");
+// }
 jsonRpcUrl = "https://" + jsonRpcUrl;
 
 args.jsonRpc;
-const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
+const echoContractAddress = "0xb6a52b73043b299AC3a20f0E78B2A6764dA76AF1";
 const echoAbi = [
   {
     constant: false,
@@ -39,16 +39,16 @@ const echoAbi = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "string", name: "data", type: "string" }
+      { indexed: false, internalType: "string", name: "data", type: "string" },
     ],
     name: "Echo",
-    type: "event"
-  }
+    type: "event",
+  },
 ];
 
 module.exports = {
@@ -59,5 +59,5 @@ module.exports = {
   jsonRpcUrl,
   echoContractAddress,
   echoAbi,
-  message
+  message,
 };
