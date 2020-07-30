@@ -38,7 +38,7 @@ const run = async (
   const connectedUser = userWallet.connect(provider);
 
   // set up the any.sender client
-  const userAnyWallet = any.sender(connectedUser);
+  const userAnyWallet = any.senderGnosis(connectedUser);
 
   // construct the data we want to send
   const echoInterface = new ethers.utils.Interface(echoAbi);
