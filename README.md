@@ -42,11 +42,13 @@ Advanced features:
 
 We recommend trying any.sender on the Ropsten network and to get started we are happy to supply you with some Ropsten ETH via our [chatroom](https://t.me/anydotsender). There are three ways to start using any.sender:
 
-- The [Client](./docs/client/) takes care of crafting the relay transaction and sending it up to any.sender. The example walkthrough shows how to wrap a contract to natively use any.sender when sending a transaction. It is the simplest and easiest way to use any.sender, but it does have a dependency on ethersjs. **We recommend using this client.**
-
 - The [Core Client](./docs/coreClient/) is a light-weight wrapper around the API to take care of basic functionality of sending a transaction via any.sender. Use this client as a raw wrapper for the [API](./docs/API.md).
 
-- The [Experimental Client](./docs/experimentalClient/) takes care of deploying and managing a wallet contract on behalf of the signer. It auto-deploys the wallet contract when the first transaction is issued & takes care of all replay protection. It currently supports our [MetaTx library](https://github.com/anydotcrypto/metatransactions/) and we plan to support Gnosis Safe.
+- The [Client](./docs/client/) takes care of crafting the relay transaction and sending it up to any.sender. The example walkthrough shows how to wrap a contract to natively use any.sender when sending a transaction. It is the simplest and easiest way to use any.sender, but it does have a dependency on ethersjs. **We recommend using this client.**
+
+- The [GnosisSafe client](./docs/gnosisClient/) takes care of managing a gnosis safe wallet contract and sending all transactions up to any.sender. The example walkthrough shows how to wrap a contract to natively use any.sender when sending a transaction via a gnosis safe smart contract. It takes care of auto-deploying the gnosis safe wallet contract and it supports transaction batching. **We recommend using this client.**
+
+* The [Experimental Client](./docs/experimentalClient/) takes care of deploying and managing a wallet contract on behalf of the signer. It auto-deploys the wallet contract when the first transaction is issued & takes care of all replay protection. It currently supports our [MetaTx library](https://github.com/anydotcrypto/metatransactions/) and we plan to support Gnosis Safe.
 
 ## Quick guide on how to get started
 
@@ -88,7 +90,7 @@ Here is a super-quick example on how to get started using the core-client librar
    const transactionReceipt = await relayReceipt.wait();
    ```
 
-For more details see the [client documentation and walkthrough](./docs/client/)
+For more information, check out the [client libraries](./README.md#try-it-out) that we support.
 
 ## Further reading & In-depth docs
 

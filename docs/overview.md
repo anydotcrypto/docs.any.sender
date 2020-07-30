@@ -48,7 +48,7 @@ It is now up to any.sender to get the relay transaction accepted into the Ethere
 
 When the transaction is confirmed, and we are certain it is confirmed, the user is refunded any funds not spent from `LockedBalance`. Essentially, the refunded amount is `refundBalance = lockedBalance - (gasPrice*gasUsed) + fee`. We have opted for off-chain accounting as it involves no gas overhead, but the full balance can be re-computed using on-chain data.
 
-## Contract interaction
+## Wallet contract interaction
 
 We provide an overview for how any.sender interacts with your wallet contract and the target smart contract. This section only considers **direct transactions**.
 
