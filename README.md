@@ -42,21 +42,13 @@ Advanced features:
 
 We recommend trying any.sender on the Ropsten network and to get started we are happy to supply you with some Ropsten ETH via our [chatroom](https://t.me/anydotsender). There are three ways to start using any.sender:
 
-- The [Core Client](./docs/coreClient/) is a light-weight wrapper around the API to take care of basic functionality of sending a transaction via any.sender. Use this client as a raw wrapper for the [API](./docs/API.md).
-
 - The [Client](./docs/client/) takes care of crafting the relay transaction and sending it up to any.sender. The example walkthrough shows how to wrap a contract to natively use any.sender when sending a transaction. It is the simplest and easiest way to use any.sender, but it does have a dependency on ethersjs. **We recommend using this client.**
 
-<<<<<<< HEAD
-- The [GnosisSafe client](./docs/gnosisClient/) takes care of managing a gnosis safe wallet contract and sending all transactions up to any.sender. The example walkthrough shows how to wrap a contract to natively use any.sender when sending a transaction via a gnosis safe smart contract. It takes care of auto-deploying the gnosis safe wallet contract and it supports transaction batching. **We recommend using this client.**
-
-* The [Experimental Client](./docs/experimentalClient/) takes care of deploying and managing a wallet contract on behalf of the signer. It auto-deploys the wallet contract when the first transaction is issued & takes care of all replay protection. It currently supports our [MetaTx library](https://github.com/anydotcrypto/metatransactions/) and we plan to support Gnosis Safe.
-=======
 - The [Gnosis Safe Client](./docs/gnosisClient/) works the same way as the client, except that it proxies all requests via a [Gnosis Safe](https://github.com/gnosis/safe-contracts) wallet. This means that target contracts that authenticate based on `msg.sender` will see the Gnosis wallet as the sender. The library takes care of deploying the contract and makes it easy to send transactions. It also supports sending batch transactions.
 
 - The [Core Client](./docs/coreClient/) is a light-weight wrapper around the API to take care of basic functionality of sending a transaction via any.sender. Use this client as a raw wrapper for the [API](./docs/API.md).
 
 - The [Experimental Client](./docs/experimentalClient/) takes care of deploying and managing a minimal wallet contract on behalf of the signer. It auto-deploys the wallet contract when the first transaction is issued & takes care of all replay protection. It currently supports our [MetaTx library](https://github.com/anydotcrypto/metatransactions/) and we plan to support Gnosis Safe.
->>>>>>> aa8400eacf6667d700964b451df27f1fcab3e429
 
 ## Quick guide on how to get started
 
