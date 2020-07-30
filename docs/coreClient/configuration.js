@@ -24,9 +24,9 @@ if (args.jsonRpc.startsWith("https://")) {
   jsonRpcUrl = args.jsonRpc.substr(7);
 } else jsonRpcUrl = args.jsonRpc;
 
-// if (!jsonRpcUrl.startsWith("ropsten")) {
-//   throw new Error("--jsonRpc is not for ropsten network");
-// }
+if (!jsonRpcUrl.startsWith("ropsten")) {
+  throw new Error("--jsonRpc is not for ropsten network");
+}
 jsonRpcUrl = "https://" + jsonRpcUrl;
 
 args.jsonRpc;
