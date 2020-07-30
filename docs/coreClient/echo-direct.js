@@ -67,9 +67,9 @@ const run = async (
 
   // check we have enough balance
   const balance = await anySenderClient.balance(userWallet.address);
-  if (balance.lt(ethers.utils.parseEther("0.1")))
+  if (balance.lt(ethers.utils.parseEther("0.01")))
     throw new Error(
-      `Not enough balance. Balance is: ${balance.toString()} wei.`
+      `Not enough balance. Balance is: ${balance.toString()} wei.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           `
     );
   console.log("Current balance: " + balance.toString());
 
@@ -83,7 +83,7 @@ const run = async (
   ]);
 
   const relayTx = {
-    chainId: 3,
+    chainId: 1,
     from: userWallet.address,
     to: echoContractAddress,
     data: data,
