@@ -220,8 +220,6 @@ Optional fields:
 Optional accountable transaction fields:
 
 - **compensation**: any.sender provides additional guarantees that a transaction will be delivered. See [Guarantees](../guarantees.md) for more details and [API](../relayTransaction.md#compensation) for current limits.
-- **deadline**: any.sender guarantees the transaction is accepted by an absolute block deadline. If set to 0, it is set by the any.sender service. Default is set to 0 and for our BETA it can only be set approximately 400 blocks in the future.
-- **relayContractAddress**: any.sender sends the transaction via an intermediary relay contract. Default is our relay contract ([Addresses](../../README.md#addresses)) and any.sender will reject any other address.
 
 Notice there is no option to provide a nonce. any.sender will publish transactions in the order it receives transactions from the same sender. If you need to guarantee order, then wait until the `sendTransaction` function returns a signed receipt before sending the next one. Likewise if ordering is not a requirement, then you can send transactions concurrently.
 
