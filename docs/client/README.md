@@ -1,10 +1,20 @@
 # Client
 
-The any.sender client is the easiest way to interact with the any.sender API. It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
+The any.sender client is the easiest way to interact with the any.sender API.
+
+This tutorial for the client does NOT manage any wallet contracts. It only takes care of sending the relay transaction to the any.sender service. If you want a client library that includes a wallet contract, then please check [Gnosis](../gnosisClient) or [ProxyAccount](../experimentalClient).
+
+It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
 
 **Note:** it's important to ensure that the Signer or Contract is connected to an ethers provider.
 
-## Signer
+Before we continue you must install the client library:
+
+```
+npm i @any-sender/client
+```
+
+## Signer (no wallet contract)
 
 ### Import
 

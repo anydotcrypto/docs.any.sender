@@ -4,6 +4,12 @@ We are actively working on a client library that takes care of managing a wallet
 
 **Note:** it's important to ensure that the Signer or Contract is connected to an ethers provider.
 
+Before we continue you must install the experimental client library:
+
+```
+npm i @any-sender/client@0.4.0-experimental.0
+```
+
 ## Wallet Account Signer
 
 ### Import

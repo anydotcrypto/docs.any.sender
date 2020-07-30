@@ -1,8 +1,22 @@
 # Gnosis Safe Client
 
-A client library for using Gnosis Safe as proxy contracts. The library takes care of deploying a Gnosis Safe then allowing users to send transactions via it. It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
+For an overview of how a wallet contract works with any.sender, please check out our [Overview of any.sender](../overview.md#wallet-contract-interaction).
+
+A client library for using Gnosis Safe as a wallet contract:
+
+- **Auto-deployment:** It batches the initial deployment of Gnosis Safe with the first transaction.
+- **Auto-wrapping:** Given a minimal transaction with `to`, `data` and `value` it takes care of wrapping the transaction such that it is sent via the Gnosis Safe contract.
+- **Replay protection:** It tracks the transaction nonce when signing the transaction.
+
+Our library takes care of handling the Gnosis Safe, so you only need to worry about what transactions you want to send. It works with [ethersjs v4](https://github.com/ethers-io/ethers.js/) to add the ethers Signer or Contract objects.
 
 **Note:** it's important to ensure that the Signer or Contract is connected to an ethers provider.
+
+Before we continue you must install the client library:
+
+```
+npm i @any-sender/client
+```
 
 ## Wallet Account Signer
 
@@ -103,10 +117,10 @@ Notice there is no option to provide a nonce. any.sender will publish transactio
 
 ```ts
 {
-    "relayTransaction": RelayTransaction, // the same as the input tx
-    "id": string, // an id for this transaction, created by hashing the relay transaction
-    "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
-    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+    "relayTransaction": RelayTransaction, // Same relay transaction sent by the user.
+    "id": string, // Relay Transaction ID, created by hashing the relay transaction.
+    "receiptSignature": string, // Signaturefrom any.sender to prove that it accepted the job.
+    "wait": function(confirmations: number): TransactionReceipt {...} // Waits until the transaction is mined. Returns a normal transaction receipt.
 }
 ```
 
@@ -148,10 +162,10 @@ Notice there is no option to provide a nonce. any.sender will publish transactio
 
 ```ts
 {
-    "relayTransaction": RelayTransaction, // the same as the input tx
-    "id": string, // an id for this transaction, created by hashing the relay transaction
-    "receiptSignature": string, // a signature from any.sender to prove that it accepted the job
-    "wait": function(confirmations: number): TransactionReceipt // a function that can be called to wait until the transaction is mined. Returns a normal transaction receipt.
+    "relayTransaction": RelayTransaction, // Same relay transaction sent by the user.
+    "id": string, // Relay Transaction ID, created by hashing the relay transaction.
+    "receiptSignature": string, // Signaturefrom any.sender to prove that it accepted the job.
+    "wait": function(confirmations: number): TransactionReceipt {...} // Waits until the transaction is mined. Returns a normal transaction receipt.
 }
 ```
 
