@@ -1,6 +1,6 @@
 # any.sender
 
-**BETA**: While any.sender is fast approaching production readiness, we still consider it in beta and the latest release is v0.4.0 beta. We recommend using any.sender with small funds and non-critical transactions.
+**BETA**: While any.sender is fast approaching production readiness, we still consider it in beta and the latest release is v0.4 beta. We recommend using any.sender with small funds and non-critical transactions.
 
 ### Announcement!
 
