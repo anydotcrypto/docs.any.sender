@@ -92,6 +92,18 @@ The `deployWallet` function on the `any` property returns a `TransactionResponse
 
 ### signer.any.sendTransaction(tx: { to: string, data: string, value?: BigNumber, callType?: CallType, compensation?: string, gaslimit?: number }) : Promise\<RelayTransactionReceipt\>
 
+```ts
+signer.any.sendTransaction(tx: {
+    to: string,
+    data?: string,
+    value?: BigNumber,
+    callType?: CallType,
+    compensation?: string,
+    type?: "accountable" | "direct",
+    gasLimit?: number
+    }): Promise<RelayTransactionReceipt>
+```
+
 Sends a transaction via any.sender. Mandatory fields:
 
 - **to**: same as a normal transaction
@@ -135,12 +147,29 @@ const relayReceipt = await anyUserWallet.any.sendTransaction({
 const transactionReceipt = await relayReceipt.wait();
 ```
 
-### signer.any.sendBatchTransaction(transaction: [{ to, data, value?, revertOnFail?, callType? }], overrides?: { compensation?, type?, gasLimit? }) : Promise\<RelayTransactionReceipt\>
+### signer.any.sendBatchTransaction
+
+```ts
+signer.any.sendBatchTransaction(
+    transaction: [ {
+        to: string,
+        data: string,
+        value?: BigNumber,
+        revertOnFail?: boolean,
+        callType?: CallType
+    } ],
+    overrides?: {
+        compensation?: string,
+        type?: "accountable" | "direct",
+        gasLimit?: number
+    }
+): Promise<RelayTransactionReceipt>
+```
 
 Sends a batch of transactions, each has the following fields:
 
 - **to**: (string - mandatory) same as a normal transaction
-- **data**: (string - mandatory ) same as a normal transaction
+- **data**: (string - optional, defaults to 0x ) same as a normal transaction
 - **callType**: (Call = 0 or DelegateCall = 1 - optional, defaults to Call) whether to call or delegatecall from the wallet contract
 - **revertOnFail**: (boolean - optional, defaults to true) - whether to revert the whole batch if this transaction fails
 - **value**: (BigNumber - optional, defaults to 0) - amount to send from the wallet contract
