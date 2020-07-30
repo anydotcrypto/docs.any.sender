@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@any-sender/client": "0.4.1",
+    "@any-sender/client": "0.4.2",
     "ethers": "^4.0.45",
     "yargs": "^15.1.0"
   }

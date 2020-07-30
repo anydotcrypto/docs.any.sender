@@ -7,7 +7,7 @@ We are actively working on a client library that takes care of managing a wallet
 Before we continue you must install the experimental client library:
 
 ```
-npm i @any-sender/client@0.4.1-experimental
+npm i @any-sender/client@0.4.2-experimental
 ```
 
 ## Wallet Account Signer

@@ -10,7 +10,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "@any-sender/client": "^0.4.1-experimental",
+    "@any-sender/client": "^0.4.2-experimental",
     "ethers": "^4.0.47"
   }
 }
