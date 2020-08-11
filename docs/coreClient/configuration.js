@@ -30,7 +30,7 @@ if (!jsonRpcUrl.startsWith("ropsten")) {
 jsonRpcUrl = "https://" + jsonRpcUrl;
 
 args.jsonRpc;
-const echoContractAddress = "0xb6a52b73043b299AC3a20f0E78B2A6764dA76AF1";
+const echoContractAddress = "0xFDE83bd51bddAA39F15c1Bf50E222a7AE5831D83";
 const echoAbi = [
   {
     constant: false,
