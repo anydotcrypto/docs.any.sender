@@ -1,0 +1,16 @@
+{
+  "name": "echowalkthrough",
+  "version": "1.0.0",
+  "description": "",
+  "main": "echo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@any-sender/client": "0.4.2",
+    "ethers": "^4.0.45",
+    "yargs": "^15.1.0"
+  }
+}
