@@ -39,16 +39,16 @@ const echoAbi = [
     outputs: [],
     payable: false,
     stateMutability: "nonpayable",
-    type: "function"
+    type: "function",
   },
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "string", name: "data", type: "string" }
+      { indexed: false, internalType: "string", name: "data", type: "string" },
     ],
     name: "Echo",
-    type: "event"
-  }
+    type: "event",
+  },
 ];
 
 module.exports = {
@@ -59,5 +59,5 @@ module.exports = {
   jsonRpcUrl,
   echoContractAddress,
   echoAbi,
-  message
+  message,
 };
