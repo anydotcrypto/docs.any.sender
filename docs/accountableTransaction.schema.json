@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://pisa.watch/schemas/relay-request.json",
+    "type": "object",
+    "title": "Relay transaction schema",
+    "required": ["from", "signature", "data", "gasLimit", "chainId", "to", "deadline", "compensation", "relayContractAddress", "type"],
+    "additionalProperties": false,
+    "properties": {
+        "from": {
+            "$id": "#/properties/from",
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "signature": {
+            "$id": "#/properties/signature",
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{130}$"
+        },
+        "data": {
+            "$id": "#/properties/data",
+            "type": "string",
+            "maxLength": 30000
+        },
+        "deadline": {
+            "$id": "#/properties/deadline",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+        },
+        "gasLimit": {
+            "$id": "#/properties/gasLimit",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 3000000
+        },
+        "compensation": {
+            "$id": "#/properties/compensation",
+            "type": "string",
+            "pattern": "^[0-9]+$"
+        },
+        "relayContractAddress": {
+            "$id": "#/properties/relayContractAddress",
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "to": {
+            "$id": "#/properties/to",
+            "type": "string",
+            "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "zeroDeadline": {
+            "$id": "#/properties/zeroDeadline",
+            "type": "boolean"
+        },
+        "chainId": {
+            "$id": "#/properties/chainId",
+            "type": "number"
+        },
+        "type": {
+            "$id": "#/properties/relayType",
+            "type": "string",
+            "enum": ["accountable"]
+        }
+    }
+}
