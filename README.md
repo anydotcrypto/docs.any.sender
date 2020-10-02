@@ -94,7 +94,6 @@ For more information, check out the [client libraries](./README.md#try-it-out) t
 
 ## Further reading & In-depth docs
 
-- [Overview of any.sender](./docs/overview.md)
 - [API](./docs/API.md)
 - [Dev tools](./docs/devTools)
 - [Client library](./docs/client)
@@ -104,6 +103,7 @@ For more information, check out the [client libraries](./README.md#try-it-out) t
 - [Contracts](https://github.com/PISAresearch/contracts.any.sender)
 - [Accountability guarantees](./docs/guarantees.md)
 - [Transaction inclusion](./docs/transactionInclusion.md)
+- [Overview of any.sender internals](./docs/overview.md)
 
 ## Addresses
 
