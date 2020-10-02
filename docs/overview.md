@@ -1,4 +1,4 @@
-# Overview of any.sender
+# Overview of any.sender internals
 
 any.sender has three core components:
 
